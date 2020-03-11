@@ -1,0 +1,23 @@
+https://pcpsdev.wpengine.com/wp-admin
+neo_admin
+1wU$sOwmZs0sOixprQbqkUZ*
+
+SFTP Address: pcpsdev.sftp.wpengine.com
+Port Number: 2222
+
+pcpsdev-neo
+I am the dlm1
+THIS IS THE WORDPRESS ADMIN AND FTP DETAILS.
+
+We have upload the new setup.
+
+We have used latest version 5.3, 'Twenty Twenty' theme and create a child theme, so that if wordpress update automatically, it will not affect our coding.
+
+Below are the details.
+=========== BACK-END=============
+https://pcpsdev.wpengine.com/wp-admin/
+Username: dlm_admin
+Password : pass
+
+=========== FOENT-END==============
+https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fdrnichter%2Fvideos%2F411956086060850%2F&show_text=0&width=476" width="476" height="" style="border:none;" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true
