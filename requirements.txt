@@ -1,2 +1,9 @@
+requests
 mysqlclient
+django
 django-extensions
+six
+python-social-auth
+social-auth-app-django
+pillow
+twilio

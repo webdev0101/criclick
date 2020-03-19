@@ -8,33 +8,33 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title>CRICLICK</title>
-		<link rel="icon" href="assets/images/fav.png" type="image/png" sizes="32x32">
+		<link rel="icon" href="/assets/images/fav.png" type="image/png" sizes="32x32">
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.css"/>
-		<link rel="stylesheet" type="text/css" href="assets/css/foopicker.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/calendar.min.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.min.css" >
-		<link rel="stylesheet" type="text/css" href="assets/css/imageuploadify.min.css" >
-		<link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css" >
-		<link rel="stylesheet" type="text/css" href="assets/css/owl.theme.default.min.css">
-		<link rel="stylesheet" type="text/css" href="assets/fontawesome-pro/css/all.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/swiper.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/semantic.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/mediaquery.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/jquery-ui.css"/>
+		<link rel="stylesheet" type="text/css" href="/assets/css/foopicker.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/imageuploadify.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/fontawesome-pro/css/all.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/swiper.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/semantic.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/mediaquery.css">
 		<!-- JS -->    
-		<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/js/semantic.js"></script>
-		<script type="text/javascript" src="assets/js/swiper.js"></script>
-		<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-		<script type="text/javascript" src="assets/js/imageuploadify.js"></script>
-		<script type="text/javascript" src="assets/js/foopicker.js"></script>
-		<script type="text/javascript" src="assets/js/calendar.min.js"></script>
-		<script type="text/javascript" src="assets/js//jquery-ui.min.js"></script> 
-		<script type="text/javascript" src="assets/js/jquery.autocomplete.multiselect.js"></script>
-		<script type="text/javascript" src="assets/js/custom.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/js/semantic.js"></script>
+		<script type="text/javascript" src="/assets/js/swiper.js"></script>
+		<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script type="text/javascript" src="/assets/js/imageuploadify.js"></script>
+		<script type="text/javascript" src="/assets/js/foopicker.js"></script>
+		<script type="text/javascript" src="/assets/js/calendar.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.autocomplete.multiselect.js"></script>
+		<script type="text/javascript" src="/assets/js/custom.js"></script>
 	</head>
 	<body>
 	<!-- ===========HEADER START============== -->
@@ -173,12 +173,13 @@
 							<h1 class="login-form-title">Login</h1>
 							<div class="facebook-or-google">
 								<button class="btn facebook-button"><i class="fab fa-facebook-f" ></i>&nbsp; Sign in with Facebook</button>
-								<button class="btn fluid google-button"><i class="fab fa-google" ></i>&nbsp; Sign in with Google Account</button>
+								<button onclick="window.location.href='{% url "social:begin" "google-oauth2" %}'" class="btn fluid google-button"><i class="fab fa-google" ></i>&nbsp; Sign in with Google Account</button>
 								<h3 class="or-sign-up">or sign in with an email address</h3>
 							</div>
-							<form class="ui form sign-form" method="post" action="profile-owner.html" id="login-form">
+							<form class="ui form sign-form" id="login-form">
+                                <input value="{{ csrf_token }}" name="csrfmiddlewaretoken" id="login_csrfmiddlewaretoken" type="hidden" class="valid">
 								<div class="form-group field">
-									<input type="text" name="email"  id="login_email" class="form-control" placeholder="Email Address">
+									<input type="email" name="username" id="login_username" class="form-control" placeholder="Email Address">
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-7 col-md-7">
@@ -188,14 +189,15 @@
 									</div>
 									<div class="col-xs-12 col-sm-5 col-md-5 mobile-remember-me">
 										<div class="ui checkbox">
-										  <input type="checkbox" name="example">
+										  <input type="checkbox" name="remember_me" id="login_remember_me" class="valid">
 										  <label>Remember Me</label>
 										</div>										
 									</div>
 								</div>
-								<button type="submit"  id="login-submit" class="ui btn btn-info btn-block login-submit-button-blue signin-form">Login</button>
+								<button type="button"  id="login-submit" class="ui btn btn-info btn-block login-submit-button-blue signin-form">Login</button>
 								<div class="text-center">
-									<span id="login_error-message" class="errormessage error">Check your email and password and try again.</span>
+									<span id="login_error-message" class="errormessage error"></span>
+                                    <span id="login_error-message" class="errormessage error"></span>
 								</div>
 							</form>							
 						</div>
@@ -207,19 +209,20 @@
 							<h2 class="login-form-title">Sign Up</h2>
 							<div class="facebook-or-google">
 								<button class="btn facebook-button"><i class="fab fa-facebook-f" ></i>&nbsp; Sign in with Facebook</button>
-								<button class="btn fluid google-button"><i class="fab fa-google" ></i>&nbsp; Sign in with Google Account</button>
+								<button onclick="window.location.href='{% url "social:begin" "google-oauth2" %}'" class="btn fluid google-button"><i class="fab fa-google" ></i>&nbsp; Sign in with Google Account</button>
 								<h3 class="or-sign-up">or sign up with an email address</h3>
 							</div>
-							<form  class="ui form sign-form signup-form-validation" method="post" id="signup-form">	
+							<form  class="ui form sign-form signup-form-validation" id="signup-form">
+                                <input value="{{ csrf_token }}" name="csrfmiddlewaretoken" id="signup_csrfmiddlewaretoken" type="hidden" class="valid">
 								<div class="row name-area">
 									<div class="col-sm-6">
 										<div class="form-group field">
-											<input type="text" name="Full name" class="form-control" placeholder="Full name">
+											<input type="text" name="first_name" id="signup_first_name" class="form-control" placeholder="First name">
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group field">
-											<input type="text" name="last name" class="form-control" placeholder="Last name">
+											<input type="text" name="last_name" id="signup_last_name" class="form-control" placeholder="Last name">
 										</div>
 									</div>
 								</div>
@@ -227,12 +230,15 @@
 									<input type="email" name="email" id="signup_email" class="form-control" placeholder="Email Address">
 								</div>
 								<div class="form-group field">
-									<input type="password" name="password" id="signup_password" class="form-control" placeholder="Password">
+									<input type="password" name="password1" id="signup_password1" class="form-control" placeholder="Password">
+								</div>
+                                <div class="form-group field">
+									<input type="password" name="password2" id="signup_password2" class="form-control" placeholder="Password Confirmation">
 								</div>
 								
-								<button type="submit" id="signup-submit" class="btn btn-info btn-block login-submit-button-blue">Sign up</button>
+								<button type="button" id="signup-submit" class="btn btn-info btn-block login-submit-button-blue">Sign up</button>
 								<div class="text-center">
-									<span id="signup_error-message" class="errormessage error">Check your email and password and try again.</span>
+									<span id="signup_error-message" class="errormessage error"></span>
 								</div>
 							</form>
 							
@@ -247,12 +253,13 @@
 								<h3 class="or-sign-up">Enter the email address you used to register, and we will send you a secure link to reset your password.</h3>
 							</div>
 							<form  class="ui form sign-form" method="post" id="reset_password_form">
+                                <input value="{{ csrf_token }}" name="csrfmiddlewaretoken" id="reset_password_csrfmiddlewaretoken" type="hidden" class="valid">
 								<div class="form-group field">
 									<input type="email" name="email" id="reset_password_email" class="form-control" placeholder="Email Address">
 								</div>
-								<button type="submit"  id="reset_password_submit" class="btn btn-info btn-block login-submit-button-blue">Reset Password</button>
+								<button type="button" id="reset_password_submit" class="btn btn-info btn-block login-submit-button-blue">Reset Password</button>
 								<div class="text-center">
-									<span id="reset_password_error_message" class="errormessage error">Check your email and try again.</span>
+									<span id="reset_password_error_message" class="errormessage error"></span>
 								</div>
 							</form>							
 						</div>

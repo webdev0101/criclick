@@ -1,0 +1,570 @@
+{% extends 'base_user.html' %}
+
+{% block content %}
+    <div class="pusher">
+
+        <section class="profile-Section">
+
+            <div class="container">
+
+                <!-- BANNER SECTION START -->
+
+                <div class="cover-photo responsive-cover-photo-position">
+                    {% if user.banner %}
+                        <img src="/media/{{ user.banner }}" alt="">
+                    {% else %}
+                        <div class="empty-cover-photo"></div>
+                    {% endif %}
+
+                    <div class="camera" id="cover-photo">
+
+                        <i class="far fa-pen"></i>
+
+                    </div>
+
+                    <!-- ==============CRREATE POST POPUP END=========== -->
+
+                    <div class="ui modal photo-upload" id="cover-photo-popup">
+
+                        <i class="close icon "></i>
+
+                        <div class="sign-up-form-body change-padding">
+
+                            <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
+
+                                <div class="cover-photo-tab">
+
+                                    <h3 class="upload-photo-title upload-photo active">Upload</h3>
+
+                                    <h3 class="upload-photo-title library-photo">Library</h3>
+
+                                </div>
+
+                                <div class="upload-photo-content">
+
+                                    <div class="field photo-list" align="left">
+
+                                        <div class="files-holder">
+
+                                            <input type="file" class="files" name="files"/>
+
+                                            <i class="fas fa-camera"></i>
+
+                                        </div>
+
+                                        <div class="pip display-none">
+
+                                            <div class="profile-overlay"></div>
+
+                                            <div class="myProgress display-none">
+                                                <div class="myBar"></div>
+                                            </div>
+
+                                        </div>
+
+                                        <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="libary-content display-none">
+
+                                    <ul class="library-image"><!-- Image Library --></ul>
+
+                                </div>
+
+                                <div class="pop-up-buttons pop-up-buttons-for-cover">
+
+                                    <button type="button"
+                                            class="ui btn btn-info btn-block login-submit-button-blue profile-modal-cancil banner-modal-cancil">
+                                        Cancel
+                                    </button>
+
+                                    <button type="submit"
+                                            class="ui btn btn-info btn-block login-submit-button-blue profile-photo-submit">
+                                        Save photo
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ============= CRREATE POST POPUP END ============= -->
+
+                </div>
+
+                <!-- BANNER SECTION END -->
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+
+                    <!-- ================ LEFT SIDEBAR START ======================== -->
+
+                    <div class="col-md-3 left-sidebar">
+
+                        <!-- PROFILE DETAILS -->
+
+                        <div class="gray-border m-10 p-15 text-center profile-details">
+
+                            <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+
+                                <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                    {% if user.profile.avatar %}
+                                        <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                    {% else %}
+                                        {{ user.first_name.0 }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="profile-image-overlay" id="profile-photo">
+
+                                    <i class="far fa-pen"></i>
+
+                                </div>
+
+                                <!-- ==============CRREATE POST POPUP END=========== -->
+
+                                <div class="ui modal photo-upload" id="profile-photo-popup">
+
+                                    <i class=" icon "></i>
+
+                                    <div class="sign-up-form-body">
+
+                                        <h1 class="upload-photo-title">Upload Photos</h1>
+
+                                        <form class="ui form sign-form" method="post" action="">
+
+                                            <div class="field photo-list" align="left">
+
+                                                <div class="files-holder new-file-holder">
+
+                                                    <input type="file" class="files" name="files"/>
+
+                                                    <i class="fas fa-camera"></i>
+
+                                                </div>
+
+                                                <div class="pip pic-size display-none">
+
+                                                    <div class="profile-overlay"></div>
+
+                                                    <div class="myProgress display-none">
+                                                        <div class="myBar"></div>
+                                                    </div>
+
+                                                </div>
+
+                                                <span class="remove display-none"><i
+                                                        class="fal fa-trash-alt"></i></span>
+
+                                                <div class="clearfix"></div>
+
+                                            </div>
+
+                                            <div class="pop-up-buttons">
+
+                                                <button type="button"
+                                                        class="ui btn btn-info login-submit-button-blue profile-modal-cancil">
+                                                    Cancel
+                                                </button>
+
+                                                <button type="submit"
+                                                        class="ui btn btn-info login-submit-button-blue profile-photo-submit">
+                                                    Save Photo
+                                                </button>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- ============= CRREATE POST POPUP END ============= -->
+
+                            </div>
+
+                            <h1><a href="profile-owner.html">Mike’s Bike Shop goes here</a></h1>
+
+                            <p>North Miami, FL</p>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <!-- Tab links -->
+
+                        <div class="tab-link-area account-gap mob-display-none">
+
+                            <ul>
+
+                                <li class="active"><a href="/accounts/settings/"><span><i class="fal fa-user"></i></span>General</a>
+                                </li>
+
+                                <li><a href="/accounts/biz-info/"><span><i class="fal fa-store"></i></span>Business
+                                    Info</a></li>
+
+                                <li><a href="#"><span><i class="fal fa-lock-alt"></i></span>Privacy</a></li>
+
+                                <li><a href="#"><span><i class="fal fa-bell"></i></span>Notifications</a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ================ LEFT SIDEBAR END ======================== -->
+
+                    <!-- =============== RIGHT GALLERY =================== -->
+
+                    <div class="col-md-9 gallery-right">
+
+                        <!-- EACH POST -->
+
+                        <div class="gray-border m-10 p-20 general-form">
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="tab-heading mob-heading">
+
+                                        <p><span><i class="fal fa-user"></i></span>General</p>
+
+                                    </div>
+
+                                    <div class="heading-separetor"></div>
+
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <form id="setting-form">
+                                        {% csrf_token %}
+
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+
+                                                <div class="post-form-field m-30">
+
+                                                    <label class="label-genral-form">First name</label>
+
+                                                    <input type="text" name="first_name" placeholder="First name" value="{{ user.first_name }}">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                                <div class="post-form-field m-30">
+
+                                                    <label class="label-genral-form">Last name</label>
+
+                                                    <input type="text" name="last_name" placeholder="Last name" value="{{ user.last_name }}">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                                <div class="post-form-field m-30">
+
+                                                    <div class="post-form-field password-current">
+
+                                                        <button class="btn btn-primary btn-sm" type="button">Change Password
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="col-md-4 pr-2">
+
+                                                <div class="post-form-field m-30 username-feild">
+
+                                                    <label class="label-genral-form">Username</label>
+                                                    <input type="text" name="username" placeholder="Username" value="{{ user.username }}">
+
+{#                                                    <input type="text" name="username"#}
+{#                                                           class="username-input used-username-error"#}
+{#                                                           placeholder="Username" value="{{ user.username }}">#}
+
+                                                    <p class="verified-link username-error" id="username-error" hidden>This username is already
+                                                        being used. Please try another one.</p>
+
+                                                    <span class="right-tick"><i class="fal fa-check"></i></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="col-md-8">
+
+                                                <div class="post-form-field m-30">
+
+                                                    <label class="label-genral-form">Email Address</label>
+
+                                                    <input type="text" name="email" placeholder="Email Address" value="{{ user.email }}">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="col-md-4 pr-2">
+
+                                                <div class="post-form-field m-30 phone-number-feild">
+
+                                                    <label class="label-genral-form">Phone Number<span> (For verification purpose only) </span></label>
+
+                                                    <input type="text" name="phone" placeholder="Phone Number" value="{{ user.phone |default_if_none:'' }}"
+                                                           class="phn-number">
+                                                    {% if user.phone_verified_at %}
+                                                    <a href="javascript:;" class="verified-link" id="phone-verified">Verified</a>
+                                                    {% else %}
+                                                    <a href="javascript:;" class="verified-link" id="phone-verified" hidden>Verified</a>
+                                                    <a href="javascript:;" class="verified-link" id="resend-code" hidden>Resend</a>
+                                                    {% endif %}
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="col-md-8">
+
+                                                <div class="post-form-field m-30">
+
+                                                    <label class="label-genral-form">Location</label>
+
+                                                    <input type="text" name="location" placeholder="Location" value="{{ user.profile.location|default_if_none:'' }}">
+                                                    <input type="hidden" name="latitude" value="0">
+                                                    <input type="hidden" name="longitude" value="0">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="col-md-4 pr-2 m-30">
+
+                                                <div class="post-form-field">
+
+                                                    <button class="btn btn-primary btn-sm" type="button" id="save-account-setting">Save Changes</button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                    <a href="" class="delete-link m-15">Delete my account</a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+
+            <!-- ===========Change Password=========== -->
+
+            <div class="ui modal password-popup">
+
+                <div class="password-popup-heading">Change Password</div>
+
+                <div class="password-form">
+
+                    <form class="" id="change-password-form">
+                        {% csrf_token %}
+
+                        <div id="" class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="post-form-field m-15">
+
+                                    <input type="password" name="old_password" placeholder="Current password">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="post-form-field m-15">
+
+                                    <input type="password" name="new_password1" placeholder="New Password">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="post-form-field m-10">
+
+                                    <input type="password" name="new_password2" placeholder="Confirm Password">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="password-miss-match text-center m-10" id="change-password-errors" hidden>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="post-form-field">
+
+                                    <button class="btn btn-primary btn-sm" type="button" id="change-password-submit">Save Changes</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <h3 class="forgot-password-for-profile text-center">
+
+                        <a href="javascript:void(0)">Forgot Password?</a>
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <!-- ===========Forgot Password=========== -->
+
+            <div class="ui modal forgot-password">
+
+                <div class="password-popup-heading forgot-passwod-hedaing">Forgot Password</div>
+
+                <div class="password-form">
+
+                    <h4>Send link via email</h4>
+
+                    <p>{{ hidden_email }}</p>
+                    <div class="text-center">
+                        <span id="send-link-error" class="extra-error text-primary"></span>
+                    </div>
+
+                    <div class="password-link-button text-center">
+
+                        <a href="javascript:;" class="btn btn-primary btn-sm" id="send-password-link">Continue</a>
+
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm line-button not-you">Not You?</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ===========Enter Your Mail=========== -->
+
+            <div class="ui modal enter-your-mail">
+
+                <div class="password-popup-heading forgot-passwod-hedaing">Forgot Password</div>
+
+                <div class="password-form enter-email">
+
+                    <form id="reset_password_form">
+                        <input value="{{ csrf_token }}" name="csrfmiddlewaretoken" id="reset_password_csrfmiddlewaretoken" type="hidden" class="valid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="post-form-field m-15">
+                                    <input type="email" name="email" id="reset_password_email" class="form-control" placeholder="Enter your email">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="password-miss-match text-center m-10">
+                                    <p id="reset_password_error_message"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="post-form-field text-center">
+                                    <button type="button" id="reset_password_submit" class="btn btn-primary btn-sm">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- =============== MIDDLE POST LIST END =================== -->
+            <div class="ui modal phone-popup">
+
+                <div class="password-popup-heading forgot-passwod-hedaing">Phone Verification</div>
+
+                <div class="password-form enter-email">
+
+                    <form id="phone-verify-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="post-form-field m-15">
+                                    <input type="text" name="phone_verify_code" class="form-control" placeholder="Enter verify code">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="password-miss-match text-center m-10">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="post-form-field text-center">
+                                    <button type="button" class="btn btn-primary btn-sm" id="submit-phone-verify">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+{% endblock %}

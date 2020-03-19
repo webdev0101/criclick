@@ -1,0 +1,1705 @@
+{% extends 'base_user.html' %}
+
+{% block content %}
+    <div class="ui pushable segment">
+
+        <!-- MOBILE NAVIGATION START -->
+
+        <div class="ui sidebar vertical menu right">
+
+            <div class="col-md-12">
+
+                <div class="menu profile-list mobile-menu text-right">
+
+                    <div class="header">
+
+                        {{ request.user.first_name }}&nbsp;{{ request.user.last_name }}
+
+                        <span class="mobile-profile-email">@{{ request.user.username }}</span>
+
+                    </div>
+
+                    <div class="item ">
+
+                        <a href="/accounts/profile/">Profile</a>
+
+                    </div>
+
+                    <div class="item message-counter">
+
+                        <a href="">
+
+                            <span class="active">20</span>
+
+                            Messages
+
+                        </a>
+
+                    </div>
+
+                    <div class="item message-counter">
+
+                        <a href="">
+
+                            <span>20</span>
+
+                            Bookmarks
+
+                        </a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="#">Manage Posts</a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="#">Help Center</a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="/accounts/settings/">Settings</a>
+
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="item log-out">
+
+                        <a href="/accounts/logout/">Log Out</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MOBILE NAVIGATION END -->
+
+        <div class="pusher">
+
+            <section class="profile-Section">
+
+                <div class="container">
+
+                    <!-- BANNER SECTION START -->
+
+                    <div class="cover-photo">
+
+                        <div class="empty-cover-photo"></div>
+
+                        <div class="camera" id="cover-photo">
+
+                            <i class="far fa-pen"></i>
+
+                        </div>
+
+                        <!-- ==============CRREATE POST POPUP END=========== -->
+
+                        <div class="ui modal photo-upload" id="cover-photo-popup">
+
+                            <i class="close icon "></i>
+
+                            <div class="sign-up-form-body change-padding">
+
+
+                                <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
+
+                                    <div class="cover-photo-tab">
+
+                                        <h3 class="upload-photo-title upload-photo active">Upload</h3>
+
+                                        <h3 class="upload-photo-title library-photo">Library</h3>
+
+                                    </div>
+
+                                    <div class="upload-photo-content">
+
+                                        <div class="field photo-list" align="left">
+
+                                            <div class="files-holder">
+
+                                                <input type="file" class="files" name="files"/>
+
+                                                <i class="fas fa-camera"></i>
+
+                                            </div>
+
+                                            <div class="pip display-none">
+
+                                                <div class="profile-overlay"></div>
+
+                                                <div class="myProgress display-none">
+                                                    <div class="myBar"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
+
+                                            <div class="clearfix"></div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="libary-content display-none">
+
+                                        <ul class="library-image"><!-- Image Library --></ul>
+
+                                    </div>
+
+                                    <div class="pop-up-buttons pop-up-buttons-for-cover">
+
+                                        <button type="button"
+                                                class="ui btn btn-info btn-block login-submit-button-blue profile-modal-cancil banner-modal-cancil">
+                                            Cancel
+                                        </button>
+
+                                        <button type="submit"
+                                                class="ui btn btn-info btn-block login-submit-button-blue profile-photo-submit">
+                                            Save photo
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ============= CRREATE POST POPUP END ============= -->
+
+                    </div>
+
+                    <!-- BANNER SECTION END -->
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+
+                        <!-- ================ LEFT SIDEBAR START ======================== -->
+
+                        <div class="col-md-3 left-sidebar">
+
+                            <!-- PROFILE DETAILS -->
+
+                            <div class="gray-border m-10 p-15 text-center profile-details">
+                                <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+                                    <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                        {% if user.profile.avatar %}
+                                            <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                        {% else %}
+                                            {{ user.first_name.0 }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="profile-image-overlay" id="profile-photo">
+                                        <i class="far fa-pen"></i>
+                                    </div>
+
+                                    <!-- ==============CRREATE POST POPUP END=========== -->
+
+                                    <div class="ui modal photo-upload" id="profile-photo-popup">
+
+                                        <i class=" icon "></i>
+
+                                        <div class="sign-up-form-body">
+
+                                            <h1 class="upload-photo-title">Upload Photos</h1>
+
+                                            <form class="ui form sign-form" method="post" action="">
+
+                                                <div class="field photo-list" align="left">
+
+                                                    <div class="files-holder new-file-holder">
+
+                                                        <input type="file" class="files" name="files"/>
+
+                                                        <i class="fas fa-camera"></i>
+
+                                                    </div>
+
+                                                    <div class="pip pic-size display-none">
+
+                                                        <div class="profile-overlay"></div>
+
+                                                        <div class="myProgress display-none">
+                                                            <div class="myBar"></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <span class="remove display-none"><i
+                                                            class="fal fa-trash-alt"></i></span>
+
+                                                    <div class="clearfix"></div>
+
+                                                </div>
+
+                                                <div class="pop-up-buttons">
+
+                                                    <button type="button"
+                                                            class="ui btn btn-info login-submit-button-blue profile-modal-cancil">
+                                                        Cancel
+                                                    </button>
+
+                                                    <button type="submit"
+                                                            class="ui btn btn-info login-submit-button-blue profile-photo-submit">
+                                                        Save Photo
+                                                    </button>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- ============= CRREATE POST POPUP END ============= -->
+
+                                </div>
+
+                                <span class="profile-email">@{{ user.username }}</span>
+
+                                <h1><a href="/{{ user.username }}/">{{ user.first_name }}&nbsp;{{ user.last_name }}</a></h1>
+
+                                <div class="complete-profile-link">
+
+                                    <a>Complete your profile</a>
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                            <!-- RATING -->
+
+                            <div class="gray-border m-10 p-15 Followers text-center profile-description">
+
+                                <h2 class="text-center">Reviews</h2>
+
+                                <div class="star-rating">
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                </div>
+
+                                <p>0 Reviews</p>
+
+                                <a href="review.html">View all review</a>
+
+                            </div>
+
+                            <!-- FOLLOWERS -->
+
+                            <div class="gray-border m-20 p-15 Followers text-center profile-description fllowers">
+
+                                <h2 class="text-center">Followers</h2>
+
+                                <p>You have no followers</p>
+
+                            </div>
+
+                            <!-- LEFT SIDEBAR BOTTOL LINKS -->
+
+                            <div class="left-side-bar-bottom-link">
+
+                                <p><span class="membr">Member since 2016</span></p>
+
+                                <ul>
+
+                                    <li><a href="">Help<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Cookies<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Privacy<span><i class="fas fa-circle"></i></span></a></li>
+
+                                </ul>
+
+                                <ul>
+
+                                    <li><a href="">About<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Careers<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Blog<span><i class="fas fa-circle"></i></span></a></li>
+
+                                </ul>
+
+                                <p>&copy;&nbsp;&nbsp;2019 Criclick</p>
+
+
+                            </div>
+
+                            <!-- ======= -->
+
+                        </div>
+
+                        <!-- ================ LEFT SIDEBAR END ======================== -->
+
+                        <!-- =============== MIDDLE POST LIST START =================== -->
+
+                        <div class="col-md-7 middle-post-content">
+
+                            <ul class="all-product-offers">
+
+                                <li class="active"><a href="">All</a></li>
+
+                                <li><a href="">Services</a></li>
+
+                                <li><a href="">For Sale</a></li>
+
+                                <li><a href="">Offers</a></li>
+
+                                <li><a href="">Events</a></li>
+
+                                <li><a href="">Jobs</a></li>
+
+                            </ul>
+
+                            <div class="ui labeled icon top right pointing dropdown more-product-holder more-page">
+
+                                <a class="item more-product">
+
+                                    More <i class="fas fa-caret-down big"></i>
+
+                                </a>
+
+                                <div class="menu more-page-dropdown">
+
+                                    <div class="item common-dropdown">
+
+                                        <ul>
+
+                                            <li><a href="review.html">Reviews</a></li>
+
+                                            <li><a href="">Connections</a></li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- EACH POST -->
+
+                            <div class="gray-border m-10  create-post-section">
+
+                                <div class="create-post">
+
+                                    <a href="javascript:void(0)" class="open-createpost-popup">Create Post</a>
+
+                                </div>
+
+                                <div class="popuo-list">
+
+                                    <ul>
+
+                                        <li data-tooltip="Updates" data-position="top center"><a
+                                                href="javascript:void(0)" class="post-popup pvr" id="updates"><i
+                                                class="fal fa-edit"></i></a></li>
+
+                                        <li data-tooltip="Services" data-position="top center"><a
+                                                href="javascript:void(0)" class="post-popup pvr" id="service"><i
+                                                class="fal fa-list-alt"></i></a></li>
+
+                                        <li data-tooltip="For Sale" data-position="top center"><a
+                                                href="javascript:void(0)" class="post-popup " id="for-sale"><i
+                                                class="fal fa-camera"></i></a></li>
+
+                                        <li data-tooltip="Offers" data-position="top center"><a
+                                                href="javascript:void(0)" class="post-popup" id="offers"><i
+                                                class="fal fa-tag"></i></a></li>
+
+                                        <li data-tooltip="Events" data-position="top center"><a
+                                                href="javascript:void(0)" class="post-popup nxt" id="events"><i
+                                                class="fal fa-calendar-check"></i></a></li>
+
+                                        <li data-tooltip="Jobs" data-position="top center"><a href="javascript:void(0)"
+                                                                                              class="post-popup nxt"
+                                                                                              id="jobs"><i
+                                                class="fal fa-briefcase"></i></a></li>
+
+                                    </ul>
+
+                                </div>
+
+                                <!-- ==============CRREATE POST POPUP END=========== -->
+
+                                <div class="ui modal createpost-popup" id="createpost-popup">
+
+                                    <i class="close icon "></i>
+
+                                    <div class="">
+
+                                        <div class="cerate-post-title-area">
+
+                                            <h1>Create Post</h1>
+
+                                        </div>
+
+                                        <div class="post-type">
+
+                                            <div class="owl-carousel owl-theme">
+
+                                                <div class="item">
+
+                                                    <a class="tab form-updates" href="" rel="tab1"><i
+                                                            class="fal fa-edit"></i> Updates</a>
+
+                                                </div>
+
+                                                <div class="item">
+
+                                                    <a class="tab form-service" href="" rel="tab2"><i
+                                                            class="fal fa-list-alt"></i> Services</a>
+
+                                                </div>
+
+                                                <div class="item">
+
+                                                    <a class="tab form-for-sale" href="" rel="tab3"><i
+                                                            class="fal fa-camera"></i> For Sale</a>
+
+                                                </div>
+
+                                                <div class="item">
+
+                                                    <a class="tab form-offers" href="" rel="tab4"><i
+                                                            class="fal fa-tag"></i> Offers</a>
+
+                                                </div>
+
+                                                <div class="item">
+
+                                                    <a class="tab form-events" href="" rel="tab5"><i
+                                                            class="fal fa-calendar-check"></i> Events</a>
+
+                                                </div>
+
+                                                <div class="item">
+
+                                                    <a class="tab form-jobs" href="" rel="tab6"><i
+                                                            class="fal fa-briefcase"></i> Jobs</a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="slider_nav">
+
+                                                <button class="am-prev"><i class="fal fa-chevron-left"></i></button>
+
+                                                <button class="am-next"><i class="fal fa-chevron-right"></i></button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="creat-post-form-area">
+
+                                            <!-- ======================== UPDATES FORM================ -->
+
+                                            <div class="tab_content" id="tab1">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea name="Write-a-post" rows="" cols=""
+                                                                  placeholder="Write a post" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 upwards-selectbox">
+
+                                                        <label class="label-sm">Add a button (optional)</label>
+
+                                                        <select class="ui dropdown onclick add-button openup">
+
+                                                            <option value="Publish" selected>None</option>
+
+                                                            <option value="Book">Book</option>
+
+                                                            <option value="Order online">Order online</option>
+
+                                                            <option value="Buy">Buy</option>
+
+                                                            <option value="Learn more">Learn more</option>
+
+                                                            <option value="Sign up">Sign up</option>
+
+                                                            <option value="Call now">Call now</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 link-your-button">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Link your button">
+
+                                                        <label class="label-sm">(Example: google.com)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 call_now">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Phone number">
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                            <!-- ======================== SERVICES FORM======================= -->
+
+                                            <div class="tab_content" id="tab2">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea name="Service-Name" rows="" cols=""
+                                                                  placeholder="Service Name" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <div class="post-feild-heading">
+
+                                                            <p>Category</p>
+
+                                                        </div>
+
+                                                        <select class="ui search dropdown dfull">
+
+                                                            <option value="" selected>Select a category</option>
+
+                                                            <option value="Services">Services</option>
+
+                                                            <option value="For sale">For sale</option>
+
+                                                            <option value="Events">Events</option>
+
+                                                            <option value="Jobs">Jobs</option>
+
+                                                            <option value="Offers">Offers</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field">
+
+                                                        <div class="inline fields">
+
+                                                            <div class="field">
+
+                                                                <div class="ui radio checkbox">
+
+                                                                    <input type="radio" name="Price" checked=""
+                                                                           tabindex="0" class="hidden">
+
+                                                                    <label class="check-box-label fixed-price">Fixed
+                                                                        Price</label>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="field">
+
+                                                                <div class="ui radio checkbox">
+
+                                                                    <input type="radio" name="Price" tabindex="0"
+                                                                           class="hidden">
+
+                                                                    <label class="check-box-label price-range">Price
+                                                                        Range</label>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20 open-fixedprice">
+
+                                                        <input type="number" name="Enter-price"
+                                                               placeholder="Service price" class="validation"
+                                                               data-error="This field cannot be empty">
+
+                                                    </div>
+
+                                                    <div class="row open-pricerange">
+
+                                                        <div class="col-xs-6">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="number" name="Minimum-price"
+                                                                       placeholder="Minimum price">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="number" name="Maximum-price"
+                                                                       placeholder="Maximum price">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field service-description m-10">
+
+                                                        <textarea name="Service-Description" rows="" cols=""
+                                                                  placeholder="Service Description" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 upwards-selectbox">
+
+                                                        <label class="label-sm">Add a button (optional)</label>
+
+                                                        <select class="ui dropdown onclick add-button openup">
+
+                                                            <option value="Publish" selected>None</option>
+
+                                                            <option value="Book">Book</option>
+
+                                                            <option value="Order online">Order online</option>
+
+                                                            <option value="Buy">Buy</option>
+
+                                                            <option value="Learn more">Learn more</option>
+
+                                                            <option value="Sign up">Sign up</option>
+
+                                                            <option value="Call now">Call now</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 link-your-button">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Link your button">
+
+                                                        <label class="label-sm">(Example: google.com)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 call_now">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Phone number">
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                            <!-- ======================FOR SALE FORM============== -->
+
+                                            <div class="tab_content" id="tab3">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea name="Product-Name" rows="" cols=""
+                                                                  placeholder="Product Name" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <div class="post-feild-heading">
+
+                                                            <p>Category</p>
+
+                                                        </div>
+
+                                                        <select class="ui search dropdown dfull">
+
+                                                            <option value="" selected>Select a category</option>
+
+                                                            <option value="Services">Services</option>
+
+                                                            <option value="For sale">For sale</option>
+
+                                                            <option value="Events">Events</option>
+
+                                                            <option value="Jobs">Jobs</option>
+
+                                                            <option value="Offers">Offers</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field">
+
+                                                        <div class="inline fields">
+
+                                                            <div class="field">
+
+                                                                <div class="ui radio checkbox">
+
+                                                                    <input type="radio" name="Price" checked=""
+                                                                           tabindex="0" class="hidden">
+
+                                                                    <label class="check-box-label fixed-price">Fixed
+                                                                        Price</label>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="field">
+
+                                                                <div class="ui radio checkbox">
+
+                                                                    <input type="radio" name="Price" tabindex="0"
+                                                                           class="hidden">
+
+                                                                    <label class="check-box-label price-range">Price
+                                                                        Range</label>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20 open-fixedprice">
+
+                                                        <input type="number" name="Product-price"
+                                                               placeholder="Product price" class="validation"
+                                                               data-error="This field cannot be empty">
+
+                                                    </div>
+
+                                                    <div class="row open-pricerange">
+
+                                                        <div class="col-xs-6">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="number" name="Minimum-price"
+                                                                       placeholder="Minimum price">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="number" name="Maximum-price"
+                                                                       placeholder="Maximum price">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field service-description m-10">
+
+                                                        <textarea name="Product-Description" rows="" cols=""
+                                                                  placeholder="Product Description" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 upwards-selectbox">
+
+                                                        <label class="label-sm">Add a button (optional)</label>
+
+                                                        <select class="ui dropdown onclick add-button openup">
+
+                                                            <option value="Publish" selected>None</option>
+
+                                                            <option value="Book">Book</option>
+
+                                                            <option value="Order online">Order online</option>
+
+                                                            <option value="Buy">Buy</option>
+
+                                                            <option value="Learn more">Learn more</option>
+
+                                                            <option value="Sign up">Sign up</option>
+
+                                                            <option value="Call now">Call now</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 link-your-button">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Link your button">
+
+                                                        <label class="label-sm">(Example: google.com)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 call_now">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Phone number">
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                            <!-- =================OFFERS FORM=================== -->
+
+                                            <div class="tab_content" id="tab4">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea name="offer_title" rows="" cols=""
+                                                                  placeholder="Offer title" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                        <label class="label-sm">(Example:20% off in store or
+                                                            online)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <div class="post-feild-heading">
+
+                                                            <p>Category</p>
+
+                                                        </div>
+
+                                                        <select class="ui search dropdown dfull">
+
+                                                            <option value="" selected>Select a category</option>
+
+                                                            <option value="Services">Services</option>
+
+                                                            <option value="For sale">For sale</option>
+
+                                                            <option value="Events">Events</option>
+
+                                                            <option value="Jobs">Jobs</option>
+
+                                                            <option value="Offers">Offers</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <div class="inline field text-right">
+
+                                                            <div class="ui toggle checkbox">
+
+                                                                <label class="check-box-label add-time">Add time</label>
+
+                                                                <input type="checkbox" tabindex="0" class="hidden">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-12 start-date">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="text" name="offer-start-date"
+                                                                       placeholder="Start date"
+                                                                       id="offer_date_timepicker_start"
+                                                                       class="validation"
+                                                                       data-error="This field cannot be empty"
+                                                                       autocomplete='off'>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6 start-time">
+
+                                                            <div class="ui calendar time-timepicker">
+
+                                                                <div class="ui input post-form-field time-timepicker-full m-20">
+
+                                                                    <input type="text" name="offer-start-time"
+                                                                           placeholder="Start time" autocomplete='off'>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-12 start-date">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="text" name="offer-end-date"
+                                                                       placeholder="End date"
+                                                                       id="offer_date_timepicker_end" class="validation"
+                                                                       data-error="This field cannot be empty"
+                                                                       autocomplete='off'>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6 start-time">
+
+                                                            <div class="ui calendar time-timepicker">
+
+                                                                <div class="ui input post-form-field time-timepicker-full m-20">
+
+                                                                    <input type="text" name="offer-end-time"
+                                                                           placeholder="End time" autocomplete='off'>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <input type="text" name="product-price" tabindex="0"
+                                                               placeholder="Product price" class="validation"
+                                                               data-error="This field cannot be empty">
+
+                                                    </div>
+
+                                                    <div class="post-form-field service-description m-30">
+
+                                                        <textarea name="Offer_Product-Description" rows="" cols=""
+                                                                  placeholder="Product  Description" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="post-form-field ">
+
+                                                        <a href="javascript:void(0)" class=" label-sm more-link">Add
+                                                            more details (optional)<span><i class="fas fa-sort-down"
+                                                                                            style="font-size: 18px; margin-left:10px"></i></span></a>
+
+                                                        <div class="optional-detais-box-wrapper">
+
+                                                            <div class="post-form-field m-15">
+
+                                                                <input type="text" name="Offer Details" tabindex="0"
+                                                                       class="" placeholder="Offer Details">
+
+                                                            </div>
+
+                                                            <div class="post-form-field m-15">
+
+                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                       class="" placeholder="Coupon code (optional)">
+
+                                                            </div>
+
+                                                            <div class="post-form-field m-15">
+
+                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                       class=""
+                                                                       placeholder="Link to redeem offer (optional)">
+
+                                                            </div>
+
+                                                            <div class="post-form-field m-15">
+
+                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                       class=""
+                                                                       placeholder="Terms and condition (optional)">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                            <!-- ==================EVENTS FORM=========== -->
+
+                                            <div class="tab_content" id="tab5">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea name="Event-title" rows="" cols=""
+                                                                  placeholder="Event title" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                        <label class="label-sm">(Example: Sale this week)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-15">
+
+                                                        <div class="post-feild-heading">
+
+                                                            <p>Category</p>
+
+                                                        </div>
+
+                                                        <select class="ui search dropdown dfull">
+
+                                                            <option value="" selected>Select a category</option>
+
+                                                            <option value="Services">Services</option>
+
+                                                            <option value="For sale">For sale</option>
+
+                                                            <option value="Events">Events</option>
+
+                                                            <option value="Jobs">Jobs</option>
+
+                                                            <option value="Offers">Offers</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field ">
+
+                                                        <div class="inline field text-right">
+
+                                                            <div class="ui toggle checkbox">
+
+                                                                <label class="check-box-label add-time">Add time</label>
+
+                                                                <input type="checkbox" tabindex="0" class="hidden">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-12 start-date">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="text" name="event-start-date"
+                                                                       placeholder="Start date"
+                                                                       id="event_date_timepicker_start"
+                                                                       class="validation"
+                                                                       data-error="This field cannot be empty"
+                                                                       autocomplete='off'>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6 start-time">
+
+                                                            <div class="ui calendar time-timepicker">
+
+                                                                <div class="ui input post-form-field time-timepicker-full m-20">
+
+                                                                    <input type="text" name="event-start-time"
+                                                                           placeholder="Start time" autocomplete='off'>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-12 start-date">
+
+                                                            <div class="post-form-field m-20">
+
+                                                                <input type="text" name="event-end-date"
+                                                                       placeholder="End date"
+                                                                       id="event_date_timepicker_end" class="validation"
+                                                                       data-error="This field cannot be empty"
+                                                                       autocomplete='off'>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-xs-6 start-time">
+
+                                                            <div class="ui calendar time-timepicker">
+
+                                                                <div class="ui input post-form-field time-timepicker-full m-20">
+                                                                    <input type="text" name="event-end-time"
+                                                                           placeholder="End time" autocomplete='off'>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <a href="javascript:void(0)" class="label-sm more-link">Add more
+                                                            details (optional)<span><i class="fas fa-sort-down"
+                                                                                       style="font-size: 18px; margin-left:10px"></i></span></a>
+
+                                                        <div class="optional-detais-box-wrapper">
+
+                                                            <div class="post-form-field service-description m-10">
+
+                                                                <textarea name="Service-Description" rows="" cols=""
+                                                                          placeholder="Event Details"></textarea>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 upwards-selectbox">
+
+                                                        <label class="label-sm">Add a button (optional)</label>
+
+                                                        <select class="ui dropdown onclick add-button openup">
+
+                                                            <option value="Publish" selected>None</option>
+
+                                                            <option value="Book">Book</option>
+
+                                                            <option value="Order online">Order online</option>
+
+                                                            <option value="Buy">Buy</option>
+
+                                                            <option value="Learn more">Learn more</option>
+
+                                                            <option value="Sign up">Sign up</option>
+
+                                                            <option value="Call now">Call now</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 link-your-button">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Link your button">
+
+                                                        <label class="label-sm">(Example: google.com)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-30 call_now">
+
+                                                        <input type="text" name="link-your-button"
+                                                               placeholder="Phone number">
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                            <!-- ==================JOBS FORM=========== -->
+
+                                            <div class="tab_content" id="tab6">
+
+                                                <form method="post" action="" class='validate-form'>
+
+                                                    <div class="multipleimage-upload m-20">
+
+                                                        <input type="file"
+                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                               multiple>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <textarea type="text" name="job_title" class="validation"
+                                                                  data-error="This field cannot be empty"
+                                                                  placeholder="Job title"></textarea>
+
+                                                        <label class="label-sm">(Example:20% off in store or
+                                                            online)</label>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20">
+
+                                                        <div class="post-feild-heading">
+
+                                                            <p>Category</p>
+
+                                                        </div>
+
+                                                        <select class="ui search dropdown dfull">
+
+                                                            <option value="" selected>Select a category</option>
+
+                                                            <option value="AL">Alabama</option>
+
+                                                            <option value="AK">Alaska</option>
+
+                                                            <option value="AZ">Arizona</option>
+
+                                                            <option value="AR">Arkansas</option>
+
+                                                            <option value="CA">California</option>
+
+                                                            <option value="CO">Colorado</option>
+
+                                                            <option value="CT">Connecticut</option>
+
+                                                            <option value="DE">Delaware</option>
+
+                                                            <option value="DC">District Of Columbia</option>
+
+                                                            <option value="FL">Florida</option>
+
+                                                            <option value="GA">Georgia</option>
+
+                                                            <option value="HI">Hawaii</option>
+
+                                                            <option value="ID">Idaho</option>
+
+                                                            <option value="IL">Illinois</option>
+
+                                                            <option value="IN">Indiana</option>
+
+                                                            <option value="IA">Iowa</option>
+
+                                                            <option value="KS">Kansas</option>
+
+                                                            <option value="KY">Kentucky</option>
+
+                                                            <option value="LA">Louisiana</option>
+
+                                                            <option value="ME">Maine</option>
+
+                                                            <option value="MD">Maryland</option>
+
+                                                            <option value="MA">Massachusetts</option>
+
+                                                            <option value="MI">Michigan</option>
+
+                                                            <option value="MN">Minnesota</option>
+
+                                                            <option value="MS">Mississippi</option>
+
+                                                            <option value="MO">Missouri</option>
+
+                                                            <option value="MT">Montana</option>
+
+                                                            <option value="NE">Nebraska</option>
+
+                                                            <option value="NV">Nevada</option>
+
+                                                            <option value="NH">New Hampshire</option>
+
+                                                            <option value="NJ">New Jersey</option>
+
+                                                            <option value="NM">New Mexico</option>
+
+                                                            <option value="NY">New York</option>
+
+                                                            <option value="NC">North Carolina</option>
+
+                                                            <option value="ND">North Dakota</option>
+
+                                                            <option value="OH">Ohio</option>
+
+                                                            <option value="OK">Oklahoma</option>
+
+                                                            <option value="OR">Oregon</option>
+
+                                                            <option value="PA">Pennsylvania</option>
+
+                                                            <option value="RI">Rhode Island</option>
+
+                                                            <option value="SC">South Carolina</option>
+
+                                                            <option value="SD">South Dakota</option>
+
+                                                            <option value="TN">Tennessee</option>
+
+                                                            <option value="TX">Texas</option>
+
+                                                            <option value="UT">Utah</option>
+
+                                                            <option value="VT">Vermont</option>
+
+                                                            <option value="VA">Virginia</option>
+
+                                                            <option value="WA">Washington</option>
+
+                                                            <option value="WV">West Virginia</option>
+
+                                                            <option value="WI">Wisconsin</option>
+
+                                                            <option value="WY">Wyoming</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="post-form-field m-20 employment-type">
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-6">
+
+                                                                <div class="post-feild-heading">
+
+                                                                    <p>Employment type</p>
+
+                                                                </div>
+
+                                                                <select class="ui dropdown onclick">
+
+                                                                    <option value="1" selected>Full Time</option>
+
+                                                                    <option value="2">Part Time</option>
+
+                                                                </select>
+
+                                                            </div>
+
+                                                            <div class="col-md-4">
+
+                                                                <div class="post-feild-heading">
+
+                                                                    <p>Compansation</p>
+
+                                                                </div>
+
+                                                                <input type="text" name="Offer title" tabindex="0"
+                                                                       class="" placeholder="$">
+
+                                                            </div>
+
+                                                            <div class="col-md-2">
+
+                                                                <div class="post-feild-heading">
+
+
+                                                                </div>
+
+                                                                <select class="ui dropdown onclick">
+
+                                                                    <option value="1" selected>Hr</option>
+
+                                                                </select>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="post-form-field service-description m-30">
+
+                                                        <textarea name="Product-Description" rows="" cols=""
+                                                                  placeholder="job  Description" class="validation"
+                                                                  data-error="This field cannot be empty"></textarea>
+
+                                                    </div>
+
+                                                    <div class="text-right">
+
+                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                            Publish
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- ============= CRREATE POST POPUP END ============= -->
+
+                            </div>
+
+                            <div class="empty-post text-center profile-owner-text">
+
+                                <p>Your profile looks pretty empty, post your first update, service, product, offer,
+                                    event or job.</p>
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- =============== MIDDLE POST LIST END =================== -->
+
+                        <!-- =============== RIGHT SIDEBAR START =================== -->
+
+                        <div class="col-md-3 right-sidebar profile-owner-right-side">
+
+                            <div class="text-right right-sidebar-buttons">
+
+                                <div class="ui labeled icon top right pointing dropdown more-setting-holder"
+                                     tabindex="0">
+
+                                    <!-- <a class="item ">
+
+                                        <a href="javascript:void(0)" class="btn btn-default btn-sm ">More...</a>
+
+                                    </a> -->
+
+                                    <a class="item more-product h-auto profile-manage-button owner-manage-settings">
+
+                                        Manage Section<i class="fas fa-caret-down big"></i>
+
+                                    </a>
+
+                                    <div class="menu more-setting" tabindex="-1">
+
+                                        <div class="item common-dropdown">
+
+                                            <ul>
+
+                                                <li><a href="">Setting</a></li>
+
+                                                <li><a href="">About</a></li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="gray-border m-15 p-15 gray-box text-center">
+
+                                <a href="">Customize your profile</a>
+
+                            </div>
+
+                            <div class="gray-border m-15 p-15">
+
+                                <div class="complete-profile text-center">
+
+                                    <p>Complete your profile</p>
+
+                                    <div class="progressbar_area">
+
+                                        <div class="ui tiny progress">
+
+                                            <div class="bar" style="width:70%;">
+
+                                                <div class="progress"></div>
+
+                                            </div>
+
+                                            <div class="label">70%</div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="edit_profile">
+
+                                        <a href="">Edit</a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ================ RIGHT SIDEBAR END =============== -->
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+{% endblock %}

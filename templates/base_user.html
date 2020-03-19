@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>CRICLICK</title>
+		<link rel="icon" href="/assets/images/fav.png" type="image/png" sizes="32x32">
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="/assets/css/jquery-ui.css"/>
+		<link rel="stylesheet" type="text/css" href="/assets/css/foopicker.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/calendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/imageuploadify.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.min.css" >
+		<link rel="stylesheet" type="text/css" href="/assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/fontawesome-pro/css/all.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/swiper.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/semantic.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/mediaquery.css">
+		<!-- JS -->
+		<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/js/semantic.js"></script>
+		<script type="text/javascript" src="/assets/js/swiper.js"></script>
+		<script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script type="text/javascript" src="/assets/js/imageuploadify.js"></script>
+		<script type="text/javascript" src="/assets/js/foopicker.js"></script>
+		<script type="text/javascript" src="/assets/js/calendar.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.autocomplete.multiselect.js"></script>
+		<script type="text/javascript" src="/assets/js/custom.js"></script>
+	</head>
+	<body>
+		<!-- MOBILE NAVIGATION START -->
+			<div class="mobile-menu-wrapper">
+				<div class="ui sidebar vertical menu">
+					<div class="col-md-12">
+						<div class="menu profile-list mobile-menu text-right">
+							<div class="header">
+								{{ user.first_name }}&nbsp;{{ user.last_name }}
+								<span class="mobile-profile-email">@{{ user.username }}</span>
+							</div>
+							<div class="item ">
+								<a href="/accounts/profile/">Profile</a>
+							</div>
+							<div class="item message-counter">
+								<a href="">
+									<span class="active">20</span>
+									Messages
+								</a>
+							</div>
+							<div class="item message-counter">
+								<a href="#">
+									<span>20</span>
+									Bookmarks
+								</a>
+							</div>
+							<div class="item">
+								<a href="#">Manage Posts</a>
+							</div>
+							<div class="item">
+								<a href="#">Help Center</a>
+							</div>
+							<div class="item">
+								<a href="/accounts/settings/">Settings</a>
+							</div>
+							<div class="divider"></div>
+							<div class="item log-out">
+								<a href="/accounts/logout/">Log Out</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- MOBILE NAVIGATION END -->
+		<!-- ===========HEADER START============== -->
+		<header class="site-header inner-page-header">
+			<div class="container">
+				<div class="site-logo">
+					<a href="/home/">
+						<?xml version="1.0" encoding="utf-8"?>
+						<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							viewBox="16 9.5 60.7 60" style="enable-background:new 16 9.5 60.7 60;" xml:space="preserve">
+							<style type="text/css">
+								.st0{fill:#0C77BF;}
+								.st1{fill:#001026;}
+							</style>
+							<polygon class="st0" points="28.8,21.3 64.2,21.3 64.2,28.6 52,36.9 52,28.5 41.1,28.5 41.1,49.4 52.2,49.4 75.1,33.8 75.1,26.1
+								75.1,10.4 17.9,10.4 17.9,67.6 75.1,67.6 75.1,40.8 64.2,48.2 64.2,56.7 28.8,56.7 "/>
+						</svg>
+					</a>
+				</div>
+				<div class="mobile-search-box">
+					Search
+				</div>
+				<form>
+					<div class="search-bar hidden-xs mobile-search-bar-location">
+						<div class="ui selection dropdown">
+							<input type="hidden" name="gender">
+							<i class="angle down icon"></i>
+							<div class=" text">All</div>
+							<div class="menu">
+								<div class="item" data-value="7">All</div>
+								<div class="item" data-value="2">Services</div>
+								<div class="item" data-value="3">For Sale</div>
+								<div class="item" data-value="4">Offers</div>
+								<div class="item" data-value="5">Events</div>
+								<div class="item" data-value="6">Jobs</div>
+							</div>
+						</div>
+						<div class="ui search service">
+							<div class="ui icon input">
+								<input class="prompt by-service" type="text" placeholder="Search for services">
+							</div>
+							<div class="results"></div>
+						</div>
+						<div class="ui search serch_location">
+							<div class="ui icon input">
+								<input class="prompt Nearby" type="text" placeholder="Nearby">
+								<i class="search icon link"></i>
+							</div>
+							<div class="results"></div>
+						</div>
+						<div class="mobile-search-button visible-xs">
+							<button type="submit" class="btn btn-primary btn-sm">Search</button>
+						</div>
+					</div>
+				</form>
+				<nav class="site-navigation hidden-xs hidden-sm navigation-after-logon">
+					<div class="ui labeled icon top right pointing  dropdown notification-holder">
+						<a class="item notification">
+							<i class="far fa-bell" ></i>
+							<div class="ui red empty circular label"></div>
+						</a>
+						<div class="menu">
+							<div class="comment-list">
+								<div class="item unread">
+									<a href=""><span>Your new post is live</span></a>
+								</div>
+								<div class="item unread new-notification">
+									<a href="">Roseb. <span>Add a new Comment</span></a>
+								</div>
+								<div class="item unread">
+									<a href="">Alberttcar. <span>Add a new Comment</span></a>
+								</div>
+								<div class="item unread new-notification">
+									<a href="">Alberttcar. <span>Add a new Comment</span></a>
+								</div>
+								<div class="item unread">
+									<a href="">Alberttcar.<span>Add a new Comment</span></a>
+								</div>
+								<div class="item unread">
+									<a href=""><span>New Event is live</span></a>
+								</div>
+								<div class="item unread">
+									<a href="">Alberttcar. <span>Add a new Comment</span></a>
+								</div>
+								<div class="item unread">
+									<a href=""><span>New Event is live</span></a>
+								</div>
+							</div>
+							<div class="divider"></div>
+							<div class="item view-more more-listing-button">
+								<a href="">View all notifications</a>
+							</div>
+						</div>
+					</div>
+					<!-- ============ COMMENT DROP DOWN============= -->
+					<div class="ui labeled icon top right pointing dropdown comment-body">
+						<a class="item comment-alt">
+							<i class="far fa-comment-alt-lines"></i>
+							<div class="ui red empty circular label"></div>
+						</a>
+						<div class="menu">
+							<div class="comment-list">
+								<div class="item message-counter">
+									<a href="">
+										<span>328</span>
+										<small>robert 2346</small>
+									</a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+								<div class="item message-counter">
+									<a href="">
+										<span>20</span>
+										<small>rororoto9090</small>
+									</a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Contrary to popular belief</small></a>
+								</div>
+								<div class="item">
+									<a href=""><small>Angelppdid</small></a>
+								</div>
+							</div>
+							<div class="divider"></div>
+							<div class="item view-more more-listing-button">
+								<a href="">View all messages</a>
+							</div>
+						</div>
+					</div>
+					<!-- ============ PROFILE DROP DOWN============= -->
+					<div class="ui labeled icon top right pointing dropdown profile-icon-holder">
+						<a class="item profile-icon" style="background-color: {{ request.user.profile.background_color }}">
+                            {% if request.user.profile.avatar %}
+                                <img src="{{ request.user.profile.avatar }}" alt="avatar">
+                            {% else %}
+						    {{ request.user.first_name.0 }}
+                            {% endif %}
+						</a>
+						<div class="menu profile-list">
+							<div class="header">
+								{{ request.user.first_name }}&nbsp;{{ request.user.last_name }}
+								<span class="profile-email">@{{ request.user.username }}</span>
+							</div>
+							<div class="divider"></div>
+							<div class="item ">
+								<a href="/accounts/profile/">Profile</a>
+							</div>
+							<div class="item message-counter">
+								<a href="">
+									<span>20</span>
+									Messages
+								</a>
+							</div>
+							<div class="item message-counter">
+								<a href="">
+									<span>328</span>
+									Bookmarks
+								</a>
+							</div>
+							<div class="item">
+								<a href="">Manage Posts</a>
+							</div>
+							<div class="item">
+								<a href="">Help Center</a>
+							</div>
+							<div class="item">
+								<a href="/accounts/settings/">Settings</a>
+							</div>
+							<div class="divider"></div>
+							<div class="item log-out">
+								<a href="/accounts/logout/">Log Out</a>
+							</div>
+						</div>
+					</div>
+				</nav>
+				<div class="visible-sm visible-xs mobile-nav-icon">
+					<div class="column">
+						<div class="ui menu">
+							<a id="mobile_item" class="item"><i class="fas fa-bars"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</header>
+		<script>
+			var serch_location = [
+				{ title: 'Andorra' },
+				{ title: 'United Arab Emirates' },
+				{ title: 'Afghanistan' },
+				{ title: 'Antigua' },
+				{ title: 'Anguilla' },
+				{ title: 'Albania' },
+				{ title: 'Armenia' },
+				{ title: 'Netherlands Antilles' },
+				{ title: 'Angola' },
+				{ title: 'Argentina' },
+				{ title: 'American Samoa' },
+				{ title: 'Austria' },
+				{ title: 'Australia' },
+				{ title: 'Aruba' },
+				{ title: 'Aland Islands' },
+				{ title: 'Azerbaijan' },
+				{ title: 'Bosnia' },
+				{ title: 'Barbados' },
+				{ title: 'Bangladesh' },
+				{ title: 'Belgium' },
+				{ title: 'Burkina Faso' },
+				{ title: 'Bulgaria' },
+				{ title: 'Bahrain' },
+				{ title: 'Burundi' }
+				// etc
+			];
+			var service = [
+				{ title: 'Service One' },
+				{ title: 'Service Two' },
+				{ title: 'Service Three' },
+				{ title: 'Service Four' }
+				// etc
+			];
+			$('.ui.search.serch_location')
+				.search({
+				source: serch_location,
+				searchFields   : [
+				  'title'
+				],
+				fullTextSearch: false
+			});
+			$('.ui.search.service')
+				.search({
+				source: service,
+				searchFields   : [
+				  'title'
+				],
+				fullTextSearch: false
+			});
+
+		</script>
+		<!-- ===========HEADER END========= -->
+		<div class="ui pushable segment">
+			<!-- MOBILE NAVIGATION START -->
+			<div class="ui sidebar vertical menu right">
+				<div class="col-md-12">
+					<div class="menu profile-list mobile-menu text-right">
+						<div class="header">
+							{{ user.first_name }}&nbsp;{{ user.last_name }}
+							<span class="mobile-profile-email">@{{ request.user.username }}</span>
+						</div>
+						<div class="item ">
+							<a href="/{{ request.user.username }}/">Profile</a>
+						</div>
+						<div class="item message-counter">
+							<a href="">
+								<span class="active">20</span>
+								Messages
+							</a>
+						</div>
+						<div class="item message-counter">
+							<a href="">
+								<span>20</span>
+								Bookmarks
+							</a>
+						</div>
+						<div class="item">
+							<a href="">Manage Posts</a>
+						</div>
+						<div class="item">
+							<a href="">Help Center</a>
+						</div>
+						<div class="item">
+							<a href="/accounts/settings/">Settings</a>
+						</div>
+						<div class="divider"></div>
+						<div class="item log-out">
+							<a href="/accounts/logout/">Log Out</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- MOBILE NAVIGATION END -->
+			{% block content %}
+            {% endblock %}
+		</div>
+	</body>
+</html>

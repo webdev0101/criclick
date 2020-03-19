@@ -513,7 +513,7 @@ a:hover{
 	text-align:center;
 	margin-bottom:30px;
 }
-.ui.modal.sign-up, .ui.modal.sign-in, .ui.modal.Reset-Password, .ui.modal.createpost-popup, .ui.modal.photo-upload, .ui.modal.password-popup, .ui.modal.forgot-password, .ui.modal.enter-your-mail{
+.ui.modal.sign-up, .ui.modal.sign-in, .ui.modal.Reset-Password, .ui.modal.createpost-popup, .ui.modal.photo-upload, .ui.modal.password-popup, .ui.modal.forgot-password, .ui.modal.enter-your-mail, .ui.modal.phone-popup {
 	width:500px;
 	max-width:85%;
 }
@@ -3234,10 +3234,10 @@ img.imgpreview.landscape{
 	margin-top:10px;
 	margin-bottom:25px;
 }
-.registration-footer{
-	background:#0c77bf;
-	padding:4% 0px 5%;
-}
+/*.registration-footer{*/
+/*	background:#0c77bf;*/
+/*	padding:4% 0px 5%;*/
+/*}*/
 .footer-social ul{
 	padding-left:0px;
 	text-align:center;
@@ -3387,11 +3387,7 @@ img.imgpreview.landscape{
 	padding: 3px 8px 3px 10px;
 	letter-spacing: 0.5px;
 }
-#signup-form .errormessage {
-	margin-top: 11px;
-	line-height: 20px;
-	font-size:15px;
-}
+
 .home-page-each-post-autor-name p{
 	font-weight:600;
 }

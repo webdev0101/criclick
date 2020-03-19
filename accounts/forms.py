@@ -1,0 +1,99 @@
+from datetime import datetime
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.gis.geos import Point
+from django.core.exceptions import ValidationError
+
+from accounts.models import User
+
+
+class LoginForm(AuthenticationForm):
+    username = UsernameField()
+    password = forms.CharField()
+
+
+class RegisterForm(UserCreationForm):
+    username = forms.CharField(required=False)
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.EmailField()
+    password1 = forms.CharField()
+    password2 = forms.CharField()
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name')
+
+
+class PasswordResetEmailForm(forms.Form):
+    email = forms.EmailField()
+
+
+class EmailVerifyCodeForm(forms.Form):
+    code = forms.RegexField(regex=r'^\d{6}$')
+
+
+class PhoneVerifyCodeForm(forms.Form):
+    phone_verify_code = forms.RegexField(regex=r'^\d{6}$')
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean_phone_verify_code(self):
+        code = self.cleaned_data['phone_verify_code']
+        if code != self.user.phone_verify_code:
+            raise ValidationError("Verify code doesn't match.")
+        return code
+
+    def save(self):
+        self.user.phone_verified_at = datetime.now()
+        self.user.save()
+        return self.user
+
+
+def r():
+    import random
+    return random.randint(0, 255)
+
+
+class AccountSettingForm(forms.Form):
+    first_name = forms.CharField(max_length=64)
+    last_name = forms.CharField(max_length=64)
+    username = UsernameField()
+    email = forms.EmailField()
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$', required=False)
+    location = forms.CharField(max_length=191, required=False)
+    latitude = forms.DecimalField(required=False)
+    longitude = forms.DecimalField(required=False)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists() and self.user.username != username:
+            raise ValidationError("That username has been taken. Please choose another.")
+        if len(username) < 4:
+            raise ValidationError("The username must be at least 4 characters long.")
+        return username
+
+    def save(self, commit=True):
+        self.user.first_name = self.cleaned_data["first_name"]
+        self.user.last_name = self.cleaned_data["last_name"]
+        self.user.username = self.cleaned_data["username"]
+        self.user.email = self.cleaned_data["email"]
+        self.user.phone = self.cleaned_data["phone"]
+        self.user.profile.location = self.cleaned_data["location"]
+        latitude = self.cleaned_data["latitude"]
+        longitude = self.cleaned_data['longitude']
+        latlng = Point(float(latitude), float(longitude))
+        self.user.profile.latlng = latlng
+        if self.user.profile.background_color == '#ffffff':
+            self.user.profile.background_color = '#%02X%02X%02X' % (r(), r(), r())
+        self.user.profile.save()
+        if commit:
+            self.user.save()
+        return self.user

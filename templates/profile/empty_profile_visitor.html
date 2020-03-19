@@ -1,0 +1,329 @@
+{% extends 'base_user.html' %}
+
+{% block content %}
+    <div class="ui pushable segment">
+
+        <!-- MOBILE NAVIGATION START -->
+
+        <div class="ui sidebar vertical menu right">
+
+            <div class="col-md-12">
+
+                <div class="menu profile-list mobile-menu text-right">
+
+                    <div class="header">
+
+                        {{ request.user.first_name }}&nbsp;{{ request.user.last_name }}
+
+                        <span class="mobile-profile-email">@{{ request.user.username }}</span>
+
+                    </div>
+
+                    <div class="item ">
+
+                        <a href="/accounts/profile/">Profile</a>
+
+                    </div>
+
+                    <div class="item message-counter">
+
+                        <a href="">
+
+                            <span class="active">20</span>
+
+                            Messages
+
+                        </a>
+
+                    </div>
+
+                    <div class="item message-counter">
+
+                        <a href="#">
+
+                            <span>20</span>
+
+                            Bookmarks
+
+                        </a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="#">Manage Posts</a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="#">Help Center</a>
+
+                    </div>
+
+                    <div class="item">
+
+                        <a href="/accounts/settings/">Settings</a>
+
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="item log-out">
+
+                        <a href="/accounts/logout/">Log Out</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MOBILE NAVIGATION END -->
+
+        <div class="pusher">
+
+            <section class="profile-Section">
+
+                <div class="container">
+
+                    <!-- BANNER SECTION START -->
+
+                    <div class="cover-photo">
+
+                        <div class="empty-cover-photo"></div>
+
+                        <!-- ============= CRREATE POST POPUP END ============= -->
+
+                    </div>
+
+                    <!-- BANNER SECTION END -->
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+
+                        <!-- ================ LEFT SIDEBAR START ======================== -->
+
+                        <div class="col-md-3 left-sidebar">
+
+                            <!-- PROFILE DETAILS -->
+
+                            <div class="gray-border m-10 p-15 text-center profile-details">
+
+                                <div class="text-right three-dots-holder">
+
+                                    <div class="ui labeled icon top right pointing dropdown" tabindex="0">
+
+                                        <a class="item ">
+
+                                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
+
+                                        </a>
+
+                                        <div class="menu" tabindex="-1">
+
+                                            <div class="item common-dropdown">
+
+                                                <ul>
+
+                                                    <li><a href="">Report profile</a></li>
+
+                                                    <li><a href="">Block user</a></li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="updated-profile-image empty-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+
+                                    <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                        {% if user.profile.avatar %}
+                                            <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                        {% else %}
+                                            {{ user.first_name.0 }}
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- ============= CRREATE POST POPUP END ============= -->
+
+                                </div>
+
+                                <span class="profile-email">@{{ user.username }}</span>
+
+                                <h1><a href="/{{ user.username }}/">{{ user.first_name }}&nbsp;{{ user.last_name }}</a></h1>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                            <!-- RATING -->
+
+                            <div class="gray-border m-10 p-15 Followers text-center profile-description">
+
+                                <h2 class="text-center">Reviews</h2>
+
+                                <div class="star-rating">
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                    <i class="fas fa-star"></i>
+
+                                </div>
+
+                                <p>0 Reviews</p>
+
+                                <a href="review.html">View all review</a>
+
+                            </div>
+
+                            <!-- FOLLOWERS -->
+
+                            <div class="gray-border m-20 p-15 Followers text-center profile-description fllowers">
+
+                                <h2 class="text-center">Followers</h2>
+
+                                <p>You have no followers</p>
+
+                            </div>
+
+                            <!-- LEFT SIDEBAR BOTTOL LINKS -->
+
+                            <div class="left-side-bar-bottom-link">
+
+                                <p><span class="membr">Member since 2016</span></p>
+
+                                <ul>
+
+                                    <li><a href="">Help<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Cookies<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Privacy<span><i class="fas fa-circle"></i></span></a></li>
+
+                                </ul>
+
+                                <ul>
+
+                                    <li><a href="">About<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Careers<span><i class="fas fa-circle"></i></span></a></li>
+
+                                    <li><a href="">Blog<span><i class="fas fa-circle"></i></span></a></li>
+
+                                </ul>
+
+                                <p>&copy;&nbsp;&nbsp;2019 Criclick</p>
+
+
+                            </div>
+
+                            <!-- ======= -->
+
+                        </div>
+
+                        <!-- ================ LEFT SIDEBAR END ======================== -->
+
+                        <!-- =============== MIDDLE POST LIST START =================== -->
+
+                        <div class="col-md-7 middle-post-content">
+
+                            <ul class="all-product-offers">
+
+                                <li class="active"><a href="">All</a></li>
+
+                                <li><a href="">Services</a></li>
+
+                                <li><a href="">For Sale</a></li>
+
+                                <li><a href="">Offers</a></li>
+
+                                <li><a href="">Events</a></li>
+
+                                <li><a href="">Jobs</a></li>
+
+                            </ul>
+
+                            <div class="ui labeled icon top right pointing dropdown more-product-holder more-page">
+
+                                <a class="item more-product">
+
+                                    More <i class="fas fa-caret-down big"></i>
+
+                                </a>
+
+                                <div class="menu more-page-dropdown">
+
+                                    <div class="item common-dropdown">
+
+                                        <ul>
+
+                                            <li><a href="review.html">Reviews</a></li>
+
+                                            <li><a href="">Connections</a></li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- EACH POST -->
+
+                            <div class="empty-post text-center">
+
+                                <p>This member has not published anything yet, follow this user to get notified about
+                                    new posts.</p>
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- =============== MIDDLE POST LIST END =================== -->
+
+                        <!-- =============== RIGHT SIDEBAR START =================== -->
+
+                        <div class="col-md-3 right-sidebar">
+
+                            <div class="text-right right-sidebar-buttons">
+
+                                <a href="javascript:void(0)"
+                                   class="btn btn-primary btn-sm line-button unfollow transparent-bg">Unfollow</a>
+
+                                <a href="" class="btn btn-primary btn-sm">Message</a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ================ RIGHT SIDEBAR END =============== -->
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+{% endblock %}
