@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
@@ -16,9 +16,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from social_django.models import UserSocialAuth
 
+from accounts.colors import random_color
 from accounts.decorators import email_verified
 from accounts.forms import LoginForm, RegisterForm, EmailVerifyCodeForm, PasswordResetEmailForm, AccountSettingForm, \
-    PhoneVerifyCodeForm, r
+    PhoneVerifyCodeForm
 from accounts.models import User, Profile
 
 
@@ -27,8 +28,8 @@ class AjaxLoginView(View):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            remember_me = request.POST.get('remember_me', None)
-            if not remember_me:
+            remember_me = form.data.get('remember_me', 'off')
+            if remember_me == 'on':
                 request.session.set_expiry(0)
             login(request, user)
             data = {
@@ -110,6 +111,7 @@ class EmailVerificationView(View):
                         print('Profile exist')
                         profile = Profile.objects.get(user=user)
                         profile.avatar = avatar
+                        profile.background_color = random_color()
                         profile.save()
                 except UserSocialAuth.DoesNotExist:
                     print('Google account not found')
@@ -132,7 +134,7 @@ class EmailVerificationView(View):
             if user.email_verify_code == code:
                 user.email_verified_at = datetime.now()
                 user.save()
-                Profile.objects.create(user=user, background_color='#%02X%02X%02X' % (r(), r(), r()))
+                Profile.objects.create(user=user, background_color=random_color())
                 data = {
                     'message': 'Success'
                 }
@@ -370,6 +372,42 @@ class SettingsView(View):
             response = JsonResponse(data)
             response.status_code = 403
             return response
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(email_verified, name='dispatch')
+class AjaxCheckUsernameView(View):
+    def get(self, request):
+        username = request.GET['username'].lower()
+        if username == '':
+            data = {
+                'message': 'Success'
+            }
+            response = JsonResponse(data)
+            response.status_code = 200
+            return response
+        try:
+            user = User.objects.get(username=username)
+            if user.username != request.user.username:
+                data = {
+                    'message': 'This username is already being used. Please try another one.'
+                }
+                response = JsonResponse(data)
+                response.status_code = 403
+                return response
+        except User.DoesNotExist:
+            data = {
+                'message': 'Success'
+            }
+            response = JsonResponse(data)
+            response.status_code = 200
+            return response
+        data = {
+            'message': 'Success'
+        }
+        response = JsonResponse(data)
+        response.status_code = 200
+        return response
 
 
 @method_decorator(login_required, name='dispatch')

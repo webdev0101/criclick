@@ -5,12 +5,21 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ValidationError
 
+from accounts.colors import random_color
 from accounts.models import User
 
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField()
+    username = forms.EmailField()
     password = forms.CharField()
+    remember_me = forms.BooleanField(required=False)
+
+    def get_invalid_login_error(self):
+        return forms.ValidationError(
+            "Verify your %(username)s and password and try again.",
+            code='invalid_login',
+            params={'username': self.username_field.verbose_name},
+        )
 
 
 class RegisterForm(UserCreationForm):
@@ -53,11 +62,6 @@ class PhoneVerifyCodeForm(forms.Form):
         return self.user
 
 
-def r():
-    import random
-    return random.randint(0, 255)
-
-
 class AccountSettingForm(forms.Form):
     first_name = forms.CharField(max_length=64)
     last_name = forms.CharField(max_length=64)
@@ -73,7 +77,7 @@ class AccountSettingForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_username(self):
-        username = self.cleaned_data['username']
+        username = self.cleaned_data['username'].lower()
         if User.objects.filter(username=username).exists() and self.user.username != username:
             raise ValidationError("That username has been taken. Please choose another.")
         if len(username) < 4:
@@ -92,7 +96,7 @@ class AccountSettingForm(forms.Form):
         latlng = Point(float(latitude), float(longitude))
         self.user.profile.latlng = latlng
         if self.user.profile.background_color == '#ffffff':
-            self.user.profile.background_color = '#%02X%02X%02X' % (r(), r(), r())
+            self.user.profile.background_color = random_color()
         self.user.profile.save()
         if commit:
             self.user.save()

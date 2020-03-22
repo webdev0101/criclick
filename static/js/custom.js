@@ -92,8 +92,6 @@ $(document).ready(function () {
             input.removeClass("invalid").addClass("valid");
         } else {
             input.removeClass("valid").addClass("invalid");
-            let error_element = $("#login_error-message");
-            error_element.html('You have entered an invalid email address, please try again. ');
         }
     });
 
@@ -122,8 +120,10 @@ $(document).ready(function () {
         if (!error_free) {
             let error_element = $("#login_error-message");
             if (!error_free) {
+                error_element.html('Please use a valid email address.');
                 error_element.removeClass("error").addClass("error_show");
             } else {
+                error_element.html('');
                 error_element.removeClass("error_show").addClass("error");
             }
             event.preventDefault();
@@ -138,11 +138,17 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     let error_element = $("#login_error-message");
-                    let responseJson = xhr.responseJSON;
-                    for (key in responseJson) {
-                        error_element.html(responseJson[key])
+                    let messages = xhr.responseJSON;
+                    for (key in messages) {
+                        error_element.html(messages[key])
                     }
                     error_element.removeClass("error").addClass("error_show");
+                    $("#login-form :input").each(function(){
+                        $(this).removeClass('invalid').addClass('valid');
+                    });
+                    for (x in messages) {
+                        $("#login-form input[name="+ x +"]").removeClass('valid').addClass('invalid');
+                    }
                 }
             });
         }
@@ -480,6 +486,16 @@ $(document).ready(function () {
         }
     });
 
+    $('.show-password-icon').on('click', function() {
+        if ($(this).find('i').hasClass('fa-eye')) {
+            $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+            $(this).prev().attr('type', 'text');
+        } else if ($(this).find('i').hasClass('fa-eye-slash')) {
+            $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+            $(this).prev().attr('type', 'password');
+        }
+    });
+
     function passwordFormSubmit(event) {
         const form_data = $("#password-form").serializeArray();
         let error_free = true;
@@ -513,6 +529,7 @@ $(document).ready(function () {
                     for (key in responseJson) {
                         error_element.html(responseJson[key])
                     }
+                    error_element.css('margin-bottom', '12px');
                     error_element.removeClass("error").addClass("error_show");
                 }
             });
@@ -734,6 +751,29 @@ $(document).ready(function () {
     /*
     Save account settings
      */
+    $('#setting-form input[name=username]').on('input', function() {
+        $.ajax({
+            type: 'GET',
+            url: '/accounts/check-username/',
+            data: {
+                username: $(this).val()
+            },
+            success: function (response) {
+                let error_element = $('#username-error');
+                error_element.html('');
+                error_element.hide();
+                $('#setting-form input[name=username]').removeClass('invalid').addClass('valid');
+            },
+            error: function (xhr, status, error) {
+                let res = xhr.responseJSON;
+                let error_element = $('#username-error');
+                error_element.html(res.message);
+                error_element.show()
+                $('#setting-form input[name=username]').removeClass('valid').addClass('invalid');
+            }
+        });
+    });
+
     function submitSettingForm(event) {
         let form = $('#setting-form');
         $.ajax({
@@ -751,6 +791,7 @@ $(document).ready(function () {
                     $('.phone-popup').modal('show');
                     $('#resend-code').show();
                 }
+                window.location.reload()
             },
             error: function (xhr, statusCode, error) {
                 let messages = xhr.responseJSON;

@@ -116,7 +116,7 @@
 
                             <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
 
-                                <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                <div class="update-profile-image-wrapper" {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
                                     {% if user.profile.avatar %}
                                         <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
                                     {% else %}
@@ -306,8 +306,7 @@
 {#                                                           class="username-input used-username-error"#}
 {#                                                           placeholder="Username" value="{{ user.username }}">#}
 
-                                                    <p class="verified-link username-error" id="username-error" hidden>This username is already
-                                                        being used. Please try another one.</p>
+                                                    <p class="verified-link username-error" id="username-error" hidden></p>
 
                                                     <span class="right-tick"><i class="fal fa-check"></i></span>
 

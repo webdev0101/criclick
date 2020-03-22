@@ -95,89 +95,6 @@
 
                         <div class="empty-cover-photo"></div>
 
-                        <div class="camera" id="cover-photo">
-
-                            <i class="far fa-pen"></i>
-
-                        </div>
-
-                        <!-- ==============CRREATE POST POPUP END=========== -->
-
-                        <div class="ui modal photo-upload" id="cover-photo-popup">
-
-                            <i class="close icon "></i>
-
-                            <div class="sign-up-form-body change-padding">
-
-
-                                <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
-
-                                    <div class="cover-photo-tab">
-
-                                        <h3 class="upload-photo-title upload-photo active">Upload</h3>
-
-                                        <h3 class="upload-photo-title library-photo">Library</h3>
-
-                                    </div>
-
-                                    <div class="upload-photo-content">
-
-                                        <div class="field photo-list" align="left">
-
-                                            <div class="files-holder">
-
-                                                <input type="file" class="files" name="files"/>
-
-                                                <i class="fas fa-camera"></i>
-
-                                            </div>
-
-                                            <div class="pip display-none">
-
-                                                <div class="profile-overlay"></div>
-
-                                                <div class="myProgress display-none">
-                                                    <div class="myBar"></div>
-                                                </div>
-
-                                            </div>
-
-                                            <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
-
-                                            <div class="clearfix"></div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="libary-content display-none">
-
-                                        <ul class="library-image"><!-- Image Library --></ul>
-
-                                    </div>
-
-                                    <div class="pop-up-buttons pop-up-buttons-for-cover">
-
-                                        <button type="button"
-                                                class="ui btn btn-info btn-block login-submit-button-blue profile-modal-cancil banner-modal-cancil">
-                                            Cancel
-                                        </button>
-
-                                        <button type="submit"
-                                                class="ui btn btn-info btn-block login-submit-button-blue profile-photo-submit">
-                                            Save photo
-                                        </button>
-
-                                    </div>
-
-                                </form>
-
-                            </div>
-
-                        </div>
-
-                        <!-- ============= CRREATE POST POPUP END ============= -->
-
                     </div>
 
                     <!-- BANNER SECTION END -->
@@ -194,77 +111,13 @@
 
                             <div class="gray-border m-10 p-15 text-center profile-details">
                                 <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
-                                    <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                    <div class="update-profile-image-wrapper" {% if not user.profile.avatar %} style="background-color: {{ user.profile.background_color }}"{% endif %}>
                                         {% if user.profile.avatar %}
                                             <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
                                         {% else %}
                                             {{ user.first_name.0 }}
                                         {% endif %}
                                     </div>
-                                    <div class="profile-image-overlay" id="profile-photo">
-                                        <i class="far fa-pen"></i>
-                                    </div>
-
-                                    <!-- ==============CRREATE POST POPUP END=========== -->
-
-                                    <div class="ui modal photo-upload" id="profile-photo-popup">
-
-                                        <i class=" icon "></i>
-
-                                        <div class="sign-up-form-body">
-
-                                            <h1 class="upload-photo-title">Upload Photos</h1>
-
-                                            <form class="ui form sign-form" method="post" action="">
-
-                                                <div class="field photo-list" align="left">
-
-                                                    <div class="files-holder new-file-holder">
-
-                                                        <input type="file" class="files" name="files"/>
-
-                                                        <i class="fas fa-camera"></i>
-
-                                                    </div>
-
-                                                    <div class="pip pic-size display-none">
-
-                                                        <div class="profile-overlay"></div>
-
-                                                        <div class="myProgress display-none">
-                                                            <div class="myBar"></div>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <span class="remove display-none"><i
-                                                            class="fal fa-trash-alt"></i></span>
-
-                                                    <div class="clearfix"></div>
-
-                                                </div>
-
-                                                <div class="pop-up-buttons">
-
-                                                    <button type="button"
-                                                            class="ui btn btn-info login-submit-button-blue profile-modal-cancil">
-                                                        Cancel
-                                                    </button>
-
-                                                    <button type="submit"
-                                                            class="ui btn btn-info login-submit-button-blue profile-photo-submit">
-                                                        Save Photo
-                                                    </button>
-
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-
-                                    <!-- ============= CRREATE POST POPUP END ============= -->
 
                                 </div>
 

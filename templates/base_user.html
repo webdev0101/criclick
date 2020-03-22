@@ -237,9 +237,9 @@
 					</div>
 					<!-- ============ PROFILE DROP DOWN============= -->
 					<div class="ui labeled icon top right pointing dropdown profile-icon-holder">
-						<a class="item profile-icon" style="background-color: {{ request.user.profile.background_color }}">
+						<a class="item profile-icon" {% if not request.user.profile.avatar %} style="background-color: {{ request.user.profile.background_color }}"{% endif %}>
                             {% if request.user.profile.avatar %}
-                                <img src="{{ request.user.profile.avatar }}" alt="avatar">
+                                <img src="{{ request.user.profile.avatar }}" alt="avatar" class="imgpreview" style="border-radius: 50%;">
                             {% else %}
 						    {{ request.user.first_name.0 }}
                             {% endif %}
