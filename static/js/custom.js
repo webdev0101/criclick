@@ -628,13 +628,15 @@ $(document).ready(function () {
                 error_element.html('');
                 error_element.hide();
                 $('#setting-form input[name=username]').removeClass('invalid').addClass('valid');
+                $('.right-tick').addClass('tick-show');
             },
             error: function (xhr, status, error) {
                 let res = xhr.responseJSON;
                 let error_element = $('#username-error');
                 error_element.html(res.message);
-                error_element.show()
+                error_element.show();
                 $('#setting-form input[name=username]').removeClass('valid').addClass('invalid');
+                $('.right-tick').removeClass('tick-show');
             }
         });
     });

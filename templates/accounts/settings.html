@@ -537,17 +537,41 @@
 {% block custom_scripts %}
     <script>
         $(document).ready(function () {
+            let uploadCrop;
             if (window.File && window.FileList && window.FileReader) {
                 let avatarRemoveButton = $('.profile-photo-wrapper .remove');
                 let bannerRemoveButton = $('.cover-photo-wrapper .remove');
                 let avatarFilesHolder = $('.profile-photo-wrapper .files-holder');
                 let bannerFilesHolder = $('.cover-photo-wrapper .files-holder');
-                let avatarUploadButton = $('.profile-photo-wrapper .profile-photo-submit');
+                let avatarUploadButton = $('#profile-photo-popup .profile-photo-submit');
                 let bannerUploadButton = $('.cover-photo-wrapper .profile-photo-submit');
                 avatarUploadButton.prop('disabled', true);
                 avatarUploadButton.addClass('disabled');
                 bannerUploadButton.prop('disabled', true);
                 bannerUploadButton.addClass('disabled');
+
+                function b64toBlob(b64Data, contentType, sliceSize) {
+                    contentType = contentType || '';
+                    sliceSize = sliceSize || 512;
+
+                    var byteCharacters = atob(b64Data);
+                    var byteArrays = [];
+
+                    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                        var byteNumbers = new Array(slice.length);
+                        for (var i = 0; i < slice.length; i++) {
+                            byteNumbers[i] = slice.charCodeAt(i);
+                        }
+
+                        var byteArray = new Uint8Array(byteNumbers);
+
+                        byteArrays.push(byteArray);
+                    }
+
+                    return new Blob(byteArrays, {type: contentType});
+                }
 
                 function readAvatarFile(input) {
                     if (input.files && input.files[0]) {
@@ -555,7 +579,7 @@
                         avatarFilesHolder.hide();
                         avatarRemoveButton.show();
                         reader.onload = function (e) {
-                            $uploadCrop.croppie('bind', {
+                            uploadCrop.croppie('bind', {
                                 url: e.target.result
                             }).then(function () {
                                 console.log('jQuery bind complete');
@@ -566,8 +590,8 @@
 
                         reader.readAsDataURL(input.files[0]);
 
-                        $('.profile-photo-wrapper .profile-photo-submit').on('click', function () {
-                            $uploadCrop.croppie('result', {
+                        $('#profile-photo-popup .profile-photo-submit').on('click', function () {
+                            uploadCrop.croppie('result', {
                                 type: 'canvas',
                                 size: 'viewport'
                             }).then(function (response) {
@@ -605,6 +629,7 @@
                         });
                     }
                 }
+
                 function readBannerFile(input) {
                     if (input.files && input.files[0]) {
                         let reader = new FileReader();
@@ -684,24 +709,24 @@
                     $('.files-holder .files').val('');
                     $('#upload-banner img').attr('src', '');
                 });
-                $uploadCrop = $('#upload-avatar').croppie({
-                    enableExif: true,
-                    viewport: {
-                        width: 150,
-                        height: 150,
-                        type: 'circle'
-                    },
-                    boundary: {
-                        width: 530,
-                        height: 295
-                    }
-                });
                 $uploadCrop2 = $('#upload-banner').croppie({
                     enableExif: true,
                     viewport: {
                         width: 530,
                         height: 220,
                         type: 'square'
+                    },
+                    boundary: {
+                        width: 530,
+                        height: 295
+                    }
+                });
+                uploadCrop = $('#upload-avatar').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: 150,
+                        height: 150,
+                        type: 'circle'
                     },
                     boundary: {
                         width: 530,

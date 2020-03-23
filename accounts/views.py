@@ -377,6 +377,8 @@ class SettingsView(View):
 
 
 class SettingsUploadPhotoView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def post(self, request, photo_type):
         cropped_image_data = request.POST.get('cropped_image', None)
         original_image_data = request.POST.get('original_image', None)
@@ -390,16 +392,39 @@ class SettingsUploadPhotoView(View):
         original_file_name = photo_type + '_original.' + original_image_ext
         if photo_type == 'avatar':
             request.user.profile.avatar.save(cropped_file_name, cropped_file, save=True)
+            request.user.profile.avatar_origin.save(original_file_name, original_file, save=True)
         elif photo_type == 'banner':
             request.user.profile.banner.save(cropped_file_name, cropped_file, save=True)
+            request.user.profile.banner_origin.save(original_file_name, original_file, save=True)
         return JsonResponse({
 
         })
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(email_verified, name='dispatch')
+class SettingsPhotoView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
+    def get(self, request, photo_type):
+        image_data = None
+        if photo_type == 'avatar':
+            image_data = request.user.profile.get_original_avatar_base64()
+        elif photo_type == 'banner':
+            image_data = request.user.profile.get_original_banner_base64()
+        if image_data is None:
+            response = JsonResponse({
+                'data': ''
+            })
+            response.status_code = 404
+            return response
+        else:
+            return JsonResponse({
+                'data': image_data
+            })
+
+
 class AjaxCheckUsernameView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def get(self, request):
         username = request.GET['username'].lower()
         if username == '':
@@ -433,8 +458,8 @@ class AjaxCheckUsernameView(View):
         return response
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(email_verified, name='dispatch')
 class BusinessInfoView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def get(self, request):
         return render(request, 'accounts/biz_info.html')
