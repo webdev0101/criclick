@@ -6,6 +6,7 @@ from django.utils.crypto import get_random_string
 from twilio.rest import Client
 
 from accounts.managers import UserManager
+from criclick.storage import OverwriteStorage
 
 
 class User(AbstractUser):
@@ -52,7 +53,7 @@ def banner_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
+    avatar = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path, storage=OverwriteStorage())
     banner = models.ImageField(blank=True, null=True, upload_to=banner_directory_path)
     background_color = models.CharField(default='#ffffff', max_length=10)
     location = models.CharField(max_length=191, blank=True, null=True)

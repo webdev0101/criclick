@@ -1,3 +1,4 @@
+import base64
 from datetime import datetime
 
 import requests
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.files.base import ContentFile
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -372,6 +374,27 @@ class SettingsView(View):
             response = JsonResponse(data)
             response.status_code = 403
             return response
+
+
+class SettingsUploadPhotoView(View):
+    def post(self, request, photo_type):
+        cropped_image_data = request.POST.get('cropped_image', None)
+        original_image_data = request.POST.get('original_image', None)
+        cropped_image_format, cropped_image_string = cropped_image_data.split(';base64,')
+        cropped_image_ext = cropped_image_format.split('/')[-1]
+        cropped_file = ContentFile(base64.b64decode(cropped_image_string))
+        original_image_format, original_image_string = original_image_data.split(';base64,')
+        original_image_ext = original_image_format.split('/')[-1]
+        original_file = ContentFile(base64.b64decode(original_image_string))
+        cropped_file_name = photo_type + '_cropped.' + cropped_image_ext
+        original_file_name = photo_type + '_original.' + original_image_ext
+        if photo_type == 'avatar':
+            request.user.profile.avatar.save(cropped_file_name, cropped_file, save=True)
+        elif photo_type == 'banner':
+            request.user.profile.banner.save(cropped_file_name, cropped_file, save=True)
+        return JsonResponse({
+
+        })
 
 
 @method_decorator(login_required, name='dispatch')

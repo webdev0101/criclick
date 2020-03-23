@@ -1,5 +1,11 @@
 {% extends 'base_user.html' %}
 
+{% block javascript_plugins %}
+{% endblock %}
+
+{% block custom_stylesheets %}
+{% endblock %}
+
 {% block content %}
     <div class="pusher">
 
@@ -10,8 +16,8 @@
                 <!-- BANNER SECTION START -->
 
                 <div class="cover-photo responsive-cover-photo-position">
-                    {% if user.banner %}
-                        <img src="/media/{{ user.banner }}" alt="">
+                    {% if user.profile.banner %}
+                        <img src="/media/{{ user.profile.banner }}" alt="">
                     {% else %}
                         <div class="empty-cover-photo"></div>
                     {% endif %}
@@ -24,76 +30,38 @@
 
                     <!-- ==============CRREATE POST POPUP END=========== -->
 
-                    <div class="ui modal photo-upload" id="cover-photo-popup">
-
-                        <i class="close icon "></i>
-
+                    <div class="ui modal photo-upload new-photo-upload" id="cover-photo-popup">
+                        <span class="cross-popup"><i class="fas fa-times"></i></span>
                         <div class="sign-up-form-body change-padding">
-
                             <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
-
-                                <div class="cover-photo-tab">
-
-                                    <h3 class="upload-photo-title upload-photo active">Upload</h3>
-
-                                    <h3 class="upload-photo-title library-photo">Library</h3>
-
+                                <div class="cover-photo-tab new-cover-photo-style">
+                                    <h3 class="upload-photo-title upload-photo active">Cover Photo</h3>
+                                    <!-- <h3 class="upload-photo-title library-photo">Library</h3> -->
                                 </div>
-
-                                <div class="upload-photo-content">
-
+                                <div class="upload-photo-content new-upload-photo-content">
                                     <div class="field photo-list" align="left">
-
+                                        <div id="upload-banner">
+                                        </div>
                                         <div class="files-holder">
-
-                                            <input type="file" class="files" name="files"/>
-
+                                            <input type="file" class="files" name="files">
                                             <i class="fas fa-camera"></i>
-
                                         </div>
-
-                                        <div class="pip display-none">
-
-                                            <div class="profile-overlay"></div>
-
-                                            <div class="myProgress display-none">
-                                                <div class="myBar"></div>
-                                            </div>
-
-                                        </div>
-
                                         <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
-
                                         <div class="clearfix"></div>
-
                                     </div>
-
                                 </div>
-
-                                <div class="libary-content display-none">
-
-                                    <ul class="library-image"><!-- Image Library --></ul>
-
-                                </div>
-
-                                <div class="pop-up-buttons pop-up-buttons-for-cover">
-
+                                <div class="pop-up-buttons">
                                     <button type="button"
-                                            class="ui btn btn-info btn-block login-submit-button-blue profile-modal-cancil banner-modal-cancil">
+                                            class="ui btn btn-info login-submit-button-blue banner-modal-cancel">
                                         Cancel
                                     </button>
-
-                                    <button type="submit"
-                                            class="ui btn btn-info btn-block login-submit-button-blue profile-photo-submit">
-                                        Save photo
+                                    <button type="button"
+                                            class="ui btn btn-info login-submit-button-blue profile-photo-submit">
+                                        Save Photo
                                     </button>
-
                                 </div>
-
                             </form>
-
                         </div>
-
                     </div>
 
                     <!-- ============= CRREATE POST POPUP END ============= -->
@@ -116,9 +84,10 @@
 
                             <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
 
-                                <div class="update-profile-image-wrapper" {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
+                                <div class="update-profile-image-wrapper"
+                                     {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
                                     {% if user.profile.avatar %}
-                                        <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                        <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview">
                                     {% else %}
                                         {{ user.first_name.0 }}
                                     {% endif %}
@@ -132,61 +101,35 @@
 
                                 <!-- ==============CRREATE POST POPUP END=========== -->
 
-                                <div class="ui modal photo-upload" id="profile-photo-popup">
-
-                                    <i class=" icon "></i>
-
+                                <div class="ui modal photo-upload new-photo-upload" id="profile-photo-popup">
+                                    <span class="cross-popup"><i class="fas fa-times"></i></span>
                                     <div class="sign-up-form-body">
-
                                         <h1 class="upload-photo-title">Upload Photos</h1>
-
                                         <form class="ui form sign-form" method="post" action="">
-
-                                            <div class="field photo-list" align="left">
-
-                                                <div class="files-holder new-file-holder">
-
-                                                    <input type="file" class="files" name="files"/>
-
+                                            <div class="field photo-list profile-photo-wrapper" align="left">
+                                                <div id="upload-avatar">
+                                                </div>
+                                                <div class="files-holder new-file-holder" style="z-index: 100;">
+                                                    <input type="file" class="files" name="files" accept="image/*"/>
                                                     <i class="fas fa-camera"></i>
-
                                                 </div>
-
-                                                <div class="pip pic-size display-none">
-
-                                                    <div class="profile-overlay"></div>
-
-                                                    <div class="myProgress display-none">
-                                                        <div class="myBar"></div>
-                                                    </div>
-
-                                                </div>
-
-                                                <span class="remove display-none"><i
-                                                        class="fal fa-trash-alt"></i></span>
-
+                                                <span class="remove display-none">
+                                                    <i class="fal fa-trash-alt"></i>
+                                                </span>
                                                 <div class="clearfix"></div>
-
                                             </div>
-
                                             <div class="pop-up-buttons">
-
                                                 <button type="button"
-                                                        class="ui btn btn-info login-submit-button-blue profile-modal-cancil">
+                                                        class="ui btn btn-info login-submit-button-blue profile-modal-cancel">
                                                     Cancel
                                                 </button>
-
-                                                <button type="submit"
+                                                <button type="button"
                                                         class="ui btn btn-info login-submit-button-blue profile-photo-submit">
                                                     Save Photo
                                                 </button>
-
                                             </div>
-
                                         </form>
-
                                     </div>
-
                                 </div>
 
                                 <!-- ============= CRREATE POST POPUP END ============= -->
@@ -207,7 +150,8 @@
 
                             <ul>
 
-                                <li class="active"><a href="/accounts/settings/"><span><i class="fal fa-user"></i></span>General</a>
+                                <li class="active"><a href="/accounts/settings/"><span><i
+                                        class="fal fa-user"></i></span>General</a>
                                 </li>
 
                                 <li><a href="/accounts/biz-info/"><span><i class="fal fa-store"></i></span>Business
@@ -260,7 +204,8 @@
 
                                                     <label class="label-genral-form">First name</label>
 
-                                                    <input type="text" name="first_name" placeholder="First name" value="{{ user.first_name }}">
+                                                    <input type="text" name="first_name" placeholder="First name"
+                                                           value="{{ user.first_name }}">
 
                                                 </div>
 
@@ -272,7 +217,8 @@
 
                                                     <label class="label-genral-form">Last name</label>
 
-                                                    <input type="text" name="last_name" placeholder="Last name" value="{{ user.last_name }}">
+                                                    <input type="text" name="last_name" placeholder="Last name"
+                                                           value="{{ user.last_name }}">
 
                                                 </div>
 
@@ -284,7 +230,8 @@
 
                                                     <div class="post-form-field password-current">
 
-                                                        <button class="btn btn-primary btn-sm" type="button">Change Password
+                                                        <button class="btn btn-primary btn-sm" type="button">Change
+                                                            Password
                                                         </button>
 
                                                     </div>
@@ -300,13 +247,15 @@
                                                 <div class="post-form-field m-30 username-feild">
 
                                                     <label class="label-genral-form">Username</label>
-                                                    <input type="text" name="username" placeholder="Username" value="{{ user.username }}">
+                                                    <input type="text" name="username" placeholder="Username"
+                                                           value="{{ user.username }}">
 
-{#                                                    <input type="text" name="username"#}
-{#                                                           class="username-input used-username-error"#}
-{#                                                           placeholder="Username" value="{{ user.username }}">#}
+                                                    {#                                                    <input type="text" name="username"#}
+                                                    {#                                                           class="username-input used-username-error"#}
+                                                    {#                                                           placeholder="Username" value="{{ user.username }}">#}
 
-                                                    <p class="verified-link username-error" id="username-error" hidden></p>
+                                                    <p class="verified-link username-error" id="username-error"
+                                                       hidden></p>
 
                                                     <span class="right-tick"><i class="fal fa-check"></i></span>
 
@@ -322,7 +271,8 @@
 
                                                     <label class="label-genral-form">Email Address</label>
 
-                                                    <input type="text" name="email" placeholder="Email Address" value="{{ user.email }}">
+                                                    <input type="text" name="email" placeholder="Email Address"
+                                                           value="{{ user.email }}">
 
                                                 </div>
 
@@ -336,13 +286,17 @@
 
                                                     <label class="label-genral-form">Phone Number<span> (For verification purpose only) </span></label>
 
-                                                    <input type="text" name="phone" placeholder="Phone Number" value="{{ user.phone |default_if_none:'' }}"
+                                                    <input type="text" name="phone" placeholder="Phone Number"
+                                                           value="{{ user.phone |default_if_none:'' }}"
                                                            class="phn-number">
                                                     {% if user.phone_verified_at %}
-                                                    <a href="javascript:;" class="verified-link" id="phone-verified">Verified</a>
+                                                        <a href="javascript:;" class="verified-link"
+                                                           id="phone-verified">Verified</a>
                                                     {% else %}
-                                                    <a href="javascript:;" class="verified-link" id="phone-verified" hidden>Verified</a>
-                                                    <a href="javascript:;" class="verified-link" id="resend-code" hidden>Resend</a>
+                                                        <a href="javascript:;" class="verified-link" id="phone-verified"
+                                                           hidden>Verified</a>
+                                                        <a href="javascript:;" class="verified-link" id="resend-code"
+                                                           hidden>Resend</a>
                                                     {% endif %}
 
                                                 </div>
@@ -357,7 +311,8 @@
 
                                                     <label class="label-genral-form">Location</label>
 
-                                                    <input type="text" name="location" placeholder="Location" value="{{ user.profile.location|default_if_none:'' }}">
+                                                    <input type="text" name="location" placeholder="Location"
+                                                           value="{{ user.profile.location|default_if_none:'' }}">
                                                     <input type="hidden" name="latitude" value="0">
                                                     <input type="hidden" name="longitude" value="0">
 
@@ -371,7 +326,9 @@
 
                                                 <div class="post-form-field">
 
-                                                    <button class="btn btn-primary btn-sm" type="button" id="save-account-setting">Save Changes</button>
+                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                            id="save-account-setting">Save Changes
+                                                    </button>
 
                                                 </div>
 
@@ -451,7 +408,9 @@
 
                                 <div class="post-form-field">
 
-                                    <button class="btn btn-primary btn-sm" type="button" id="change-password-submit">Save Changes</button>
+                                    <button class="btn btn-primary btn-sm" type="button" id="change-password-submit">
+                                        Save Changes
+                                    </button>
 
                                 </div>
 
@@ -507,11 +466,13 @@
                 <div class="password-form enter-email">
 
                     <form id="reset_password_form">
-                        <input value="{{ csrf_token }}" name="csrfmiddlewaretoken" id="reset_password_csrfmiddlewaretoken" type="hidden" class="valid">
+                        <input value="{{ csrf_token }}" name="csrfmiddlewaretoken"
+                               id="reset_password_csrfmiddlewaretoken" type="hidden" class="valid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="post-form-field m-15">
-                                    <input type="email" name="email" id="reset_password_email" class="form-control" placeholder="Enter your email">
+                                    <input type="email" name="email" id="reset_password_email" class="form-control"
+                                           placeholder="Enter your email">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -521,7 +482,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="post-form-field text-center">
-                                    <button type="button" id="reset_password_submit" class="btn btn-primary btn-sm">Continue</button>
+                                    <button type="button" id="reset_password_submit" class="btn btn-primary btn-sm">
+                                        Continue
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -543,7 +506,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="post-form-field m-15">
-                                    <input type="text" name="phone_verify_code" class="form-control" placeholder="Enter verify code">
+                                    <input type="text" name="phone_verify_code" class="form-control"
+                                           placeholder="Enter verify code">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -553,7 +517,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="post-form-field text-center">
-                                    <button type="button" class="btn btn-primary btn-sm" id="submit-phone-verify">Verify</button>
+                                    <button type="button" class="btn btn-primary btn-sm" id="submit-phone-verify">
+                                        Verify
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -566,4 +532,185 @@
         </section>
 
     </div>
+{% endblock %}
+
+{% block custom_scripts %}
+    <script>
+        $(document).ready(function () {
+            if (window.File && window.FileList && window.FileReader) {
+                let avatarRemoveButton = $('.profile-photo-wrapper .remove');
+                let bannerRemoveButton = $('.cover-photo-wrapper .remove');
+                let avatarFilesHolder = $('.profile-photo-wrapper .files-holder');
+                let bannerFilesHolder = $('.cover-photo-wrapper .files-holder');
+                let avatarUploadButton = $('.profile-photo-wrapper .profile-photo-submit');
+                let bannerUploadButton = $('.cover-photo-wrapper .profile-photo-submit');
+                avatarUploadButton.prop('disabled', true);
+                avatarUploadButton.addClass('disabled');
+                bannerUploadButton.prop('disabled', true);
+                bannerUploadButton.addClass('disabled');
+
+                function readAvatarFile(input) {
+                    if (input.files && input.files[0]) {
+                        let reader = new FileReader();
+                        avatarFilesHolder.hide();
+                        avatarRemoveButton.show();
+                        reader.onload = function (e) {
+                            $uploadCrop.croppie('bind', {
+                                url: e.target.result
+                            }).then(function () {
+                                console.log('jQuery bind complete');
+                            });
+                            avatarUploadButton.prop('disabled', false);
+                            avatarUploadButton.removeClass('disabled');
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+
+                        $('.profile-photo-wrapper .profile-photo-submit').on('click', function () {
+                            $uploadCrop.croppie('result', {
+                                type: 'canvas',
+                                size: 'viewport'
+                            }).then(function (response) {
+                                $.ajax({
+                                    type: 'POST',
+                                    data: {
+                                        cropped_image: response,
+                                        original_image: reader.result
+                                    },
+                                    url: "/accounts/settings/upload/avatar/",
+                                    beforeSend: function (xhr, settings) {
+                                        function getCookie(name) {
+                                            let cookieValue = null;
+                                            if (document.cookie && document.cookie != '') {
+                                                let cookies = document.cookie.split(';');
+                                                for (let i = 0; i < cookies.length; i++) {
+                                                    let cookie = jQuery.trim(cookies[i]);
+                                                    // Does this cookie string begin with the name we want?
+                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            return cookieValue;
+                                        }
+
+                                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                });
+                            });
+                        });
+                    }
+                }
+                function readBannerFile(input) {
+                    if (input.files && input.files[0]) {
+                        let reader = new FileReader();
+                        bannerFilesHolder.hide();
+                        bannerRemoveButton.show();
+                        reader.onload = function (e) {
+                            $uploadCrop2.croppie('bind', {
+                                url: e.target.result
+                            }).then(function () {
+                                console.log('jQuery bind complete');
+                            });
+                            bannerUploadButton.prop('disabled', false);
+                            bannerUploadButton.removeClass('disabled');
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+
+                        $('.cover-photo-wrapper .profile-photo-submit').on('click', function () {
+                            $uploadCrop2.croppie('result', {
+                                type: 'canvas',
+                                size: 'viewport'
+                            }).then(function (response) {
+                                $.ajax({
+                                    type: 'POST',
+                                    data: {
+                                        cropped_image: response,
+                                        original_image: reader.result
+                                    },
+                                    url: "/accounts/settings/upload/banner/",
+                                    beforeSend: function (xhr, settings) {
+                                        function getCookie(name) {
+                                            let cookieValue = null;
+                                            if (document.cookie && document.cookie != '') {
+                                                let cookies = document.cookie.split(';');
+                                                for (let i = 0; i < cookies.length; i++) {
+                                                    let cookie = jQuery.trim(cookies[i]);
+                                                    // Does this cookie string begin with the name we want?
+                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            return cookieValue;
+                                        }
+
+                                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                });
+                            });
+                        });
+                    }
+                }
+
+                $("#profile-photo-popup .files-holder .files").on("change", function (e) {
+                    readAvatarFile(this);
+                });
+                $("#cover-photo-popup .files-holder .files").on("change", function (e) {
+                    readBannerFile(this);
+                });
+                avatarRemoveButton.on('click', function () {
+                    avatarFilesHolder.show();
+                    avatarUploadButton.prop('disabled', true);
+                    avatarUploadButton.addClass('disabled');
+                    $(this).hide();
+                    $('#upload-avatar .files-holder .files').val('');
+                    $('#upload-avatar img').attr('src', '');
+                });
+                bannerRemoveButton.on('click', function () {
+                    bannerFilesHolder.show();
+                    bannerUploadButton.prop('disabled', true);
+                    bannerUploadButton.addClass('disabled');
+                    $(this).hide();
+                    $('.files-holder .files').val('');
+                    $('#upload-banner img').attr('src', '');
+                });
+                $uploadCrop = $('#upload-avatar').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: 150,
+                        height: 150,
+                        type: 'circle'
+                    },
+                    boundary: {
+                        width: 530,
+                        height: 295
+                    }
+                });
+                $uploadCrop2 = $('#upload-banner').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: 530,
+                        height: 220,
+                        type: 'square'
+                    },
+                    boundary: {
+                        width: 530,
+                        height: 295
+                    }
+                });
+            } else {
+                alert("Your browser doesn't support to File API")
+            }
+        });
+    </script>
 {% endblock %}

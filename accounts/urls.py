@@ -4,7 +4,7 @@ from django.urls import path
 from accounts.views import AjaxLoginView, AjaxRegisterView, EmailVerificationView, AjaxEmailResendView, \
     AjaxPasswordResetView, PasswordResetConfirmView, SettingsView, \
     ProfileRedirectView, BusinessInfoView, AjaxPasswordChangeView, AjaxPhoneVerifyView, AjaxPhoneCodeResendView, \
-    AjaxCheckUsernameView
+    AjaxCheckUsernameView, SettingsUploadPhotoView
 
 urlpatterns = [
     path('login/', AjaxLoginView.as_view()),
@@ -17,6 +17,7 @@ urlpatterns = [
     path('password/reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view()),
     path('logout/', auth_views.LogoutView.as_view(next_page='/')),
     path('settings/', SettingsView.as_view()),
+    path('settings/upload/<photo_type>/', SettingsUploadPhotoView.as_view()),
     path('check-username/', AjaxCheckUsernameView.as_view()),
     path('profile/', ProfileRedirectView.as_view()),
     path('biz-info/', BusinessInfoView.as_view()),

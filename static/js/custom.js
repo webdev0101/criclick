@@ -77,12 +77,15 @@ $(document).ready(function () {
     $('#cover-photo').click(function () {
         $('.ui.modal#cover-photo-popup').modal('show');
     })
-    $('.profile-modal-cancil').click(function () {
+    $('.profile-modal-cancel').click(function () {
         $('.ui.modal#profile-photo-popup').modal('hide');
     })
-    $('.banner-modal-cancil').click(function () {
+    $('.banner-modal-cancel').click(function () {
         $('.ui.modal#cover-photo-popup').modal('hide');
-    })
+    });
+    $('.cross-popup').click(function() {
+        $(this).parent().modal('hide');
+    });
     /*======== SIGN IN FORM VALIDATION ==========*/
     $('#login_username').on('input', function () {
         const input = $(this);
@@ -545,84 +548,6 @@ $(document).ready(function () {
     });
 
     $("#submit-password").click(passwordFormSubmit);
-    /*====================== Library ================*/
-    $('.upload-photo').click(function () {
-        $(this).parent('.cover-photo-tab').find('.upload-photo, .library-photo').removeClass('active');
-        $(this).addClass('active');
-        $(this).parents('form').find('.libary-content').hide();
-        $(this).parents('form').find('.upload-photo-content').show();
-        $('.pop-up-buttons-for-cover').show();
-    });
-    $('.library-photo').click(function () {
-        $(this).parent('.cover-photo-tab').find('.upload-photo, .library-photo').removeClass('active');
-        $(this).addClass('active');
-        $(this).parents('form').find('.upload-photo-content').hide();
-        $(this).parents('form').find('.libary-content').show();
-        $('.pop-up-buttons-for-cover').hide();
-
-    });
-    const folder = "/assets/images/upload/";
-    $.ajax({
-        url: folder,
-        success: function (data) {
-            $(data).find("a").attr("href", function (i, val) {
-                if (val.match(/\.(jpe?g|png|gif)$/)) {
-                    $(".libary-content ul.library-image").append("<li><img src='" + folder + val + "' class='imgpreview'></li>");
-                }
-            });
-        },
-        complete: function (data) {
-            $(".libary-content ul.library-image li img").click(function () {
-                $('.upload-photo').click();
-                const submit_btn = $(this).parents('.form').find('.profile-photo-submit');
-                const photo_list = $(this).parents('.form').find('.files-holder');
-                const files = $(this).parents('.form').find('.files');
-                photo_list.hide();
-                photo_list.next('.pip').find(".profile-overlay").show();
-                photo_list.next('.pip').show();
-                photo_list.next('.pip').css("background-image", "url(" + $(this).attr("src") + ")");
-                console.log($(this).attr("src"));
-
-                photo_list.next('.pip').find(".profile-overlay").show();
-                photo_list.next('.pip').show();
-                photo_list.next('.pip').css("background-image", "url(" + $(this).attr("src") + ")");
-                photo_list.next('.pip').next(".remove").click(function () {
-                    $(this).prev(".pip").css("background-image", "none");
-                    $(this).prev(".pip").hide();
-                    photo_list.show();
-                    submit_btn.prop("disabled", true);
-                    submit_btn.addClass('disabled');
-                    $(this).hide();
-                });
-                const eleml = photo_list.next('.pip').find(".myProgress");
-                eleml.show();
-                let i = 0;
-                if (i == 0) {
-                    i = 1;
-                    const elem = photo_list.next('.pip').find(".myBar");
-                    let width = 1;
-                    const id = setInterval(frame, 10);
-
-                    function frame() {
-                        if (width >= 100) {
-                            photo_list.next('.pip').next(".remove").show();
-                            photo_list.next('.pip').find(".profile-overlay").hide();
-                            submit_btn.prop("disabled", false);
-                            submit_btn.removeClass('disabled');
-                            eleml.hide();
-                            clearInterval(id);
-                            i = 0;
-                        } else {
-                            width++;
-                            //elem.style.width = width + "%";
-                            elem.css("width", width + "%");
-                        }
-                    }
-                }
-
-            });
-        }
-    });
 
     /*
     Change password in setting page start
@@ -687,66 +612,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    /*====================== IMAGE UPLOAD ================*/
-    if (window.File && window.FileList && window.FileReader) {
-        $(".files").on("change", function (e) {
-            const submit_btn = $(this).parents('.form').find('.profile-photo-submit');
-            submit_btn.prop("disabled", true);
-            submit_btn.addClass('disabled');
-            const photo_list = $(this).parent('.files-holder');
-            const files = e.target.files,
-                filesLength = files.length;
-            //for (var i = 0; i > filesLength; i++) {
-            const f = files[0];
-            const fileReader = new FileReader();
-            fileReader.onload = (function (e) {
-                photo_list.hide();
-                const file = e.target;
-                photo_list.next('.pip').find(".profile-overlay").show();
-                photo_list.next('.pip').show();
-                photo_list.next('.pip').css("background-image", "url(" + e.target.result + ")");
-                photo_list.next('.pip').next(".remove").click(function () {
-                    $(this).prev(".pip").css("background-image", "none");
-                    $(this).prev(".pip").hide();
-                    photo_list.show();
-                    submit_btn.prop("disabled", true);
-                    submit_btn.addClass('disabled');
-                    $(this).hide();
-                });
-                const eleml = photo_list.next('.pip').find(".myProgress");
-                eleml.show();
-                let i = 0;
-                if (i == 0) {
-                    i = 1;
-                    const elem = photo_list.next('.pip').find(".myBar");
-                    let width = 1;
-                    const id = setInterval(frame, 10);
-
-                    function frame() {
-                        if (width >= 100) {
-                            photo_list.next('.pip').next(".remove").show();
-                            photo_list.next('.pip').find(".profile-overlay").hide();
-                            submit_btn.prop("disabled", false);
-                            submit_btn.removeClass('disabled');
-                            eleml.hide();
-                            clearInterval(id);
-                            i = 0;
-                        } else {
-                            width++;
-                            //elem.style.width = width + "%";
-                            elem.css("width", width + "%");
-                        }
-                    }
-                }
-
-            });
-            fileReader.readAsDataURL(f);
-            //}
-        });
-    } else {
-        alert("Your browser doesn't support to File API")
-    }
 
     /*
     Save account settings

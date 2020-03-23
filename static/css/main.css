@@ -3595,18 +3595,27 @@ ul.library-image li{
 #cover-photo-popup.photo-upload .sign-up-form-body {
     padding: 20px 40px 40px;
 }
+
+#cover-photo-popup .upload-photo-content .field.photo-list{
+	width:100%;
+	height:300px;
+}
+
 #cover-photo-popup .upload-photo-content .field.photo-list .pip{
 	width:100%;
 	height:151px;
 }
 
-/*#cover-photo-popup .remove{
+#cover-photo-popup .remove{
 	position: absolute;
 	bottom: 58px;
 	right: 40px;
-}*/
+}
 #cover-photo-popup .sign-up-form-body .pop-up-buttons{
 	margin-top:10px;
+}
+#cover-photo-popup #upload-banner {
+	position: absolute;
 }
 .libary-content{
 	height:258px;
