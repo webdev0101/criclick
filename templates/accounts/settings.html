@@ -4,6 +4,14 @@
 {% endblock %}
 
 {% block custom_stylesheets %}
+    <style>
+        .croppie-container .cr-viewport:focus {
+            outline: none;
+        }
+        .croppie-container .cr-viewport {
+            border: none;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -46,6 +54,10 @@
                                             <input type="file" class="files" name="files">
                                             <i class="fas fa-camera"></i>
                                         </div>
+                                        <div class="pip display-none">
+                                            <div class="profile-overlay"></div>
+                                            <div class="myProgress"><div class="myBar"></div></div>
+                                        </div>
                                         <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
@@ -87,7 +99,7 @@
                                 <div class="update-profile-image-wrapper"
                                      {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
                                     {% if user.profile.avatar %}
-                                        <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                        <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview landscape">
                                     {% else %}
                                         {{ user.first_name.0 }}
                                     {% endif %}
@@ -113,6 +125,10 @@
                                                     <input type="file" class="files" name="files" accept="image/*"/>
                                                     <i class="fas fa-camera"></i>
                                                 </div>
+                                                <div class="pip display-none">
+													<div class="profile-overlay"></div>
+													<div class="myProgress"><div class="myBar"></div></div>
+												</div>
                                                 <span class="remove display-none">
                                                     <i class="fal fa-trash-alt"></i>
                                                 </span>
@@ -593,13 +609,14 @@
                         $('#profile-photo-popup .profile-photo-submit').on('click', function () {
                             uploadCrop.croppie('result', {
                                 type: 'canvas',
-                                size: 'viewport'
+                                size: 'original'
                             }).then(function (response) {
+                                $('.profile-photo-wrapper .pip').removeClass('display-none');
                                 $.ajax({
                                     type: 'POST',
                                     data: {
                                         cropped_image: response,
-                                        original_image: reader.result
+                                        // original_image: reader.result
                                     },
                                     url: "/accounts/settings/upload/avatar/",
                                     beforeSend: function (xhr, settings) {
@@ -620,6 +637,23 @@
                                         }
 
                                         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                    },
+                                    xhr: function() {
+                                        let xhr = new window.XMLHttpRequest();
+                                        xhr.upload.addEventListener('progress', function (evt) {
+                                            if (evt.lengthComputable) {
+                                                let percentComplete = evt.loaded / evt.total * 100;
+                                                console.log(percentComplete);
+                                                $('.profile-photo-wrapper .pip').find('.myBar').css('width', percentComplete + '%');
+                                            }
+                                        }, false);
+                                        xhr.addEventListener('progress', function (evt) {
+                                            if (evt.lengthComputable) {
+                                                let percentComplete = evt.loaded / evt.total;
+
+                                            }
+                                        }, false);
+                                        return xhr;
                                     },
                                     success: function (data) {
                                         window.location.reload();
@@ -650,13 +684,14 @@
                         $('.cover-photo-wrapper .profile-photo-submit').on('click', function () {
                             $uploadCrop2.croppie('result', {
                                 type: 'canvas',
-                                size: 'viewport'
+                                size: 'original'
                             }).then(function (response) {
+                                $('.cover-photo-wrapper .pip').removeClass('display-none');
                                 $.ajax({
                                     type: 'POST',
                                     data: {
                                         cropped_image: response,
-                                        original_image: reader.result
+                                        // original_image: reader.result
                                     },
                                     url: "/accounts/settings/upload/banner/",
                                     beforeSend: function (xhr, settings) {
@@ -677,6 +712,23 @@
                                         }
 
                                         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                    },
+                                    xhr: function() {
+                                        let xhr = new window.XMLHttpRequest();
+                                        xhr.upload.addEventListener('progress', function (evt) {
+                                            if (evt.lengthComputable) {
+                                                let percentComplete = evt.loaded / evt.total * 100;
+                                                console.log(percentComplete);
+                                                $('.cover-photo-wrapper .pip').find('.myBar').css('width', percentComplete + '%');
+                                            }
+                                        }, false);
+                                        xhr.addEventListener('progress', function (evt) {
+                                            if (evt.lengthComputable) {
+                                                let percentComplete = evt.loaded / evt.total;
+
+                                            }
+                                        }, false);
+                                        return xhr;
                                     },
                                     success: function (data) {
                                         window.location.reload();

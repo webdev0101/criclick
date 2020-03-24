@@ -66,9 +66,10 @@ def image_as_base64(image_file, image_format='png'):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
-    avatar_origin = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
+    # avatar_icon = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
+    # avatar_origin = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
     banner = models.ImageField(blank=True, null=True, upload_to=banner_directory_path)
-    banner_origin = models.ImageField(blank=True, null=True, upload_to=banner_directory_path)
+    # banner_origin = models.ImageField(blank=True, null=True, upload_to=banner_directory_path)
     background_color = models.CharField(default='#ffffff', max_length=10)
     location = models.CharField(max_length=191, blank=True, null=True)
     latlng = models.PointField(blank=True, null=True)

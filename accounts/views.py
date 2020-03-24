@@ -381,21 +381,21 @@ class SettingsUploadPhotoView(View):
     @method_decorator(email_verified, name='dispatch')
     def post(self, request, photo_type):
         cropped_image_data = request.POST.get('cropped_image', None)
-        original_image_data = request.POST.get('original_image', None)
+        # original_image_data = request.POST.get('original_image', None)
         cropped_image_format, cropped_image_string = cropped_image_data.split(';base64,')
         cropped_image_ext = cropped_image_format.split('/')[-1]
         cropped_file = ContentFile(base64.b64decode(cropped_image_string))
-        original_image_format, original_image_string = original_image_data.split(';base64,')
-        original_image_ext = original_image_format.split('/')[-1]
-        original_file = ContentFile(base64.b64decode(original_image_string))
+        # original_image_format, original_image_string = original_image_data.split(';base64,')
+        # original_image_ext = original_image_format.split('/')[-1]
+        # original_file = ContentFile(base64.b64decode(original_image_string))
         cropped_file_name = photo_type + '_cropped.' + cropped_image_ext
-        original_file_name = photo_type + '_original.' + original_image_ext
+        # original_file_name = photo_type + '_original.' + original_image_ext
         if photo_type == 'avatar':
             request.user.profile.avatar.save(cropped_file_name, cropped_file, save=True)
-            request.user.profile.avatar_origin.save(original_file_name, original_file, save=True)
+            # request.user.profile.avatar_origin.save(original_file_name, original_file, save=True)
         elif photo_type == 'banner':
             request.user.profile.banner.save(cropped_file_name, cropped_file, save=True)
-            request.user.profile.banner_origin.save(original_file_name, original_file, save=True)
+            # request.user.profile.banner_origin.save(original_file_name, original_file, save=True)
         return JsonResponse({
 
         })
@@ -429,10 +429,17 @@ class AjaxCheckUsernameView(View):
         username = request.GET['username'].lower()
         if username == '':
             data = {
-                'message': 'Success'
+                'message': ''
             }
             response = JsonResponse(data)
-            response.status_code = 200
+            response.status_code = 403
+            return response
+        if len(username) < 4:
+            data = {
+                'message': ''
+            }
+            response = JsonResponse(data)
+            response.status_code = 403
             return response
         try:
             user = User.objects.get(username=username)

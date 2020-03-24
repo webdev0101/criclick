@@ -1354,11 +1354,7 @@ input[type="file"] {
   transform: translateX(-50%);
   left:50%;
 }
-.pip {
-  display: inline-block;
-  margin: 10px 10px 0 0;
-  overflow:hidden;
-}
+
 .remove {
 	display: block;
 	background: rgba(255, 255, 255, .5);
@@ -1511,14 +1507,14 @@ img.imgpreview.landscape{
 	background-size:cover;
 	background-position:center center;
 	background-repeat:no-repeat;
-	margin-left:5px;
 	height:99px;
 	width:99px;
 	border-radius:3px;
-	margin-left:0px;
-	margin-top:0px;
-	margin-right:0px;
-	position:relative;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
 	overflow:hidden;
 }
 .pip::before{

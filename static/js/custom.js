@@ -1081,17 +1081,17 @@ $(window).on("load", function () {
 
 /*============ IMAGE CIECLE==============*/
 $(window).on("load resize", function (e) {
-    const imgs = $('.imgpreview');
-    imgs.each(function () {
-        const img = $(this);
-        const width = img.width();
-        const height = img.height();
-        if (width < height) {
-            img.addClass('portrait');
-        } else {
-            img.addClass('landscape');
-        }
-    });
+    // const imgs = $('.imgpreview');
+    // imgs.each(function () {
+    //     const img = $(this);
+    //     const width = img.width();
+    //     const height = img.height();
+    //     if (width < height) {
+    //         img.addClass('portrait');
+    //     } else {
+    //         img.addClass('landscape');
+    //     }
+    // });
     if ($(window).width() < 768) {
         //alert('Less than 960');
         $('.ui.modal.sign-in').modal('show');
