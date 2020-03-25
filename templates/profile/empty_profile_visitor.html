@@ -93,7 +93,11 @@
 
                     <div class="cover-photo">
 
-                        <div class="empty-cover-photo"></div>
+                        {% if user.profile.banner %}
+                            <img src="/media/{{ user.profile.banner }}" alt="">
+                        {% else %}
+                            <div class="empty-cover-photo"></div>
+                        {% endif %}
 
                         <!-- ============= CRREATE POST POPUP END ============= -->
 
@@ -143,11 +147,11 @@
 
                                 </div>
 
-                                <div class="updated-profile-image empty-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+                                <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
 
-                                    <div class="update-profile-image-wrapper" style="background-color: {{ user.profile.background_color }}">
+                                    <div class="update-profile-image-wrapper" {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
                                         {% if user.profile.avatar %}
-                                            <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
+                                            <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview landscape">
                                         {% else %}
                                             {{ user.first_name.0 }}
                                         {% endif %}

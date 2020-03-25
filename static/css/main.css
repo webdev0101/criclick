@@ -3292,7 +3292,7 @@ img.imgpreview.landscape{
 	font-size:18px;
 }
 .empty-profile-image .update-profile-image-wrapper{
-	background-color:#5a79a3;
+	/*background-color:#5a79a3;*/
 	color:#fff;
 	font-weight: 800;
 	display: inline-block;
