@@ -1,13 +1,14 @@
-import base64
 from datetime import datetime
+from io import BytesIO
 
 import requests
+from PIL import Image
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -380,22 +381,25 @@ class SettingsUploadPhotoView(View):
     @method_decorator(login_required, name='dispatch')
     @method_decorator(email_verified, name='dispatch')
     def post(self, request, photo_type):
-        cropped_image_data = request.POST.get('cropped_image', None)
-        # original_image_data = request.POST.get('original_image', None)
-        cropped_image_format, cropped_image_string = cropped_image_data.split(';base64,')
-        cropped_image_ext = cropped_image_format.split('/')[-1]
-        cropped_file = ContentFile(base64.b64decode(cropped_image_string))
-        # original_image_format, original_image_string = original_image_data.split(';base64,')
-        # original_image_ext = original_image_format.split('/')[-1]
-        # original_file = ContentFile(base64.b64decode(original_image_string))
-        cropped_file_name = photo_type + '_cropped.' + cropped_image_ext
-        # original_file_name = photo_type + '_original.' + original_image_ext
+        file = request.FILES.get('file', None)
+        ext = file.content_type.split('/')[-1]
+        i = Image.open(file)
+        thumb_io = BytesIO()
+        i.save(thumb_io, format='JPEG', quality=80)
         if photo_type == 'avatar':
-            request.user.profile.avatar.save(cropped_file_name, cropped_file, save=True)
-            # request.user.profile.avatar_origin.save(original_file_name, original_file, save=True)
+            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'avatar.' + ext,
+                                                          'image/jpeg', thumb_io.tell(), None)
+            request.user.profile.avatar = inmemory_uploaded_file
+            request.user.profile.save()
         elif photo_type == 'banner':
-            request.user.profile.banner.save(cropped_file_name, cropped_file, save=True)
-            # request.user.profile.banner_origin.save(original_file_name, original_file, save=True)
+            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'banner.' + ext,
+                                                          'image/jpeg', thumb_io.tell(), None)
+            points_string = request.POST.get('points', None)
+            zoom = request.POST.get('zoom', None)
+            request.user.profile.banner_points = points_string
+            request.user.profile.banner_zoom = zoom
+            request.user.profile.banner = inmemory_uploaded_file
+            request.user.profile.save()
         return JsonResponse({
 
         })
@@ -436,7 +440,7 @@ class AjaxCheckUsernameView(View):
             return response
         if len(username) < 4:
             data = {
-                'message': ''
+                'message': 'The username must be at least 4 characters long.'
             }
             response = JsonResponse(data)
             response.status_code = 403

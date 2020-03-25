@@ -705,8 +705,6 @@ h3.or-sign-up-bottom {
 	height:308px;
 	min-height:100%;
 	object-fit: cover;
-	object-position: top center;
-	object-fit: cover;
 	object-position: center;
 }
 .errormessage{
@@ -1511,7 +1509,7 @@ img.imgpreview.landscape{
 	width:99px;
 	border-radius:3px;
 	position:absolute;
-	top: 50%;
+	top: 150px;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 1000;
@@ -3546,7 +3544,7 @@ img.imgpreview.landscape{
 	border: 0px;
 	width: auto;
 	position: absolute;
-	top: 50%;
+	top: 148px;
 	transform: translate(-50%,-50%);
 	left: 50%;
 	background:#dedede;
@@ -3594,19 +3592,19 @@ ul.library-image li{
 
 #cover-photo-popup .upload-photo-content .field.photo-list{
 	width:100%;
-	height:300px;
+	height:345px;
 }
 
-#cover-photo-popup .upload-photo-content .field.photo-list .pip{
-	width:100%;
-	height:151px;
-}
+/*#cover-photo-popup .upload-photo-content .field.photo-list .pip{*/
+/*	width:100%;*/
+/*	height:151px;*/
+/*}*/
 
-#cover-photo-popup .remove{
-	position: absolute;
-	bottom: 58px;
-	right: 40px;
-}
+/*#cover-photo-popup .remove{*/
+/*	position: absolute;*/
+/*	bottom: 58px;*/
+/*	right: 40px;*/
+/*}*/
 #cover-photo-popup .sign-up-form-body .pop-up-buttons{
 	margin-top:10px;
 }
@@ -4587,10 +4585,10 @@ body.stop-scroll:after{
     height: 295px;
     width: 100% !important;
 }
-#cover-photo-popup .upload-photo-content.new-upload-photo-content .field.photo-list .pip {
-   background-color:#e9e9e9;
-	height:300px;
-}
+/*#cover-photo-popup .upload-photo-content.new-upload-photo-content .field.photo-list .pip {*/
+/*   background-color:#e9e9e9;*/
+/*	height:300px;*/
+/*}*/
 .new-cover-photo-style {
 	margin-bottom:20px;
 }
@@ -4602,10 +4600,10 @@ body.animating.in.dimmable .site-header.inner-page-header, body.dimmed.dimmable 
 	padding-right:17px;
 }
 .new-photo-upload .field.photo-list.profile-photo-wrapper{
-	height: 295px;
+	height: 345px;
 	width: 100% !important;
-	background-color:#e9e9e9;
-	padding-bottom:0px;
+	/*background-color:#e9e9e9;*/
+	padding-bottom:0;
 	margin-bottom:25px !important;
 	border-radius:3px;
 }

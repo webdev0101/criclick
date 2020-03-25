@@ -625,15 +625,16 @@ $(document).ready(function () {
             },
             success: function (response) {
                 let error_element = $('#username-error');
-                error_element.html('');
-                error_element.hide();
+                error_element.html('Available');
+                error_element.css('color', '#6fc694');
+                error_element.show();
                 $('#setting-form input[name=username]').removeClass('invalid').addClass('valid');
-                $('.right-tick').addClass('tick-show');
             },
             error: function (xhr, status, error) {
                 let res = xhr.responseJSON;
                 let error_element = $('#username-error');
                 error_element.html(res.message);
+                error_element.css('color', '#ff0000');
                 error_element.show();
                 $('#setting-form input[name=username]').removeClass('valid').addClass('invalid');
                 $('.right-tick').removeClass('tick-show');

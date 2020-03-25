@@ -101,3 +101,4 @@ class AccountSettingForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+

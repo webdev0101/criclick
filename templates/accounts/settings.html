@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block custom_stylesheets %}
+    <link rel="stylesheet" href="/assets/css/spinner.css">
     <style>
         .croppie-container .cr-viewport:focus {
             outline: none;
@@ -54,9 +55,17 @@
                                             <input type="file" class="files" name="files">
                                             <i class="fas fa-camera"></i>
                                         </div>
-                                        <div class="pip display-none">
-                                            <div class="profile-overlay"></div>
-                                            <div class="myProgress"><div class="myBar"></div></div>
+                                        <div class="ko-progress-circle display-none" data-progress="0">
+                                            <div class="ko-circle">
+                                                <div class="full ko-progress-circle__slice">
+                                                    <div class="ko-progress-circle__fill"></div>
+                                                </div>
+                                                <div class="ko-progress-circle__slice">
+                                                    <div class="ko-progress-circle__fill"></div>
+                                                    <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ko-progress-circle__overlay"></div>
                                         </div>
                                         <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
                                         <div class="clearfix"></div>
@@ -125,10 +134,18 @@
                                                     <input type="file" class="files" name="files" accept="image/*"/>
                                                     <i class="fas fa-camera"></i>
                                                 </div>
-                                                <div class="pip display-none">
-													<div class="profile-overlay"></div>
-													<div class="myProgress"><div class="myBar"></div></div>
-												</div>
+                                                <div class="ko-progress-circle display-none" data-progress="0">
+                                                    <div class="ko-circle">
+                                                        <div class="full ko-progress-circle__slice">
+                                                            <div class="ko-progress-circle__fill"></div>
+                                                        </div>
+                                                        <div class="ko-progress-circle__slice">
+                                                            <div class="ko-progress-circle__fill"></div>
+                                                            <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ko-progress-circle__overlay"></div>
+                                                </div>
                                                 <span class="remove display-none">
                                                     <i class="fal fa-trash-alt"></i>
                                                 </span>
@@ -561,36 +578,15 @@
                 let bannerFilesHolder = $('.cover-photo-wrapper .files-holder');
                 let avatarUploadButton = $('#profile-photo-popup .profile-photo-submit');
                 let bannerUploadButton = $('.cover-photo-wrapper .profile-photo-submit');
+                let xhrObject, xhrObject2;
                 avatarUploadButton.prop('disabled', true);
                 avatarUploadButton.addClass('disabled');
                 bannerUploadButton.prop('disabled', true);
                 bannerUploadButton.addClass('disabled');
 
-                function b64toBlob(b64Data, contentType, sliceSize) {
-                    contentType = contentType || '';
-                    sliceSize = sliceSize || 512;
-
-                    var byteCharacters = atob(b64Data);
-                    var byteArrays = [];
-
-                    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                        var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                        var byteNumbers = new Array(slice.length);
-                        for (var i = 0; i < slice.length; i++) {
-                            byteNumbers[i] = slice.charCodeAt(i);
-                        }
-
-                        var byteArray = new Uint8Array(byteNumbers);
-
-                        byteArrays.push(byteArray);
-                    }
-
-                    return new Blob(byteArrays, {type: contentType});
-                }
-
                 function readAvatarFile(input) {
                     if (input.files && input.files[0]) {
+                        let format = input.files[0].type.split("/")[1];
                         let reader = new FileReader();
                         avatarFilesHolder.hide();
                         avatarRemoveButton.show();
@@ -608,16 +604,18 @@
 
                         $('#profile-photo-popup .profile-photo-submit').on('click', function () {
                             uploadCrop.croppie('result', {
-                                type: 'canvas',
-                                size: 'original'
+                                type: 'blob',
+                                size: 'original',
+                                format: format
                             }).then(function (response) {
-                                $('.profile-photo-wrapper .pip').removeClass('display-none');
-                                $.ajax({
+                                $('.profile-photo-wrapper .ko-progress-circle').removeClass('display-none');
+                                let formData = new FormData();
+                                formData.append('file', response);
+                                xhrObject2 = $.ajax({
                                     type: 'POST',
-                                    data: {
-                                        cropped_image: response,
-                                        // original_image: reader.result
-                                    },
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
                                     url: "/accounts/settings/upload/avatar/",
                                     beforeSend: function (xhr, settings) {
                                         function getCookie(name) {
@@ -644,7 +642,7 @@
                                             if (evt.lengthComputable) {
                                                 let percentComplete = evt.loaded / evt.total * 100;
                                                 console.log(percentComplete);
-                                                $('.profile-photo-wrapper .pip').find('.myBar').css('width', percentComplete + '%');
+                                                $('.profile-photo-wrapper .ko-progress-circle').attr('data-progress', Math.floor(percentComplete));
                                             }
                                         }, false);
                                         xhr.addEventListener('progress', function (evt) {
@@ -667,6 +665,7 @@
                 function readBannerFile(input) {
                     if (input.files && input.files[0]) {
                         let reader = new FileReader();
+                        let format = input.files[0].type.split("/")[1];
                         bannerFilesHolder.hide();
                         bannerRemoveButton.show();
                         reader.onload = function (e) {
@@ -682,58 +681,58 @@
                         reader.readAsDataURL(input.files[0]);
 
                         $('.cover-photo-wrapper .profile-photo-submit').on('click', function () {
-                            $uploadCrop2.croppie('result', {
-                                type: 'canvas',
-                                size: 'original'
-                            }).then(function (response) {
-                                $('.cover-photo-wrapper .pip').removeClass('display-none');
-                                $.ajax({
-                                    type: 'POST',
-                                    data: {
-                                        cropped_image: response,
-                                        // original_image: reader.result
-                                    },
-                                    url: "/accounts/settings/upload/banner/",
-                                    beforeSend: function (xhr, settings) {
-                                        function getCookie(name) {
-                                            let cookieValue = null;
-                                            if (document.cookie && document.cookie != '') {
-                                                let cookies = document.cookie.split(';');
-                                                for (let i = 0; i < cookies.length; i++) {
-                                                    let cookie = jQuery.trim(cookies[i]);
-                                                    // Does this cookie string begin with the name we want?
-                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                        break;
-                                                    }
+                            let pointsData = $uploadCrop2.croppie('get');
+                            console.log(pointsData);
+                            let formData = new FormData();
+                            formData.append('file', input.files[0]);
+                            formData.append('points', pointsData.points);
+                            formData.append('zoom', pointsData.zoom);
+                            $('.cover-photo-wrapper .ko-progress-circle').removeClass('display-none');
+                            xhrObject = $.ajax({
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                url: "/accounts/settings/upload/banner/",
+                                beforeSend: function (xhr, settings) {
+                                    function getCookie(name) {
+                                        let cookieValue = null;
+                                        if (document.cookie && document.cookie != '') {
+                                            let cookies = document.cookie.split(';');
+                                            for (let i = 0; i < cookies.length; i++) {
+                                                let cookie = jQuery.trim(cookies[i]);
+                                                // Does this cookie string begin with the name we want?
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
                                                 }
                                             }
-                                            return cookieValue;
                                         }
-
-                                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                                    },
-                                    xhr: function() {
-                                        let xhr = new window.XMLHttpRequest();
-                                        xhr.upload.addEventListener('progress', function (evt) {
-                                            if (evt.lengthComputable) {
-                                                let percentComplete = evt.loaded / evt.total * 100;
-                                                console.log(percentComplete);
-                                                $('.cover-photo-wrapper .pip').find('.myBar').css('width', percentComplete + '%');
-                                            }
-                                        }, false);
-                                        xhr.addEventListener('progress', function (evt) {
-                                            if (evt.lengthComputable) {
-                                                let percentComplete = evt.loaded / evt.total;
-
-                                            }
-                                        }, false);
-                                        return xhr;
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
+                                        return cookieValue;
                                     }
-                                });
+
+                                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                },
+                                xhr: function() {
+                                    let xhr = new window.XMLHttpRequest();
+                                    xhr.upload.addEventListener('progress', function (evt) {
+                                        if (evt.lengthComputable) {
+                                            let percentComplete = evt.loaded / evt.total * 100;
+                                            $('.cover-photo-wrapper .ko-progress-circle').attr('data-progress', Math.floor(percentComplete));
+                                        }
+                                    }, false);
+                                    xhr.addEventListener('progress', function (evt) {
+                                        if (evt.lengthComputable) {
+                                            let percentComplete = evt.loaded / evt.total;
+
+                                        }
+                                    }, false);
+                                    return xhr;
+                                },
+                                success: function (data) {
+                                    $('.cover-photo-wrapper .ko-progress-circle').addClass('display-none');
+                                    window.location.reload();
+                                }
                             });
                         });
                     }
@@ -750,6 +749,10 @@
                     avatarUploadButton.prop('disabled', true);
                     avatarUploadButton.addClass('disabled');
                     $(this).hide();
+                    if (xhrObject2) {
+                        xhrObject2.abort();
+                    }
+                    $('.profile-photo-wrapper .ko-progress-circle').addClass('display-none');
                     $('#upload-avatar .files-holder .files').val('');
                     $('#upload-avatar img').attr('src', '');
                 });
@@ -757,6 +760,10 @@
                     bannerFilesHolder.show();
                     bannerUploadButton.prop('disabled', true);
                     bannerUploadButton.addClass('disabled');
+                    if (xhrObject) {
+                        xhrObject.abort();
+                    }
+                    $('.cover-photo-wrapper .ko-progress-circle').addClass('display-none');
                     $(this).hide();
                     $('.files-holder .files').val('');
                     $('#upload-banner img').attr('src', '');
