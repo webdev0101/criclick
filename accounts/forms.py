@@ -6,7 +6,7 @@ from django.contrib.gis.geos import Point
 from django.core.exceptions import ValidationError
 
 from accounts.colors import random_color
-from accounts.models import User
+from accounts.models import User, BusinessInfo
 
 
 class LoginForm(AuthenticationForm):
@@ -40,7 +40,7 @@ class PasswordResetEmailForm(forms.Form):
 
 
 class EmailVerifyCodeForm(forms.Form):
-    code = forms.RegexField(regex=r'^\d{6}$')
+    code = forms.RegexField(regex=r'^\d{6}$', error_messages={'invalid': 'The code you entered is invalid'})
 
 
 class PhoneVerifyCodeForm(forms.Form):
@@ -102,3 +102,35 @@ class AccountSettingForm(forms.Form):
             self.user.save()
         return self.user
 
+
+class BusinessInfoForm(forms.ModelForm):
+    name = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Legal Business Name'}))
+    location = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Business Location'}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Business Phone Number'}))
+    website = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Website'}))
+
+    class Meta:
+        model = BusinessInfo
+        fields = [
+            'name',
+            'location',
+            'phone',
+            'description',
+            'areas',
+            'website'
+        ]
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(BusinessInfoForm, self).save(commit=False)
+        instance.user = self.user
+        if not instance.name:
+            instance.name = self.user.first_name + ' ' + self.user.last_name
+        if commit:
+            instance.save()
+            instance.areas.clear()
+            instance.areas.add(*self.cleaned_data['areas'])
+        return instance

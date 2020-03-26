@@ -153,10 +153,16 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.pinterest.PinterestOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 AUTH_USER_MODEL = 'accounts.User'
+
+LOGIN_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home'
 
 # EMAIL_BACKEND = 'django_smtp_ssl.EmailBackend'
 
@@ -196,3 +202,14 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id,name,email',
 }
+
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '81kg7cbleczryn'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'b0GDuQBW8U1fUYnH'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['emailAddress', 'profilePicture']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+    ('id', 'id'),
+    ('formattedName', 'name'),
+    ('emailAddress', 'email'),
+    ('profilePicture', 'avatar'),
+]

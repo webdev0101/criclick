@@ -2332,7 +2332,7 @@ img.imgpreview.landscape{
 .social-button-area{
 	margin-top:3px;
 }
-.social-button-area a.btn.btn-primary.btn-sm{
+.social-button-area .btn.btn-primary.btn-sm {
 	font-size:14px;
 	color:#333333;
 	font-family: 'Muli', sans-serif;
@@ -2340,7 +2340,7 @@ img.imgpreview.landscape{
 	border:1px solid #b9c5cd;
 	padding: 5px 28px;
 }
-.social-button-area a.btn.btn-primary.btn-sm.deactive{
+.social-button-area .btn.btn-primary.btn-sm.deactive {
 	background:#5da8e2;
 	color:#fff;
 	border:1px solid #5da8e2;

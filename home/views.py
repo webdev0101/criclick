@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -10,7 +10,10 @@ from accounts.models import User
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        if request.user.is_anonymous:
+            return render(request, 'index.html')
+        else:
+            return redirect('/home')
 
 
 @method_decorator(login_required, name='dispatch')

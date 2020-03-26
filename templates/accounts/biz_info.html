@@ -1,495 +1,294 @@
 {% extends 'base_user.html' %}
 
+{% block custom_stylesheets %}
+    <link rel="stylesheet" href="/assets/css/tokenize2.css">
+{% endblock %}
+
 {% block content %}
     <div class="pusher">
-
         <section class="profile-Section">
-
             <div class="container">
-
                 <!-- BANNER SECTION START -->
-
                 <div class="cover-photo">
-
-                    <img src="/assets/images/review-banner.jpg" alt="">
-
+                    {% if user.profile.banner %}
+                        <img src="/media/{{ user.profile.banner }}" alt="">
+                    {% else %}
+                        <div class="empty-cover-photo"></div>
+                    {% endif %}
+                    {#                    <img src="/assets/images/review-banner.jpg" alt="">#}
                 </div>
-
                 <!-- BANNER SECTION END -->
-
                 <div class="clearfix"></div>
-
                 <div class="row">
-
                     <!-- ================ LEFT SIDEBAR START ======================== -->
-
                     <div class="col-md-3 left-sidebar">
-
                         <!-- PROFILE DETAILS -->
-
                         <div class="gray-border m-10 p-15 text-center profile-details">
-
-                            <div class="text-right three-dots-holder">
-
-                                <div class="ui labeled icon top right pointing dropdown">
-
-                                    <a class="item ">
-
-                                        <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                    </a>
-
-                                    <div class="menu">
-
-                                        <div class="item common-dropdown">
-
-                                            <ul>
-
-                                                <li><a href="">Report profile</a></li>
-
-                                                <li><a href="">Block user</a></li>
-
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
+                            <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+                                <div class="update-profile-image-wrapper"
+                                     {% if not user.profile.avatar %}style="background-color: {{ user.profile.background_color }}"{% endif %}>
+                                    {% if user.profile.avatar %}
+                                        <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview landscape">
+                                    {% else %}
+                                        {{ user.first_name.0 }}
+                                    {% endif %}
                                 </div>
-
                             </div>
-
-                            <div class="updated-profile-image">
-
-                                <div class="update-profile-image-wrapper">
-
-                                    <img src="/assets/images/profile-image.jpg" alt="" class="imgpreview">
-
-                                </div>
-
-                            </div>
-
                             <h1><a href="profile-owner.html">Mike’s Bike Shop goes here</a></h1>
-
                             <p>North Miami, FL</p>
-
                             <div class="clearfix"></div>
-
                         </div>
-
                         <!-- Tab links -->
-
                         <div class="tab-link-area account-gap">
-
                             <ul>
-
-                                <li><a href="/accounts/settings/"><span><i class="fal fa-user"></i></span>General</a></li>
-
-                                <li class="active"><a href="/accounts/biz-info/"><span><i class="fal fa-store"></i></span>Business
-                                    Info</a></li>
-
-                                <li><a href=""><span><i class="fal fa-lock-alt"></i></span>Privacy</a></li>
-
-                                <li><a href=""><span><i class="fal fa-bell"></i></span>Notifications</a></li>
-
+                                <li><a href="/accounts/settings/"><span><i class="fal fa-user"></i></span>General</a>
+                                </li>
+                                <li class="active"><a href="/accounts/biz-info/">
+                                    <span><i class="fal fa-store"></i></span>Business Info</a>
+                                </li>
+                                <li><a href="#"><span><i class="fal fa-lock-alt"></i></span>Privacy</a></li>
+                                <li><a href="#"><span><i class="fal fa-bell"></i></span>Notifications</a></li>
                             </ul>
-
                         </div>
-
                     </div>
-
                     <!-- ================ LEFT SIDEBAR END ======================== -->
-
                     <!-- =============== RIGHT GALLERY =================== -->
-
                     <div class="col-md-9 gallery-right">
-
                         <!-- EACH POST -->
-
                         <div class="gray-border m-10 p-20 general-form">
-
                             <div class="row">
-
                                 <div class="col-md-12">
-
                                     <div class="tab-heading">
-
                                         <p><span><i class="fal fa-store"></i></span>Business info</p>
-
                                     </div>
-
                                 </div>
-
                                 <div class="col-md-12">
-
-                                    <form>
-
+                                    <form id="biz-info-form">
                                         <div class="row">
-
+                                            {% csrf_token %}
                                             <div class="col-md-12">
-
                                                 <label class="label-genral-form">Legal Business Name
-                                                    (Optional) </span></label>
-
+                                                    <span>(Optional)</span> </label>
                                                 <div class="row">
-
                                                     <div class="col-md-8 pr-2">
-
                                                         <div class="post-form-field m-20">
-
-                                                            <input type="text" name="Legal Business Name"
-                                                                   placeholder="Legal Business Name">
-
+                                                            {{ form.name }}
                                                         </div>
-
                                                     </div>
-
                                                     <div class="col-md-4 pl-2">
-
                                                         <div class="blank-text">
-
                                                             <p>If blank, your profile will use your username.</p>
-
                                                         </div>
-
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
                                             <div class="clearfix"></div>
-
                                             <div class="col-md-8 pr-2">
-
                                                 <div class="post-form-field m-20">
-
                                                     <label class="label-genral-form">Business Location
                                                         <span>(Optional)</span></label>
-
-                                                    <input type="text" name="Location" placeholder="Business Location">
-
+                                                    {{ form.location }}
                                                 </div>
-
                                             </div>
-
                                             <div class="clearfix"></div>
-
                                             <div class="col-md-4 pr-2">
-
                                                 <div class="post-form-field m-20">
-
                                                     <label class="label-genral-form">Business Phone Number</label>
-
-                                                    <input type="text" name="Last name"
-                                                           placeholder="Business Phone Number">
-
+                                                    {{ form.phone }}
                                                 </div>
-
                                             </div>
-
                                             <div class="clearfix"></div>
-
                                             <div class="col-md-12">
-
                                                 <div class="post-form-field m-20">
-
                                                     <div class="post-form-field service-description">
-
                                                         <label class="label-genral-form">About</label>
-
-                                                        <textarea name="Service-Description" rows="" cols=""
-                                                                  placeholder=""></textarea>
-
+                                                        {{ form.description }}
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
                                             <div class="col-md-12">
-
-                                                <div class="post-form-field m-20 multi-select">
-
-                                                    <label class="label-genral-form">Areas you serve <span>(Seperate by coma)</span></label>
-
-                                                    <input id="myAutocomplete" type="text"/>
-
-                                                    <script>
-
-                                                        $(function () {
-
-                                                            var availableTags = [
-
-                                                                "Miami",
-
-                                                                "Fort Lauderdale",
-
-                                                                "West Palm",
-
-                                                            ];
-
-                                                            $('#myAutocomplete').autocomplete({
-
-                                                                source: availableTags,
-
-                                                                multiselect: true
-
-                                                            });
-
-                                                        })
-
-                                                    </script>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="clearfix"></div>
-
-                                            <div class="col-md-8 pr-2">
-
                                                 <div class="post-form-field m-20">
-
-                                                    <label class="label-genral-form">Website
-                                                        <span>(Optional)</span></label>
-
-                                                    <input type="text" name="Location" placeholder="Website">
-
+                                                    <label class="label-genral-form">Areas you serve <span>(Seperate by coma)</span></label>
+                                                    {{ form.areas }}
                                                 </div>
-
                                             </div>
-
-                                            <div class="col-md-6 m-30">
-
-                                                <div class="connection-list m-20">
-
-                                                    <p>Connections</p>
-
-                                                </div>
-
-                                                <div class="connection-social">
-
-                                                    <div class="each-social-connection m-15">
-
-                                                        <div class="social-icon-area pull-left">
-
-                                                            <ul>
-
-                                                                <li>
-
-                                                                    <div class="icons facebook-icon">
-
-																				<span>
-
-																					<span><i
-                                                                                            class="fab fa-facebook-f"></i></span>
-
-																				</span>
-
-                                                                    </div>
-
-                                                                </li>
-
-                                                                <li>facebook.com/</li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="social-button-area pull-left">
-
-                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
-
-                                                        </div>
-
-                                                        <div class="clearfix"></div>
-
-                                                    </div>
-
-                                                    <div class="each-social-connection m-15">
-
-                                                        <div class="social-icon-area pull-left">
-
-                                                            <ul>
-
-                                                                <li>
-
-                                                                    <div class="icons twitter-icon">
-
-																				<span>
-
-																					<span><i class="fab fa-twitter"></i></span>
-
-																				</span>
-
-                                                                    </div>
-
-                                                                </li>
-
-                                                                <li>twitter.com/</li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="social-button-area pull-left">
-
-                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
-
-                                                        </div>
-
-                                                        <div class="clearfix"></div>
-
-                                                    </div>
-
-                                                    <div class="each-social-connection m-15">
-
-                                                        <div class="social-icon-area pull-left">
-
-                                                            <ul>
-
-                                                                <li>
-
-                                                                    <div class="icons linked-icon">
-
-																				<span>
-
-																					<span><i
-                                                                                            class="fab fa-linkedin-in"></i></span>
-
-																				</span>
-
-                                                                    </div>
-
-                                                                </li>
-
-                                                                <li>linkedin.com/</li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="social-button-area pull-left">
-
-                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
-
-                                                        </div>
-
-                                                        <div class="clearfix"></div>
-
-                                                    </div>
-
-                                                    <div class="each-social-connection m-15">
-
-                                                        <div class="social-icon-area pull-left">
-
-                                                            <ul>
-
-                                                                <li>
-
-                                                                    <div class="icons pinterest-icon">
-
-																				<span>
-
-																					<span><i
-                                                                                            class="fab fa-pinterest-p"></i></span>
-
-																				</span>
-
-                                                                    </div>
-
-                                                                </li>
-
-                                                                <li>pinterest.com/</li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="social-button-area pull-left">
-
-                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
-
-                                                        </div>
-
-                                                        <div class="clearfix"></div>
-
-                                                    </div>
-
-                                                    <div class="each-social-connection m-25">
-
-                                                        <div class="social-icon-area pull-left">
-
-                                                            <ul>
-
-                                                                <li>
-
-                                                                    <div class="icons youtube-icon">
-
-																				<span>
-
-																					<span><i class="fab fa-youtube"></i></span>
-
-																				</span>
-
-                                                                    </div>
-
-                                                                </li>
-
-                                                                <li>youtube.com/</li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="social-button-area pull-left">
-
-                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
-
-                                                        </div>
-
-                                                        <div class="clearfix"></div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
                                             <div class="clearfix"></div>
-
-                                            <div class="col-md-4 pr-2 m-30">
-
-                                                <div class="post-form-field">
-
-                                                    <button class="btn btn-primary btn-sm">Save Changes</button>
-
+                                            <div class="col-md-8 pr-2">
+                                                <div class="post-form-field m-20">
+                                                    <label class="label-genral-form">
+                                                        Website<span>(Optional)</span>
+                                                    </label>
+                                                    {{ form.website }}
                                                 </div>
-
                                             </div>
-
+                                            <div class="col-md-6 m-30">
+                                                <div class="connection-list m-20">
+                                                    <p>Connections</p>
+                                                </div>
+                                                <div class="connection-social">
+                                                    <div class="each-social-connection m-15">
+                                                        <div class="social-icon-area pull-left">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="icons facebook-icon">
+                                                                        <span>
+                                                                            <span><i
+                                                                                    class="fab fa-facebook-f"></i></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>facebook.com/</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="social-button-area pull-left">
+                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="each-social-connection m-15">
+                                                        <div class="social-icon-area pull-left">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="icons twitter-icon">
+                                                                        <span>
+                                                                            <span><i class="fab fa-twitter"></i></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>twitter.com/</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="social-button-area pull-left">
+                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="each-social-connection m-15">
+                                                        <div class="social-icon-area pull-left">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="icons linked-icon">
+                                                                        <span>
+                                                                            <span><i
+                                                                                    class="fab fa-linkedin-in"></i></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>linkedin.com/</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="social-button-area pull-left">
+                                                            {% if linkedin_account %}
+                                                                <button class="btn btn-primary deactive btn-sm"
+                                                                        form="disconnect-linkedin">Disconnect
+                                                                </button>
+                                                            {% else %}
+                                                                <a href="{% url 'social:begin' 'linkedin-oauth2' %}?next=/accounts/biz-info/"
+                                                                   class="btn btn-primary btn-sm">Connect</a>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="each-social-connection m-15">
+                                                        <div class="social-icon-area pull-left">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="icons pinterest-icon">
+                                                                        <span>
+                                                                            <span><i class="fab fa-pinterest-p"></i></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>pinterest.com/</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="social-button-area pull-left">
+                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="each-social-connection m-25">
+                                                        <div class="social-icon-area pull-left">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="icons youtube-icon">
+																				<span>
+																					<span><i class="fab fa-youtube"></i></span>
+																				</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>youtube.com/</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="social-button-area pull-left">
+                                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm">Connect</a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-4 pr-2 m-30">
+                                                <div class="post-form-field">
+                                                    <button type="button" class="btn btn-primary btn-sm">Save Changes
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-
                                     </form>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <!-- =============== MIDDLE POST LIST END =================== -->
-
                     <div class="clearfix"></div>
-
                 </div>
-
             </div>
-
         </section>
-
     </div>
+    <div>
+    </div>
+    {% if linkedin_account %}
+        <form id="disconnect-linkedin" action="{% url 'social:disconnect' 'linkedin-oauth2' %}?next=/accounts/biz-info/"
+              method="post">
+            {% csrf_token %}
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="/assets/js/tokenize2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function bizinfoFormSubmit() {
+                let form = $('#biz-info-form');
+                $.ajax({
+                    type: 'POST',
+                    url: '/accounts/biz-info/',
+                    data: form.serialize(),
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        let messages = xhr.responseJSON;
+                        for (x in messages) {
+                            $("#biz-info-form input[name="+ x +"]").addClass('invalid');
+                        }
+                    }
+                })
+            }
+
+            $('#biz-info-form input').unbind('keydown').bind('keydown', function (e) {
+                if (e.keyCode === 13) {
+                    e.preventDefault();
+                    bizinfoFormSubmit();
+                    return false;
+                }
+            });
+            $('#biz-info-form button').on('click', function () {
+                bizinfoFormSubmit()
+            });
+            $('select#id_areas').tokenize2();
+        });
+    </script>
 {% endblock %}

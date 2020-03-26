@@ -1,3 +1,4 @@
+import urllib.request
 from datetime import datetime
 from io import BytesIO
 
@@ -22,8 +23,8 @@ from social_django.models import UserSocialAuth
 from accounts.colors import random_color
 from accounts.decorators import email_verified
 from accounts.forms import LoginForm, RegisterForm, EmailVerifyCodeForm, PasswordResetEmailForm, AccountSettingForm, \
-    PhoneVerifyCodeForm
-from accounts.models import User, Profile
+    PhoneVerifyCodeForm, BusinessInfoForm
+from accounts.models import User, Profile, Area
 
 
 class AjaxLoginView(View):
@@ -44,7 +45,7 @@ class AjaxLoginView(View):
         else:
             data = form.errors
             response = JsonResponse(data, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -80,7 +81,7 @@ class AjaxRegisterView(View):
         else:
             data = form.errors
             response = JsonResponse(data, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -107,9 +108,14 @@ class EmailVerificationView(View):
                     )
                     user_data = result.json()
                     avatar = user_data['picture']
+                    i = Image.open(urllib.request.urlopen(avatar))
+                    thumb_io = BytesIO()
+                    i.save(thumb_io, format='JPEG', quality=80)
+                    inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'avatar.jpg',
+                                                                  'image/jpeg', thumb_io.tell(), None)
                     from django.db import IntegrityError
                     try:
-                        Profile.objects.create(user=user, avatar=avatar)
+                        Profile.objects.create(user=user, avatar=inmemory_uploaded_file)
                     except IntegrityError:
                         print('Profile exist')
                         profile = Profile.objects.get(user=user)
@@ -149,12 +155,12 @@ class EmailVerificationView(View):
                     'message': 'The code you entered is invalid.'
                 }
                 response = JsonResponse(data, safe=False)
-                response.status_code = 403
+                response.status_code = 400
                 return response
         else:
             data = form.errors
             response = JsonResponse(data, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -220,7 +226,7 @@ class AjaxPasswordResetView(View):
                     'message': 'We couldn\'t find this email in our database.'
                 }
                 response = JsonResponse(data, safe=False)
-                response.status_code = 403
+                response.status_code = 404
                 return response
             self.send_password_reset_link(request, user)
             data = {
@@ -232,7 +238,7 @@ class AjaxPasswordResetView(View):
         else:
             data = form.errors
             response = JsonResponse(data, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -267,7 +273,7 @@ class PasswordResetConfirmView(View):
             else:
                 data = form.errors
                 response = JsonResponse(data, safe=False)
-                response.status_code = 403
+                response.status_code = 400
                 return response
         else:
             return redirect('/accounts/login/')
@@ -297,7 +303,7 @@ class AjaxPasswordChangeView(View):
             return response
         else:
             response = JsonResponse(data=form.errors, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -316,7 +322,7 @@ class AjaxPhoneVerifyView(View):
             return response
         else:
             response = JsonResponse(data=form.errors, safe=False)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -373,7 +379,7 @@ class SettingsView(View):
         else:
             data = form.errors
             response = JsonResponse(data)
-            response.status_code = 403
+            response.status_code = 400
             return response
 
 
@@ -436,14 +442,14 @@ class AjaxCheckUsernameView(View):
                 'message': ''
             }
             response = JsonResponse(data)
-            response.status_code = 403
+            response.status_code = 400
             return response
         if len(username) < 4:
             data = {
                 'message': 'The username must be at least 4 characters long.'
             }
             response = JsonResponse(data)
-            response.status_code = 403
+            response.status_code = 400
             return response
         try:
             user = User.objects.get(username=username)
@@ -452,7 +458,7 @@ class AjaxCheckUsernameView(View):
                     'message': 'This username is already being used. Please try another one.'
                 }
                 response = JsonResponse(data)
-                response.status_code = 403
+                response.status_code = 400
                 return response
         except User.DoesNotExist:
             data = {
@@ -473,4 +479,34 @@ class BusinessInfoView(View):
     @method_decorator(login_required, name='dispatch')
     @method_decorator(email_verified, name='dispatch')
     def get(self, request):
-        return render(request, 'accounts/biz_info.html')
+        if hasattr(request.user, 'businessinfo'):
+            form = BusinessInfoForm(user=request.user, instance=request.user.businessinfo)
+        else:
+            form = BusinessInfoForm(user=request.user)
+        linkedin_account = request.user.social_auth.filter(provider='linkedin-oauth2')
+        areas = Area.objects.all()
+        return render(request, 'accounts/biz_info.html', {
+            'linkedin_account': linkedin_account,
+            'areas': areas,
+            'form': form,
+        })
+
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
+    def post(self, request):
+        if hasattr(request.user, 'businessinfo'):
+            form = BusinessInfoForm(user=request.user, data=request.POST, instance=request.user.businessinfo)
+        else:
+            form = BusinessInfoForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            response = JsonResponse({
+
+            })
+            response.status_code = 200
+            return response
+        else:
+            data = form.errors
+            response = JsonResponse(data)
+            response.status_code = 400
+            return response

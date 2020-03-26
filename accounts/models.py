@@ -3,14 +3,10 @@ import os
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
-
-# Create your models here.
 from django.utils.crypto import get_random_string
 from twilio.rest import Client
 
 from accounts.managers import UserManager
-from criclick import settings
-from criclick.storage import OverwriteStorage
 
 
 class User(AbstractUser):
@@ -27,7 +23,7 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def sms_to_verify(self):
         code = get_random_string(length=6, allowed_chars='1234567890')
@@ -65,6 +61,7 @@ def image_as_base64(image_file, image_format='png'):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    follows = models.ManyToManyField('Profile', related_name='followed_by')
     avatar = models.ImageField(blank=True, null=True, upload_to=avatar_directory_path)
     banner = models.ImageField(blank=True, null=True, upload_to=banner_directory_path)
     banner_points = models.CharField(blank=True, null=True, max_length=191)
@@ -74,10 +71,31 @@ class Profile(models.Model):
     latlng = models.PointField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    percentage = models.IntegerField(default=70)
 
     def __str__(self):
-        return self.user_id
+        return self.user.email
 
     def get_banner_points(self):
         return self.banner_points.split(',')
 
+
+class Area(models.Model):
+    name = models.CharField(max_length=191)
+
+    def __str__(self):
+        return self.name
+
+
+class BusinessInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=191)
+    location = models.CharField(max_length=191, blank=True, null=True)
+    latlng = models.PointField(blank=True, null=True)
+    phone = models.CharField(blank=True, null=True, max_length=32)
+    description = models.TextField()
+    areas = models.ManyToManyField('Area', blank=True)
+    website = models.CharField(max_length=191, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

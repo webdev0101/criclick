@@ -141,14 +141,14 @@
 
                                 </div>
 
-                                <div class="updated-profile-image">
-
-                                    <div class="update-profile-image-wrapper">
-
-                                        <img src="{{ user.profile.avatar }}" alt="" class="imgpreview">
-
+                                <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
+                                    <div class="update-profile-image-wrapper" {% if not user.profile.avatar %} style="background-color: {{ user.profile.background_color }}"{% endif %}>
+                                        {% if user.profile.avatar %}
+                                            <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview landscape">
+                                        {% else %}
+                                            {{ user.first_name.0 }}
+                                        {% endif %}
                                     </div>
-
                                 </div>
 
                                 <span class="profile-email">@{{ user.username }}</span>
@@ -159,7 +159,7 @@
 
                                 <p><strong>(305) 303-5740</strong></p>
 
-                                <a href="" class="btn btn-primary btn-sm line-button" target="_blank">Visit Website</a>
+                                <a href="#" class="btn btn-primary btn-sm line-button" target="_blank">Visit Website</a>
 
                                 <div class="clearfix"></div>
 
