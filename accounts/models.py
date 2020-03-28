@@ -69,9 +69,9 @@ class Profile(models.Model):
     background_color = models.CharField(default='#ffffff', max_length=10)
     location = models.CharField(max_length=191, blank=True, null=True)
     latlng = models.PointField(blank=True, null=True)
+    percentage = models.IntegerField(default=70)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    percentage = models.IntegerField(default=70)
 
     def __str__(self):
         return self.user.email
@@ -96,6 +96,8 @@ class BusinessInfo(models.Model):
     description = models.TextField()
     areas = models.ManyToManyField('Area', blank=True)
     website = models.CharField(max_length=191, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
