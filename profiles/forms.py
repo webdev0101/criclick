@@ -18,6 +18,7 @@ class PostForm(forms.ModelForm):
         ('call_now', 'Call now')
     )
     button_type = forms.ChoiceField(choices=BUTTON_TYPE_CHOICES)
+    description = forms.CharField()
 
     class Meta:
         model = Post

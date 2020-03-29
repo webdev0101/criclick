@@ -15,7 +15,55 @@
                     {% else %}
                         <div class="empty-cover-photo"></div>
                     {% endif %}
-                    {#                    <img src="/assets/images/review-banner.jpg" alt="">#}
+                    <div class="camera" id="cover-photo">
+                        <i class="far fa-pen"></i>
+                    </div>
+
+                    <div class="ui modal photo-upload new-photo-upload" id="cover-photo-popup">
+                        <span class="cross-popup"><i class="fas fa-times"></i></span>
+                        <div class="sign-up-form-body change-padding">
+                            <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
+                                <div class="cover-photo-tab new-cover-photo-style">
+                                    <h3 class="upload-photo-title upload-photo active">Cover Photo</h3>
+                                    <!-- <h3 class="upload-photo-title library-photo">Library</h3> -->
+                                </div>
+                                <div class="upload-photo-content new-upload-photo-content">
+                                    <div class="field photo-list" align="left">
+                                        <div id="upload-banner">
+                                        </div>
+                                        <div class="files-holder">
+                                            <input type="file" class="files" name="files" accept="image/*">
+                                            <i class="fas fa-camera"></i>
+                                        </div>
+                                        <div class="ko-progress-circle display-none" data-progress="0">
+                                            <div class="ko-circle">
+                                                <div class="full ko-progress-circle__slice">
+                                                    <div class="ko-progress-circle__fill"></div>
+                                                </div>
+                                                <div class="ko-progress-circle__slice">
+                                                    <div class="ko-progress-circle__fill"></div>
+                                                    <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ko-progress-circle__overlay"></div>
+                                        </div>
+                                        <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="pop-up-buttons">
+                                    <button type="button"
+                                            class="ui btn btn-info login-submit-button-blue banner-modal-cancel">
+                                        Cancel
+                                    </button>
+                                    <button type="button"
+                                            class="ui btn btn-info login-submit-button-blue profile-photo-submit">
+                                        Save Photo
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- BANNER SECTION END -->
                 <div class="clearfix"></div>
@@ -32,6 +80,51 @@
                                     {% else %}
                                         {{ user.first_name.0 }}
                                     {% endif %}
+                                </div>
+                                <div class="profile-image-overlay" id="profile-photo">
+                                    <i class="far fa-pen"></i>
+                                </div>
+                                <div class="ui modal photo-upload new-photo-upload" id="profile-photo-popup">
+                                    <span class="cross-popup"><i class="fas fa-times"></i></span>
+                                    <div class="sign-up-form-body">
+                                        <h1 class="upload-photo-title">Upload Photos</h1>
+                                        <form class="ui form sign-form" method="post" action="">
+                                            <div class="field photo-list profile-photo-wrapper" align="left">
+                                                <div id="upload-avatar">
+                                                </div>
+                                                <div class="files-holder new-file-holder" style="z-index: 100;">
+                                                    <input type="file" class="files" name="files" accept="image/*"/>
+                                                    <i class="fas fa-camera"></i>
+                                                </div>
+                                                <div class="ko-progress-circle display-none" data-progress="0">
+                                                    <div class="ko-circle">
+                                                        <div class="full ko-progress-circle__slice">
+                                                            <div class="ko-progress-circle__fill"></div>
+                                                        </div>
+                                                        <div class="ko-progress-circle__slice">
+                                                            <div class="ko-progress-circle__fill"></div>
+                                                            <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ko-progress-circle__overlay"></div>
+                                                </div>
+                                                <span class="remove display-none">
+                                                <i class="fal fa-trash-alt"></i>
+                                            </span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="pop-up-buttons">
+                                                <button type="button"
+                                                        class="ui btn btn-info login-submit-button-blue profile-modal-cancel">
+                                                    Cancel
+                                                </button>
+                                                <button type="button"
+                                                        class="ui btn btn-info login-submit-button-blue profile-photo-submit">
+                                                    Save Photo
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <h1><a href="profile-owner.html">Mike’s Bike Shop goes here</a></h1>
