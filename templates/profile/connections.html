@@ -1,758 +1,331 @@
-{% extends 'base_user.html' %}
+{% extends 'base_profile_owner.html' %}
 
-{% block content %}
-    <div class="ui pushable segment">
+{% block profile_content %}
+    <div class="gray-border m-10 p-15 each-single-post">
 
-        <!-- MOBILE NAVIGATION START -->
-
-        <div class="ui sidebar vertical menu right">
-
-            <div class="col-md-12">
-
-                <div class="menu profile-list mobile-menu text-right">
-
-                    <div class="header">
-
-                        Angelina Brownie
-
-                        <span class="mobile-profile-email">@angelinabro</span>
-
-                    </div>
-
-                    <div class="item ">
-
-                        <a href="profile-owner.html">Profile</a>
-
-                    </div>
-
-                    <div class="item message-counter">
-
-                        <a href="">
-
-                            <span class="active">20</span>
-
-                            Messages
-
-                        </a>
-
-                    </div>
-
-                    <div class="item message-counter">
-
-                        <a href="">
-
-                            <span>20</span>
-
-                            Bookmarks
-
-                        </a>
-
-                    </div>
-
-                    <div class="item">
-
-                        <a href="">Manage Posts</a>
-
-                    </div>
-
-                    <div class="item">
-
-                        <a href="">Help Center</a>
-
-                    </div>
-
-                    <div class="item">
-
-                        <a href="general.html">Settings</a>
-
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <div class="item log-out">
-
-                        <a href="index.html">Log Out</a>
-
-                    </div>
-
-                </div>
-
+        <div class="followers-and-followings">
+            <ul>
+                <li class="active"><a href="">240k Followers</a></li>
+                <li><a href="">240k Following</a></li>
+            </ul>
+        </div>
+        <div class="connection-search-box">
+            <div class="ui icon input">
+                <input class="prompt Nearby" type="text" placeholder="Search followers" autocomplete="off">
             </div>
-
         </div>
-
-        <!-- MOBILE NAVIGATION END -->
-
-        <div class="pusher">
-
-            <section class="profile-Section">
-
-                <div class="container">
-
-                    <!-- BANNER SECTION START -->
-
-                    <div class="cover-photo">
-
-                        <img src="assets/images/Login-Page-Background.jpg" alt="" class="imgpreview">
-
-                    </div>
-
-                    <!-- BANNER SECTION END -->
-
-                    <div class="clearfix"></div>
-
-                    <div class="row">
-
-                        <!-- ================ LEFT SIDEBAR START ======================== -->
-
-                        <div class="col-md-3 left-sidebar">
-
-                            <div class="mobile-more-button-insert"></div>
-
-                            <!-- PROFILE DETAILS -->
-
-                            <div class="gray-border m-10 p-15 text-center profile-details">
-
-                                <div class="text-right three-dots-holder">
-
-                                    <div class="ui labeled icon top right pointing dropdown">
-
-                                        <a class="item ">
-
-                                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                        </a>
-
-                                        <div class="menu">
-
-                                            <div class="item common-dropdown">
-
-                                                <ul>
-
-                                                    <li><a href="">Report profile</a></li>
-
-                                                    <li><a href="">Block user</a></li>
-
-                                                </ul>
-
-                                            </div>
-
+        <div class="followers-listing">
+            <ul>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers1.jpg" alt="" class="imgpreview">
                                         </div>
-
-                                    </div>
-
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
                                 </div>
-
-                                <div class="updated-profile-image">
-
-                                    <div class="update-profile-image-wrapper">
-
-                                        <img src="assets/images/profile-image.jpg" alt="" class="imgpreview">
-
-                                    </div>
-
-                                </div>
-
-                                <span class="profile-email">@angelinabro</span>
-
-                                <h1><a href="profile-owner.html">Mike’s Bike Shop goes here</a></h1>
-
-                                <p>North Miami, FL</p>
-
-                                <p><strong>(305) 303-5740</strong></p>
-
-                                <a href="" class="btn btn-primary btn-sm line-button" target="_blank">Visit Website</a>
-
-                                <div class="clearfix"></div>
-
-                                <ul class="social-icon">
-
-                                    <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-twitter"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-
-                                </ul>
-
                             </div>
-
-                            <div class="gray-border m-10 p-15 profile-owner-description mob-display-none">
-                                <h2 class="text-left">About</h2>
-                                <p>Jon Steinberg is the founder and CEO of Cheddar, a new video media company sitting at
-                                    the intersection of business news and culture.<a href="">...see more</a></p>
-                            </div>
-
-                            <!-- RATING -->
-
-                            <div class="gray-border m-10 p-15 Followers text-center profile-description mob-display-none">
-
-                                <h2 class="text-center">Reviews</h2>
-
-                                <div class="star-rating">
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                </div>
-
-                                <p>387 Reviews</p>
-
-                                <a href="review.html">View all review</a>
-
-                            </div>
-
-                            <!-- FOLLOWERS -->
-
-                            <div class="gray-border m-15 p-15 Followers text-center profile-description mob-display-none">
-
-                                <h2 class="text-center">Connections</h2>
-
-                                <ul>
-
-                                    <li data-tooltip="Robert de Niro" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="assets/images/avatar3.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Andres Robert" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="assets/images/avatar4.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Alberttcar" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="assets/images/avatar5.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Roseb" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="assets/images/avatar1.jpg" border="0" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                </ul>
-
-                                <p>458K Followers</p>
-
-                                <a href="">View all</a>
-
-                            </div>
-
-                            <!-- LEFT SIDEBAR BOTTOL LINKS -->
-
-                            <div class="left-side-bar-bottom-link mob-display-none">
-
-                                <p><span class="membr">Member since 2016</span></p>
-
-                                <ul>
-
-                                    <li><a href="">Help<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Cookies<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Privacy<span><i class="fas fa-circle"></i></span></a></li>
-
-                                </ul>
-
-                                <ul>
-
-                                    <li><a href="">About<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Careers<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Blog<span><i class="fas fa-circle"></i></span></a></li>
-
-                                </ul>
-
-                                <p>&copy;&nbsp;&nbsp;2019 Criclick</p>
-
-
-                            </div>
-
-                            <!-- ======= -->
-
                         </div>
-
-                        <!-- ================ LEFT SIDEBAR END ======================== -->
-
-                        <!-- =============== MIDDLE POST LIST START =================== -->
-
-                        <div class="col-md-7 middle-post-content">
-
-                            <ul class="all-product-offers mob-display-none">
-
-                                <li class="active"><a href="">All</a></li>
-
-                                <li><a href="">Services</a></li>
-
-                                <li><a href="">For Sale</a></li>
-
-                                <li><a href="">Offers</a></li>
-
-                                <li><a href="">Events</a></li>
-
-                                <li><a href="">Jobs</a></li>
-
-                            </ul>
-
-                            <div class="ui labeled icon top right pointing dropdown more-product-holder more-page mob-display-none">
-
-                                <a class="item more-product">
-
-                                    More <i class="fas fa-caret-down big"></i>
-
-                                </a>
-
-                                <div class="menu more-page-dropdown">
-
-                                    <div class="item common-dropdown">
-
-                                        <ul>
-
-                                            <li><a href="review.html">Reviews</a></li>
-
-                                            <li><a href="">Connections</a></li>
-
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <!-- EACH POST -->
-
-                            <div class="gray-border m-10 p-15 each-single-post">
-
-                                <div class="followers-and-followings">
-                                    <ul>
-                                        <li class="active"><a href="">240k Followers</a></li>
-                                        <li><a href="">240k Following</a></li>
-                                    </ul>
-                                </div>
-                                <div class="connection-search-box">
-                                    <div class="ui icon input">
-                                        <input class="prompt Nearby" type="text" placeholder="Search followers"
-                                               autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="followers-listing">
-                                    <ul>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers1.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers2.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers3.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers4.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers5.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers6.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers7.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers8.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers9.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers10.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ui small comments comments-padding">
-                                                <div class="review-author-rating following-author-rating">
-                                                    <div class="comment">
-                                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-                                                            <a class="item">
-                                                                <div class="avatar-image">
-                                                                    <img src="assets/images/followers11.jpg" alt=""
-                                                                         class="imgpreview">
-                                                                </div>
-                                                                <div class="avatar-profile-name">
-                                                                    <div class="review-rating customize-review-rating">
-                                                                        <div class="star-rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6>Claudio P.</h6>
-                                                                    <p>Follow</p>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- =============== MIDDLE POST LIST END =================== -->
-
-                        <!-- =============== RIGHT SIDEBAR START =================== -->
-
-                        <div class="col-md-3 right-sidebar">
-
-                            <div class="text-right right-sidebar-buttons">
-                                <a href="javascript:void(0)"
-                                   class="btn btn-primary btn-sm line-button unfollow transparent-bg">Unfollow</a>
-                                <a href="" class="btn btn-primary btn-sm">Message</a>
-                            </div>
-                            <div class="offers">
-                                <h2>Offers</h2>
-                                <a href="">View All</a>
-                                <div class="clearfix"></div>
-                            </div>
-                            <a class="gray-border m-15 each-add" href="" target="_blank">
-                                <div class="ad-image"><img src="assets/images/ad-image1.jpg" alt=""></div>
-                                <div class="p-15">
-                                    <p>Get 20% Off 1 Hour Massage for a aprice of one.</p>
-                                    <h2>$30</h2>
-                                </div>
-                            </a>
-                            <a class="gray-border m-15 each-add" href="" target="_blank">
-                                <div class="ad-image"><img src="assets/images/ad-image2.jpg" alt=""></div>
-                                <div class="p-15">
-                                    <p>Get 20% Off 1 Hour Massage for a aprice of one.</p>
-                                    <h2>$30</h2>
-                                </div>
-                            </a>
-                            <a class="gray-border m-15 each-add" href="" target="_blank">
-                                <div class="ad-image"><img src="assets/images/ad-image3.jpg" alt=""></div>
-                                <div class="p-15">
-                                    <p>Get 20% Off 1 Hour Massage for a aprice of one.</p>
-                                    <h2>$30</h2>
-                                </div>
-                            </a>
-                            <a class="gray-border m-15 each-add" href="" target="_blank">
-                                <div class="ad-image"><img src="assets/images/ad-image4.jpg" alt=""></div>
-                                <div class="p-15">
-                                    <p>Get 20% Off 1 Hour Massage for a aprice of one.</p>
-                                    <h2>$30</h2>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- ================ RIGHT SIDEBAR END =============== -->
-
-                        <div class="clearfix"></div>
-
                     </div>
-
-                </div>
-
-            </section>
-
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers2.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers3.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers4.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers5.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers6.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers7.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers8.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers9.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers10.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui small comments comments-padding">
+                        <div class="review-author-rating following-author-rating">
+                            <div class="comment">
+                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+                                    <a class="item">
+                                        <div class="avatar-image">
+                                            <img src="assets/images/followers11.jpg" alt="" class="imgpreview">
+                                        </div>
+                                        <div class="avatar-profile-name">
+                                            <div class="review-rating customize-review-rating">
+                                                <div class="star-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <h6>Claudio P.</h6>
+                                            <p>Follow</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+            </ul>
         </div>
-
     </div>
 {% endblock %}

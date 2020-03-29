@@ -2394,6 +2394,20 @@ img.imgpreview.landscape{
 .verified-link.verified-link-show{
 	opacity:1;
 }
+.verify-link{
+	position: absolute;
+	right:-50px;
+	top: 50%;
+	opacity:1;
+	font-size:12px;
+}
+.resend-link{
+	position: absolute;
+	right:-100px;
+	top: 50%;
+	opacity:1;
+	font-size:12px;
+}
 .multi-select .ui.fluid.dropdown.selection.multiple {
 	padding:10px 8px;
 	width:100%;
@@ -4426,6 +4440,12 @@ body.stop-scroll:after{
 }
 .cover-photo:hover i, .profile-image-overlay:hover i{
 	color:#000;
+}
+.croppie-container .cr-viewport:focus {
+	outline: none;
+}
+.croppie-container .cr-viewport {
+	border: none;
 }
 .menu.result-short-dropdown{
 	padding-right:5px !important;

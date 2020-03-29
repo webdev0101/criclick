@@ -6,12 +6,7 @@
 {% block custom_stylesheets %}
     <link rel="stylesheet" href="/assets/css/spinner.css">
     <style>
-        .croppie-container .cr-viewport:focus {
-            outline: none;
-        }
-        .croppie-container .cr-viewport {
-            border: none;
-        }
+
     </style>
 {% endblock %}
 
@@ -115,9 +110,7 @@
                                 </div>
 
                                 <div class="profile-image-overlay" id="profile-photo">
-
                                     <i class="far fa-pen"></i>
-
                                 </div>
 
                                 <!-- ==============CRREATE POST POPUP END=========== -->
@@ -328,8 +321,8 @@
                                                     {% else %}
                                                         <a href="javascript:;" class="verified-link" id="phone-verified"
                                                            hidden>Verified</a>
-                                                        <a href="javascript:;" class="verified-link" id="resend-code"
-                                                           hidden>Resend</a>
+                                                        <a href="javascript:;" class="verify-link" id="verify-phone">Verify</a>
+                                                        <a href="javascript:;" class="resend-link" id="resend-sms-code">Resend</a>
                                                     {% endif %}
 
                                                 </div>
@@ -570,231 +563,7 @@
 {% block custom_scripts %}
     <script>
         $(document).ready(function () {
-            let uploadCrop;
-            if (window.File && window.FileList && window.FileReader) {
-                let avatarRemoveButton = $('.profile-photo-wrapper .remove');
-                let bannerRemoveButton = $('.cover-photo-wrapper .remove');
-                let avatarFilesHolder = $('.profile-photo-wrapper .files-holder');
-                let bannerFilesHolder = $('.cover-photo-wrapper .files-holder');
-                let avatarUploadButton = $('#profile-photo-popup .profile-photo-submit');
-                let bannerUploadButton = $('.cover-photo-wrapper .profile-photo-submit');
-                let xhrObject, xhrObject2;
-                avatarUploadButton.prop('disabled', true);
-                avatarUploadButton.addClass('disabled');
-                bannerUploadButton.prop('disabled', true);
-                bannerUploadButton.addClass('disabled');
 
-                function readAvatarFile(input) {
-                    if (input.files && input.files[0]) {
-                        let format = input.files[0].type.split("/")[1];
-                        let reader = new FileReader();
-                        avatarFilesHolder.hide();
-                        avatarRemoveButton.show();
-                        reader.onload = function (e) {
-                            uploadCrop.croppie('bind', {
-                                url: e.target.result
-                            }).then(function () {
-                                console.log('jQuery bind complete');
-                            });
-                            avatarUploadButton.prop('disabled', false);
-                            avatarUploadButton.removeClass('disabled');
-                        };
-
-                        reader.readAsDataURL(input.files[0]);
-
-                        $('#profile-photo-popup .profile-photo-submit').on('click', function () {
-                            uploadCrop.croppie('result', {
-                                type: 'blob',
-                                size: 'original',
-                                format: format
-                            }).then(function (response) {
-                                $('.profile-photo-wrapper .ko-progress-circle').removeClass('display-none');
-                                let formData = new FormData();
-                                formData.append('file', response);
-                                xhrObject2 = $.ajax({
-                                    type: 'POST',
-                                    data: formData,
-                                    processData: false,
-                                    contentType: false,
-                                    url: "/accounts/settings/upload/avatar/",
-                                    beforeSend: function (xhr, settings) {
-                                        function getCookie(name) {
-                                            let cookieValue = null;
-                                            if (document.cookie && document.cookie != '') {
-                                                let cookies = document.cookie.split(';');
-                                                for (let i = 0; i < cookies.length; i++) {
-                                                    let cookie = jQuery.trim(cookies[i]);
-                                                    // Does this cookie string begin with the name we want?
-                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            return cookieValue;
-                                        }
-
-                                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                                    },
-                                    xhr: function() {
-                                        let xhr = new window.XMLHttpRequest();
-                                        xhr.upload.addEventListener('progress', function (evt) {
-                                            if (evt.lengthComputable) {
-                                                let percentComplete = evt.loaded / evt.total * 100;
-                                                console.log(percentComplete);
-                                                $('.profile-photo-wrapper .ko-progress-circle').attr('data-progress', Math.floor(percentComplete));
-                                            }
-                                        }, false);
-                                        xhr.addEventListener('progress', function (evt) {
-                                            if (evt.lengthComputable) {
-                                                let percentComplete = evt.loaded / evt.total;
-
-                                            }
-                                        }, false);
-                                        return xhr;
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
-                                    }
-                                });
-                            });
-                        });
-                    }
-                }
-
-                function readBannerFile(input) {
-                    if (input.files && input.files[0]) {
-                        let reader = new FileReader();
-                        let format = input.files[0].type.split("/")[1];
-                        bannerFilesHolder.hide();
-                        bannerRemoveButton.show();
-                        reader.onload = function (e) {
-                            $uploadCrop2.croppie('bind', {
-                                url: e.target.result
-                            }).then(function () {
-                                console.log('jQuery bind complete');
-                            });
-                            bannerUploadButton.prop('disabled', false);
-                            bannerUploadButton.removeClass('disabled');
-                        };
-
-                        reader.readAsDataURL(input.files[0]);
-
-                        $('.cover-photo-wrapper .profile-photo-submit').on('click', function () {
-                            let pointsData = $uploadCrop2.croppie('get');
-                            console.log(pointsData);
-                            let formData = new FormData();
-                            formData.append('file', input.files[0]);
-                            formData.append('points', pointsData.points);
-                            formData.append('zoom', pointsData.zoom);
-                            $('.cover-photo-wrapper .ko-progress-circle').removeClass('display-none');
-                            xhrObject = $.ajax({
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                url: "/accounts/settings/upload/banner/",
-                                beforeSend: function (xhr, settings) {
-                                    function getCookie(name) {
-                                        let cookieValue = null;
-                                        if (document.cookie && document.cookie != '') {
-                                            let cookies = document.cookie.split(';');
-                                            for (let i = 0; i < cookies.length; i++) {
-                                                let cookie = jQuery.trim(cookies[i]);
-                                                // Does this cookie string begin with the name we want?
-                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        return cookieValue;
-                                    }
-
-                                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                                },
-                                xhr: function() {
-                                    let xhr = new window.XMLHttpRequest();
-                                    xhr.upload.addEventListener('progress', function (evt) {
-                                        if (evt.lengthComputable) {
-                                            let percentComplete = evt.loaded / evt.total * 100;
-                                            $('.cover-photo-wrapper .ko-progress-circle').attr('data-progress', Math.floor(percentComplete));
-                                        }
-                                    }, false);
-                                    xhr.addEventListener('progress', function (evt) {
-                                        if (evt.lengthComputable) {
-                                            let percentComplete = evt.loaded / evt.total;
-
-                                        }
-                                    }, false);
-                                    return xhr;
-                                },
-                                success: function (data) {
-                                    $('.cover-photo-wrapper .ko-progress-circle').addClass('display-none');
-                                    window.location.reload();
-                                }
-                            });
-                        });
-                    }
-                }
-
-                $("#profile-photo-popup .files-holder .files").on("change", function (e) {
-                    readAvatarFile(this);
-                });
-                $("#cover-photo-popup .files-holder .files").on("change", function (e) {
-                    readBannerFile(this);
-                });
-                avatarRemoveButton.on('click', function () {
-                    avatarFilesHolder.show();
-                    avatarUploadButton.prop('disabled', true);
-                    avatarUploadButton.addClass('disabled');
-                    $(this).hide();
-                    if (xhrObject2) {
-                        xhrObject2.abort();
-                    }
-                    $('.profile-photo-wrapper .ko-progress-circle').addClass('display-none');
-                    $('#upload-avatar .files-holder .files').val('');
-                    $('#upload-avatar img').attr('src', '');
-                });
-                bannerRemoveButton.on('click', function () {
-                    bannerFilesHolder.show();
-                    bannerUploadButton.prop('disabled', true);
-                    bannerUploadButton.addClass('disabled');
-                    if (xhrObject) {
-                        xhrObject.abort();
-                    }
-                    $('.cover-photo-wrapper .ko-progress-circle').addClass('display-none');
-                    $(this).hide();
-                    $('.files-holder .files').val('');
-                    $('#upload-banner img').attr('src', '');
-                });
-                $uploadCrop2 = $('#upload-banner').croppie({
-                    enableExif: true,
-                    viewport: {
-                        width: 530,
-                        height: 220,
-                        type: 'square'
-                    },
-                    boundary: {
-                        width: 530,
-                        height: 295
-                    }
-                });
-                uploadCrop = $('#upload-avatar').croppie({
-                    enableExif: true,
-                    viewport: {
-                        width: 150,
-                        height: 150,
-                        type: 'circle'
-                    },
-                    boundary: {
-                        width: 530,
-                        height: 295
-                    }
-                });
-            } else {
-                alert("Your browser doesn't support to File API")
-            }
         });
     </script>
 {% endblock %}

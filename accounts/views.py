@@ -53,7 +53,7 @@ class AjaxRegisterView(View):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            username = get_random_string(length=16)
+            username = get_random_string(length=16, allowed_chars='abcdefghijklmnopqrstuvwxyz0123456789')
             email_verify_code = get_random_string(length=6, allowed_chars='1234567890')
             user = User.objects.create_user(
                 username=username,
@@ -307,9 +307,9 @@ class AjaxPasswordChangeView(View):
             return response
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(email_verified, name='dispatch')
 class AjaxPhoneVerifyView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def post(self, request):
         form = PhoneVerifyCodeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -326,9 +326,9 @@ class AjaxPhoneVerifyView(View):
             return response
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(email_verified, name='dispatch')
 class AjaxPhoneCodeResendView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def get(self, request):
         request.user.sms_to_verify()
         data = {
@@ -339,9 +339,9 @@ class AjaxPhoneCodeResendView(View):
         return response
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(email_verified, name='dispatch')
 class SettingsView(View):
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def get(self, request):
         email = request.user.email
         email_name_domain = email.split('@')
@@ -358,6 +358,8 @@ class SettingsView(View):
             'hidden_email': hidden_email,
         })
 
+    @method_decorator(login_required, name='dispatch')
+    @method_decorator(email_verified, name='dispatch')
     def post(self, request):
         form = AccountSettingForm(user=request.user, data=request.POST)
         if form.is_valid():

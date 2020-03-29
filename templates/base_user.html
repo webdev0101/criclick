@@ -39,6 +39,7 @@
 		<script type="text/javascript" src="/assets/js/jquery.autocomplete.multiselect.js"></script>
         <script type="text/javascript" src="/assets/js/croppie.js"></script>
 		<script type="text/javascript" src="/assets/js/custom.js"></script>
+        <script type="text/javascript" src="/assets/js/main.js"></script>
 	</head>
 	<body>
 		<!-- MOBILE NAVIGATION START -->
@@ -51,10 +52,10 @@
 								<span class="mobile-profile-email">@{{ user.username }}</span>
 							</div>
 							<div class="item ">
-								<a href="/accounts/profile/">Profile</a>
+								<a href="/{{ request.user.username }}/">Profile</a>
 							</div>
 							<div class="item message-counter">
-								<a href="">
+								<a href="#">
 									<span class="active">20</span>
 									Messages
 								</a>
@@ -87,7 +88,7 @@
 		<header class="site-header inner-page-header">
 			<div class="container">
 				<div class="site-logo">
-					<a href="/home/">
+					<a href="/">
 						<?xml version="1.0" encoding="utf-8"?>
 						<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -172,7 +173,7 @@
 							</div>
 							<div class="divider"></div>
 							<div class="item view-more more-listing-button">
-								<a href="">View all notifications</a>
+								<a href="#">View all notifications</a>
 							</div>
 						</div>
 					</div>
@@ -235,7 +236,7 @@
 							</div>
 							<div class="divider"></div>
 							<div class="item view-more more-listing-button">
-								<a href="">View all messages</a>
+								<a href="#">View all messages</a>
 							</div>
 						</div>
 					</div>
@@ -255,25 +256,25 @@
 							</div>
 							<div class="divider"></div>
 							<div class="item ">
-								<a href="/accounts/profile/">Profile</a>
+								<a href="/{{ request.user.username }}/">Profile</a>
 							</div>
 							<div class="item message-counter">
-								<a href="">
+								<a href="#">
 									<span>20</span>
 									Messages
 								</a>
 							</div>
 							<div class="item message-counter">
-								<a href="">
+								<a href="#">
 									<span>328</span>
 									Bookmarks
 								</a>
 							</div>
 							<div class="item">
-								<a href="">Manage Posts</a>
+								<a href="#">Manage Posts</a>
 							</div>
 							<div class="item">
-								<a href="">Help Center</a>
+								<a href="#">Help Center</a>
 							</div>
 							<div class="item">
 								<a href="/accounts/settings/">Settings</a>

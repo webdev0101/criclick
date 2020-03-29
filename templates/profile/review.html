@@ -1,77 +1,85 @@
-{% extends 'base_user.html' %}
+{% extends 'base_profile_owner.html' %}
 
-{% block content %}
-    <div class="ui pushable segment">
+{% block profile_content %}
+    <div class="gray-border m-10 p-15 each-single-post">
 
-        <!-- MOBILE NAVIGATION START -->
+        <div class="review-count pull-left">
 
-        <div class="ui sidebar vertical menu right">
+            <p>240 Reviews</p>
 
-            <div class="col-md-12">
+        </div>
 
-                <div class="menu profile-list mobile-menu text-right">
+        <div class="write-review pull-right">
 
-                    <div class="header">
+            <a href="">Write a review</a>
 
-                        {{ user.first_name }}&nbsp;{{ user.last_name }}
+        </div>
 
-                        <span class="mobile-profile-email">@{{ user.username }}</span>
+        <div class="clearfix"></div>
 
-                    </div>
+        <div class="ui small comments comments-padding">
 
-                    <div class="item ">
+            <div class="review-author-rating">
 
-                        <a href="/accounts/profile/">Profile</a>
+                <div class="comment">
 
-                    </div>
+                    <!--  -->
 
-                    <div class="item message-counter">
+                    <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
 
-                        <a href="">
+                        <a class="item">
 
-                            <span class="active">20</span>
+                            <div class="avatar-image">
 
-                            Messages
+                                <img src="/assets/images/avatar1.jpg" alt="" class="imgpreview">
 
-                        </a>
+                            </div>
 
-                    </div>
+                            <div class="avatar-profile-name">
 
-                    <div class="item message-counter">
+                                <p>Mavel P.</p>
 
-                        <a href="">
-
-                            <span>20</span>
-
-                            Bookmarks
+                            </div>
 
                         </a>
 
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Message </a></li>
+
+                                    <li><a href="profile-visitor.html">Profile</a></li>
+
+                                    <li><a href="">Report</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="item">
+                    <!--  -->
 
-                        <a href="">Manage Posts</a>
+                    <div class="review-rating customize-review-rating">
 
-                    </div>
+                        <div class="star-rating">
 
-                    <div class="item">
+                            <i class="fas fa-star"></i>
 
-                        <a href="">Help Center</a>
+                            <i class="fas fa-star"></i>
 
-                    </div>
+                            <i class="fas fa-star"></i>
 
-                    <div class="item">
+                            <i class="fas fa-star"></i>
 
-                        <a href="/accounts/settings/">Settings</a>
+                            <i class="fas fa-star"></i>
 
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <div class="item log-out">
-
-                        <a href="/accounts/logout/">Log Out</a>
+                        </div>
 
                     </div>
 
@@ -79,262 +87,130 @@
 
             </div>
 
-        </div>
+            <div class="comment">
 
-        <!-- MOBILE NAVIGATION END -->
+                <!--  -->
 
-        <div class="pusher">
+                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
 
-            <section class="profile-Section">
+                </div>
 
-                <div class="container">
+                <!--  -->
 
-                    <!-- BANNER SECTION START -->
+                <div class="content review-padding">
 
-                    <div class="cover-photo">
+                    <p>Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Metus
+                        vulputate eu scelerisque felis. Ut diam quam nulla porttitor massa id
+                        neque aliquam. Magnis dis parturient montes nascetur. </p>
 
-                        <img src="/assets/images/review-banner.jpg" alt="">
+                    <!--  -->
 
-                    </div>
+                    <div class="ui labeled icon top right pointing dropdown three-dots-holder">
 
-                    <!-- BANNER SECTION END -->
+                        <a class="item ">
 
-                    <div class="clearfix"></div>
+                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
 
-                    <div class="row">
+                        </a>
 
-                        <!-- ================ LEFT SIDEBAR START ======================== -->
+                        <div class="menu">
 
-                        <div class="col-md-3 left-sidebar">
-
-                            <!-- PROFILE DETAILS -->
-
-                            <div class="gray-border m-10 p-15 text-center profile-details">
-
-                                <div class="text-right three-dots-holder">
-
-                                    <div class="ui labeled icon top right pointing dropdown">
-
-                                        <a class="item ">
-
-                                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                        </a>
-
-                                        <div class="menu">
-
-                                            <div class="item common-dropdown">
-
-                                                <ul>
-
-                                                    <li><a href="">Report profile</a></li>
-
-                                                    <li><a href="">Block user</a></li>
-
-                                                </ul>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="updated-profile-image {% if not user.profile.avatar %}empty-profile-image{% endif %}">
-                                    <div class="update-profile-image-wrapper" {% if not user.profile.avatar %} style="background-color: {{ user.profile.background_color }}"{% endif %}>
-                                        {% if user.profile.avatar %}
-                                            <img src="/media/{{ user.profile.avatar }}" alt="" class="imgpreview landscape">
-                                        {% else %}
-                                            {{ user.first_name.0 }}
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                                <span class="profile-email">@{{ user.username }}</span>
-
-                                <h1><a href="/accounts/profile/">Mike’s Bike Shop goes here</a></h1>
-
-                                <p>North Miami, FL</p>
-
-                                <p><strong>(305) 303-5740</strong></p>
-
-                                <a href="#" class="btn btn-primary btn-sm line-button" target="_blank">Visit Website</a>
-
-                                <div class="clearfix"></div>
-
-                                <ul class="social-icon">
-
-                                    <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-twitter"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
-
-                                    <li><a href="" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-
-                                </ul>
-
-                            </div>
-
-                            <!-- RATING -->
-
-                            <div class="gray-border m-10 p-15 Followers text-center profile-description">
-
-                                <h2 class="text-center">Reviews</h2>
-
-                                <div class="star-rating">
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                    <i class="fas fa-star"></i>
-
-                                </div>
-
-                                <p>387 Reviews</p>
-
-                                <a href="review.html">View all review</a>
-
-                            </div>
-
-                            <!-- FOLLOWERS -->
-
-                            <div class="gray-border m-15 p-15 Followers text-center profile-description">
-
-                                <h2 class="text-center">Connections</h2>
+                            <div class="item common-dropdown">
 
                                 <ul>
 
-                                    <li data-tooltip="Robert de Niro" data-position="top center">
+                                    <li><a href="">Report profile</a></li>
 
-                                        <a href="">
-
-                                            <img src="/assets/images/avatar3.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Andres Robert" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="/assets/images/avatar4.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Alberttcar" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="/assets/images/avatar5.jpg" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
-
-                                    <li data-tooltip="Roseb" data-position="top center">
-
-                                        <a href="">
-
-                                            <img src="/assets/images/avatar1.jpg" border="0" alt="" class="imgpreview">
-
-                                        </a>
-
-                                    </li>
+                                    <li><a href="">Block user</a></li>
 
                                 </ul>
-
-                                <p>458K Followers</p>
-
-                                <a href="">View all</a>
 
                             </div>
-
-                            <!-- LEFT SIDEBAR BOTTOL LINKS -->
-
-                            <div class="left-side-bar-bottom-link">
-
-                                <p><span class="membr">Member since 2016</span></p>
-
-                                <ul>
-
-                                    <li><a href="">Help<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Cookies<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Privacy<span><i class="fas fa-circle"></i></span></a></li>
-
-                                </ul>
-
-                                <ul>
-
-                                    <li><a href="">About<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Careers<span><i class="fas fa-circle"></i></span></a></li>
-
-                                    <li><a href="">Blog<span><i class="fas fa-circle"></i></span></a></li>
-
-                                </ul>
-
-                                <p>&copy;&nbsp;&nbsp;2019 Criclick</p>
-
-
-                            </div>
-
-                            <!-- ======= -->
 
                         </div>
 
-                        <!-- ================ LEFT SIDEBAR END ======================== -->
+                    </div>
 
-                        <!-- =============== MIDDLE POST LIST START =================== -->
+                    <!--  -->
 
-                        <div class="col-md-7 middle-post-content">
+                </div>
 
-                            <ul class="all-product-offers">
+                <div class="date-of-reply">
 
-                                <li class="active"><a href="">All</a></li>
+                    <p>Mar 03, 2019</p>
 
-                                <li><a href="">Services</a></li>
+                    <a class="did-reply">Replied</a>
 
-                                <li><a href="">For Sale</a></li>
+                </div>
 
-                                <li><a href="">Offers</a></li>
+                <div class="comments comments-padding">
 
-                                <li><a href="">Events</a></li>
+                    <div class="comment">
 
-                                <li><a href="">Jobs</a></li>
+                        <!--  -->
 
-                            </ul>
+                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
 
-                            <div class="ui labeled icon top right pointing dropdown more-product-holder more-page">
+                            <a class="item owner-reply">
 
-                                <a class="item more-product">
+                                <div class="avatar-image">
 
-                                    More <i class="fas fa-caret-down big"></i>
+                                    <span class="profile-icon-chat">R</span>
+
+                                </div>
+
+                                <p>Owner</p>
+
+                            </a>
+
+                            <div class="menu owner-margin">
+
+                                <div class="item common-dropdown">
+
+                                    <ul>
+
+                                        <li><a href="">Message </a></li>
+
+                                        <li><a href="profile-visitor.html">Profile</a></li>
+
+                                        <li><a href="">Report</a></li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--  -->
+
+                        <div class="content review-padding">
+
+                            <p><a href="">Andres Robert</a> eu tincidunt tortor aliquam nulla
+                                facilisi cras. Eu turpis egestas pretium aenean pharetra magna
+                                ac placerat vestibulum. Morbi tristique senectus et netus.</p>
+
+                            <!--  -->
+
+                            <div class="ui labeled icon top right pointing dropdown three-dots-holder">
+
+                                <a class="item ">
+
+                                                            <span class="three-dots"><i
+                                                                    class="fal fa-ellipsis-h"></i></span>
 
                                 </a>
 
-                                <div class="menu more-page-dropdown">
+                                <div class="menu">
 
                                     <div class="item common-dropdown">
 
                                         <ul>
 
-                                            <li><a href="/{{ user.username }}/reviews/">Reviews</a></li>
+                                            <li><a href="">Report profile</a></li>
 
-                                            <li><a href="">Connections</a></li>
+                                            <li><a href="">Block user</a></li>
 
                                         </ul>
 
@@ -344,1122 +220,490 @@
 
                             </div>
 
-                            <!-- EACH POST -->
-
-                            <div class="gray-border m-10 p-15 each-single-post">
-
-                                <div class="review-count pull-left">
-
-                                    <p>240 Reviews</p>
-
-                                </div>
-
-                                <div class="write-review pull-right">
-
-                                    <a href="">Write a review</a>
-
-                                </div>
-
-                                <div class="clearfix"></div>
-
-                                <div class="ui small comments comments-padding">
-
-                                    <div class="review-author-rating">
-
-                                        <div class="comment">
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-
-                                                <a class="item">
-
-                                                    <div class="avatar-image">
-
-                                                        <img src="/assets/images/avatar1.jpg" alt="" class="imgpreview">
-
-                                                    </div>
-
-                                                    <div class="avatar-profile-name">
-
-                                                        <p>Mavel P.</p>
-
-                                                    </div>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Message </a></li>
-
-                                                            <li><a href="profile-visitor.html">Profile</a></li>
-
-                                                            <li><a href="">Report</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                            <div class="review-rating customize-review-rating">
-
-                                                <div class="star-rating">
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment">
-
-                                        <!--  -->
-
-                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
-
-                                        </div>
-
-                                        <!--  -->
-
-                                        <div class="content review-padding">
-
-                                            <p>Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Metus
-                                                vulputate eu scelerisque felis. Ut diam quam nulla porttitor massa id
-                                                neque aliquam. Magnis dis parturient montes nascetur. </p>
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown three-dots-holder">
-
-                                                <a class="item ">
-
-                                                    <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Report profile</a></li>
-
-                                                            <li><a href="">Block user</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                        </div>
-
-                                        <div class="date-of-reply">
-
-                                            <p>Mar 03, 2019</p>
-
-                                            <a class="did-reply">Replied</a>
-
-                                        </div>
-
-                                        <div class="comments comments-padding">
-
-                                            <div class="comment">
-
-                                                <!--  -->
-
-                                                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
-
-                                                    <a class="item owner-reply">
-
-                                                        <div class="avatar-image">
-
-                                                            <span class="profile-icon-chat">R</span>
-
-                                                        </div>
-
-                                                        <p>Owner</p>
-
-                                                    </a>
-
-                                                    <div class="menu owner-margin">
-
-                                                        <div class="item common-dropdown">
-
-                                                            <ul>
-
-                                                                <li><a href="">Message </a></li>
-
-                                                                <li><a href="profile-visitor.html">Profile</a></li>
-
-                                                                <li><a href="">Report</a></li>
-
-                                                            </ul>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <!--  -->
-
-                                                <div class="content review-padding">
-
-                                                    <p><a href="">Andres Robert</a> eu tincidunt tortor aliquam nulla
-                                                        facilisi cras. Eu turpis egestas pretium aenean pharetra magna
-                                                        ac placerat vestibulum. Morbi tristique senectus et netus.</p>
-
-                                                    <!--  -->
-
-                                                    <div class="ui labeled icon top right pointing dropdown three-dots-holder">
-
-                                                        <a class="item ">
-
-                                                            <span class="three-dots"><i
-                                                                    class="fal fa-ellipsis-h"></i></span>
-
-                                                        </a>
-
-                                                        <div class="menu">
-
-                                                            <div class="item common-dropdown">
-
-                                                                <ul>
-
-                                                                    <li><a href="">Report profile</a></li>
-
-                                                                    <li><a href="">Block user</a></li>
-
-                                                                </ul>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!--  -->
-
-                                                </div>
-
-                                                <div class="date-of-reply">
-
-                                                    <p>Mar 03, 2019</p>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="ui small comments comments-padding">
-
-                                    <div class="review-author-rating">
-
-                                        <div class="comment">
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-
-                                                <a class="item">
-
-                                                    <div class="avatar-image">
-
-                                                        <img src="/assets/images/avatar2.jpg" alt="" class="imgpreview">
-
-                                                    </div>
-
-                                                    <div class="avatar-profile-name">
-
-                                                        <p>Maura B.</p>
-
-                                                    </div>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Message </a></li>
-
-                                                            <li><a href="profile-visitor.html">Profile</a></li>
-
-                                                            <li><a href="">Report</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                            <div class="review-rating customize-review-rating">
-
-                                                <div class="star-rating">
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment">
-
-                                        <!--  -->
-
-                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
-
-                                        </div>
-
-                                        <!--  -->
-
-                                        <div class="content review-padding">
-
-                                            <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
-                                                pretium aenean pharetra magna ac placerat vestibulum.</p>
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown three-dots-holder">
-
-                                                <a class="item ">
-
-                                                    <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Report profile</a></li>
-
-                                                            <li><a href="">Block user</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                        </div>
-
-                                        <div class="reply-box">
-
-                                            <div class="date-of-reply">
-
-                                                <p>Mar 03, 2019</p>
-
-                                                <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
-
-                                            </div>
-
-                                            <div class="review-reply-area" style="display:none">
-
-                                                <form class="">
-
-                                                    <div class="post-form-field service-description m-30">
-
-                                                        <textarea name="Product-Description" rows="" cols=""
-                                                                  placeholder=""></textarea>
-
-                                                    </div>
-
-                                                    <div class="form-buttons text-right">
-
-                                                        <a href="javascript:void(0)" class="close_box">Cancel</a>
-
-                                                        <button>Submit</button>
-
-                                                    </div>
-
-                                                </form>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                                <div class="ui small comments comments-padding">
-
-                                    <div class="review-author-rating">
-
-                                        <div class="comment">
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-
-                                                <a class="item">
-
-                                                    <div class="avatar-image">
-
-                                                        <img src="/assets/images/avatar2.jpg" alt="" class="imgpreview">
-
-                                                    </div>
-
-                                                    <div class="avatar-profile-name">
-
-                                                        <p>Maura B.</p>
-
-                                                    </div>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Message </a></li>
-
-                                                            <li><a href="profile-visitor.html">Profile</a></li>
-
-                                                            <li><a href="">Report</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                            <div class="review-rating customize-review-rating">
-
-                                                <div class="star-rating">
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment">
-
-                                        <!--  -->
-
-                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
-
-                                        </div>
-
-                                        <!--  -->
-
-                                        <div class="content review-padding">
-
-                                            <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
-                                                pretium aenean pharetra magna ac placerat vestibulum.</p>
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown three-dots-holder">
-
-                                                <a class="item ">
-
-                                                    <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Report profile</a></li>
-
-                                                            <li><a href="">Block user</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                        </div>
-
-                                        <div class="reply-box">
-
-                                            <div class="date-of-reply">
-
-                                                <p>Mar 03, 2019</p>
-
-                                                <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
-
-                                            </div>
-
-                                            <div class="review-reply-area" style="display:none">
-
-                                                <form class="">
-
-                                                    <div class="post-form-field service-description m-30">
-
-                                                        <textarea name="Product-Description" rows="" cols=""
-                                                                  placeholder=""></textarea>
-
-                                                    </div>
-
-                                                    <div class="form-buttons text-right">
-
-                                                        <a href="javascript:void(0)" class="close_box">Cancel</a>
-
-                                                        <button>Submit</button>
-
-                                                    </div>
-
-                                                </form>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="ui small comments comments-padding">
-
-                                    <div class="review-author-rating">
-
-                                        <div class="comment">
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
-
-                                                <a class="item">
-
-                                                    <div class="avatar-image">
-
-                                                        <img src="/assets/images/avatar1.jpg" alt="" class="imgpreview">
-
-                                                    </div>
-
-                                                    <div class="avatar-profile-name">
-
-                                                        <p>Andre Q.</p>
-
-                                                    </div>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Message </a></li>
-
-                                                            <li><a href="profile-visitor.html">Profile</a></li>
-
-                                                            <li><a href="">Report</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                            <div class="review-rating customize-review-rating">
-
-                                                <div class="star-rating">
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                    <i class="fas fa-star"></i>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment">
-
-                                        <!--  -->
-
-                                        <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
-
-                                        </div>
-
-                                        <!--  -->
-
-                                        <div class="content review-padding">
-
-                                            <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
-                                                pretium aenean pharetra magna ac placerat vestibulum.</p>
-
-                                            <!--  -->
-
-                                            <div class="ui labeled icon top right pointing dropdown three-dots-holder">
-
-                                                <a class="item ">
-
-                                                    <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                                </a>
-
-                                                <div class="menu">
-
-                                                    <div class="item common-dropdown">
-
-                                                        <ul>
-
-                                                            <li><a href="">Report profile</a></li>
-
-                                                            <li><a href="">Block user</a></li>
-
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--  -->
-
-                                        </div>
-
-                                        <div class="reply-box">
-
-                                            <div class="date-of-reply">
-
-                                                <p>Mar 03, 2019</p>
-
-                                                <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
-
-                                            </div>
-
-                                            <div class="review-reply-area" style="display:none">
-
-                                                <form class="">
-
-                                                    <div class="post-form-field service-description m-30">
-
-                                                        <textarea name="Product-Description" rows="" cols=""
-                                                                  placeholder=""></textarea>
-
-                                                    </div>
-
-                                                    <div class="form-buttons text-right">
-
-                                                        <a href="javascript:void(0)" class="close_box">Cancel</a>
-
-                                                        <button>Submit</button>
-
-                                                    </div>
-
-                                                </form>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <!--  -->
 
                         </div>
 
-                        <!-- =============== MIDDLE POST LIST END =================== -->
+                        <div class="date-of-reply">
 
-                        <!-- =============== RIGHT SIDEBAR START =================== -->
-
-                        <div class="col-md-3 right-sidebar profile-owner-right-side">
-
-                            <div class="text-right right-sidebar-buttons">
-
-                                <div class="ui labeled icon top right pointing dropdown more-setting-holder">
-
-                                    <!-- <a class="item ">
-
-                                        <a href="javascript:void(0)" class="btn btn-default btn-sm ">More...</a>
-
-                                    </a> -->
-
-                                    <a class="item more-product h-auto profile-manage-button">
-
-                                        Manage <i class="fas fa-caret-down big"></i>
-
-                                    </a>
-
-                                    <div class="menu more-setting">
-
-                                        <div class="item common-dropdown">
-
-                                            <ul>
-
-                                                <li><a href="">Setting</a></li>
-
-                                                <li><a href="">About</a></li>
-
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <!-- ABOUT PROFILE -->
-
-                            <div class="gray-border m-10 p-15 profile-owner-description">
-
-                                <div class="text-right three-dots-holder">
-
-                                    <div class="ui labeled icon top right pointing dropdown" tabindex="0">
-
-                                        <a class="item ">
-
-                                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                        </a>
-
-                                        <div class="menu" tabindex="-1">
-
-                                            <div class="item common-dropdown">
-
-                                                <ul>
-
-                                                    <li><a href="">Edit Post</a></li>
-
-                                                    <li><a href="">Remove Post</a></li>
-
-                                                </ul>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <h2 class="text-left">About</h2>
-
-                                <p>Jon Steinberg is the founder and CEO of Cheddar, a new video media company sitting at
-                                    the intersection of business news and culture.<a href="">...see more</a></p>
-
-                            </div>
-
-                            <div class="gray-border m-10 profile-owner-description">
-
-                                <div class="service-list p-15">
-
-                                    <div class="text-right three-dots-holder">
-
-                                        <div class="ui labeled icon top right pointing dropdown" tabindex="0">
-
-                                            <a class="item ">
-
-                                                <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                            </a>
-
-                                            <div class="menu" tabindex="-1">
-
-                                                <div class="item common-dropdown">
-
-                                                    <ul>
-
-                                                        <li><a href="">Edit Post</a></li>
-
-                                                        <li><a href="">Remove Post</a></li>
-
-                                                    </ul>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <h2 class="text-left">Services</h2>
-
-                                    <ul class="service-listing">
-
-                                        <li><a href="">Web Design & Development</a></li>
-
-                                        <li><a href="">Website Analysis</a></li>
-
-                                        <li><a href="">Photography</a></li>
-
-                                        <li><a href="">Graphic Design</a></li>
-
-                                        <li><a href="">UX UI Design</a></li>
-
-                                        <li><a href="">Business Analysis</a></li>
-
-                                        <li><a href="">Copywriting</a></li>
-
-                                    </ul>
-
-                                </div>
-
-                                <div class="add-service p-15">
-
-                                    <a href="">Add a service</a>
-
-                                </div>
-
-                            </div>
-
-                            <div class="gray-border m-10 profile-owner-description">
-
-                                <div class="service-list p-15">
-
-                                    <div class="text-right three-dots-holder">
-
-                                        <div class="ui labeled icon top right pointing dropdown" tabindex="0">
-
-                                            <a class="item ">
-
-                                                <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                            </a>
-
-                                            <div class="menu" tabindex="-1">
-
-                                                <div class="item common-dropdown">
-
-                                                    <ul>
-
-                                                        <li><a href="">Edit Post</a></li>
-
-                                                        <li><a href="">Remove Post</a></li>
-
-                                                    </ul>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <h2 class="text-left">For sale</h2>
-
-                                    <div class="sale-pics row">
-
-                                        <div class="col-md-6">
-
-                                            <a href="">
-
-                                                <div class="sale-images">
-
-                                                    <img src="/assets/images/for_sale_1.jpg" alt="" class="imgpreview">
-
-                                                </div>
-
-                                            </a>
-
-                                        </div>
-
-                                        <div class="col-md-6">
-
-                                            <a href="">
-
-                                                <div class="sale-images">
-
-                                                    <img src="/assets/images/for_sale_2.jpg" alt="" class="imgpreview">
-
-                                                </div>
-
-                                            </a>
-
-                                        </div>
-
-                                        <div class="col-md-6">
-
-                                            <a href="">
-
-                                                <div class="sale-images">
-
-                                                    <img src="/assets/images/for_sale_3.jpg" alt="" class="imgpreview">
-
-                                                </div>
-
-                                            </a>
-
-                                        </div>
-
-                                        <div class="col-md-6">
-
-                                            <a href="">
-
-                                                <div class="sale-images">
-
-                                                    <img src="/assets/images/for_sale_4.jpg" alt="" class="imgpreview">
-
-                                                </div>
-
-                                            </a>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="view-all-products">
-
-                                        <a href="">View all Products</a>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="gray-border m-10 profile-owner-description offers-area">
-
-                                <div class="service-list p-15">
-
-                                    <div class="text-right three-dots-holder">
-
-                                        <div class="ui labeled icon top right pointing dropdown" tabindex="0">
-
-                                            <a class="item ">
-
-                                                <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                            </a>
-
-                                            <div class="menu" tabindex="-1">
-
-                                                <div class="item common-dropdown">
-
-                                                    <ul>
-
-                                                        <li><a href="">Edit Post</a></li>
-
-                                                        <li><a href="">Remove Post</a></li>
-
-                                                    </ul>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <h2 class="text-left">Offers</h2>
-
-                                </div>
-
-                                <a href="">
-
-                                    <div class="each-offers p-15">
-
-                                        <p>Enim neque volutpat ac...</p>
-
-                                        <p><span>Free</span></p>
-
-                                    </div>
-
-                                </a>
-
-                                <a href="">
-
-                                    <div class="each-offers p-15">
-
-                                        <p>Enim neque volutpat ac...</p>
-
-                                        <p><span>$940</span></p>
-
-                                    </div>
-
-                                </a>
-
-                                <div class="view-all-offers p-15">
-
-                                    <a href="">View all offers</a>
-
-                                </div>
-
-                            </div>
-
-                            <div class="gray-border m-10 profile-owner-description offers-area">
-
-                                <div class="service-list p-15">
-
-                                    <div class="text-right three-dots-holder">
-
-                                        <div class="ui labeled icon top right pointing dropdown" tabindex="0">
-
-                                            <a class="item ">
-
-                                                <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
-
-                                            </a>
-
-                                            <div class="menu" tabindex="-1">
-
-                                                <div class="item common-dropdown">
-
-                                                    <ul>
-
-                                                        <li><a href="">Edit Post</a></li>
-
-                                                        <li><a href="">Remove Post</a></li>
-
-                                                    </ul>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <h2 class="text-left">Events</h2>
-
-                                </div>
-
-                                <a href="">
-
-                                    <div class="each-offers p-15">
-
-                                        <p>Enim neque volutpat ac...</p>
-
-                                        <p><span>Free</span></p>
-
-                                    </div>
-
-                                </a>
-
-                                <a href="">
-
-                                    <div class="each-offers p-15">
-
-                                        <p>Enim neque volutpat ac...</p>
-
-                                        <p><span>$940</span></p>
-
-                                    </div>
-
-                                </a>
-
-                                <div class="view-all-offers p-15">
-
-                                    <a href="">View all offers</a>
-
-                                </div>
-
-                            </div>
+                            <p>Mar 03, 2019</p>
 
                         </div>
-
-                        <!-- ================ RIGHT SIDEBAR END =============== -->
-
-                        <div class="clearfix"></div>
 
                     </div>
 
                 </div>
 
-            </section>
+            </div>
+
+        </div>
+
+        <div class="ui small comments comments-padding">
+
+            <div class="review-author-rating">
+
+                <div class="comment">
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+
+                        <a class="item">
+
+                            <div class="avatar-image">
+
+                                <img src="/assets/images/avatar2.jpg" alt="" class="imgpreview">
+
+                            </div>
+
+                            <div class="avatar-profile-name">
+
+                                <p>Maura B.</p>
+
+                            </div>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Message </a></li>
+
+                                    <li><a href="profile-visitor.html">Profile</a></li>
+
+                                    <li><a href="">Report</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                    <div class="review-rating customize-review-rating">
+
+                        <div class="star-rating">
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="comment">
+
+                <!--  -->
+
+                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
+
+                </div>
+
+                <!--  -->
+
+                <div class="content review-padding">
+
+                    <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
+                        pretium aenean pharetra magna ac placerat vestibulum.</p>
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown three-dots-holder">
+
+                        <a class="item ">
+
+                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Report profile</a></li>
+
+                                    <li><a href="">Block user</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                </div>
+
+                <div class="reply-box">
+
+                    <div class="date-of-reply">
+
+                        <p>Mar 03, 2019</p>
+
+                        <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
+
+                    </div>
+
+                    <div class="review-reply-area" style="display:none">
+
+                        <form class="">
+
+                            <div class="post-form-field service-description m-30">
+
+                                                        <textarea name="Product-Description" rows="" cols=""
+                                                                  placeholder=""></textarea>
+
+                            </div>
+
+                            <div class="form-buttons text-right">
+
+                                <a href="javascript:void(0)" class="close_box">Cancel</a>
+
+                                <button>Submit</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="ui small comments comments-padding">
+
+            <div class="review-author-rating">
+
+                <div class="comment">
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+
+                        <a class="item">
+
+                            <div class="avatar-image">
+
+                                <img src="/assets/images/avatar2.jpg" alt="" class="imgpreview">
+
+                            </div>
+
+                            <div class="avatar-profile-name">
+
+                                <p>Maura B.</p>
+
+                            </div>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Message </a></li>
+
+                                    <li><a href="profile-visitor.html">Profile</a></li>
+
+                                    <li><a href="">Report</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                    <div class="review-rating customize-review-rating">
+
+                        <div class="star-rating">
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="comment">
+
+                <!--  -->
+
+                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
+
+                </div>
+
+                <!--  -->
+
+                <div class="content review-padding">
+
+                    <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
+                        pretium aenean pharetra magna ac placerat vestibulum.</p>
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown three-dots-holder">
+
+                        <a class="item ">
+
+                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Report profile</a></li>
+
+                                    <li><a href="">Block user</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                </div>
+
+                <div class="reply-box">
+
+                    <div class="date-of-reply">
+
+                        <p>Mar 03, 2019</p>
+
+                        <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
+
+                    </div>
+
+                    <div class="review-reply-area" style="display:none">
+
+                        <form class="">
+
+                            <div class="post-form-field service-description m-30">
+
+                                                        <textarea name="Product-Description" rows="" cols=""
+                                                                  placeholder=""></textarea>
+
+                            </div>
+
+                            <div class="form-buttons text-right">
+
+                                <a href="javascript:void(0)" class="close_box">Cancel</a>
+
+                                <button>Submit</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ui small comments comments-padding">
+
+            <div class="review-author-rating">
+
+                <div class="comment">
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar name-dropdown review-avatar">
+
+                        <a class="item">
+
+                            <div class="avatar-image">
+
+                                <img src="/assets/images/avatar1.jpg" alt="" class="imgpreview">
+
+                            </div>
+
+                            <div class="avatar-profile-name">
+
+                                <p>Andre Q.</p>
+
+                            </div>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Message </a></li>
+
+                                    <li><a href="profile-visitor.html">Profile</a></li>
+
+                                    <li><a href="">Report</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                    <div class="review-rating customize-review-rating">
+
+                        <div class="star-rating">
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                            <i class="fas fa-star"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="comment">
+
+                <!--  -->
+
+                <div class="ui labeled icon top right pointing dropdown profile-dropdown avatar">
+
+                </div>
+
+                <!--  -->
+
+                <div class="content review-padding">
+
+                    <p>Reu tincidunt tortor aliquam nulla facilisi cras. Eu turpis egestas
+                        pretium aenean pharetra magna ac placerat vestibulum.</p>
+
+                    <!--  -->
+
+                    <div class="ui labeled icon top right pointing dropdown three-dots-holder">
+
+                        <a class="item ">
+
+                            <span class="three-dots"><i class="fal fa-ellipsis-h"></i></span>
+
+                        </a>
+
+                        <div class="menu">
+
+                            <div class="item common-dropdown">
+
+                                <ul>
+
+                                    <li><a href="">Report profile</a></li>
+
+                                    <li><a href="">Block user</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--  -->
+
+                </div>
+
+                <div class="reply-box">
+
+                    <div class="date-of-reply">
+
+                        <p>Mar 03, 2019</p>
+
+                        <a href="JavaScript:Void(0);" class="reply-text">Reply</a>
+
+                    </div>
+
+                    <div class="review-reply-area" style="display:none">
+
+                        <form class="">
+
+                            <div class="post-form-field service-description m-30">
+
+                                                        <textarea name="Product-Description" rows="" cols=""
+                                                                  placeholder=""></textarea>
+
+                            </div>
+
+                            <div class="form-buttons text-right">
+
+                                <a href="javascript:void(0)" class="close_box">Cancel</a>
+
+                                <button>Submit</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

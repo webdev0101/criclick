@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 
 from criclick import settings
+from home.views import IndexView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),
+    path('', IndexView.as_view()),
+    path('home/', include('home.urls')),
+    path('', include('profiles.urls')),
     path('social/', include('social_django.urls', namespace='social')),
     path('accounts/', include('accounts.urls')),
-    path('profiles/', include('profiles.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
