@@ -52,55 +52,6 @@
                         {% else %}
                             <div class="empty-cover-photo"></div>
                         {% endif %}
-
-                        <div class="camera" id="cover-photo">
-                            <i class="far fa-pen"></i>
-                        </div>
-                        <div class="ui modal photo-upload new-photo-upload" id="cover-photo-popup">
-                            <span class="cross-popup"><i class="fas fa-times"></i></span>
-                            <div class="sign-up-form-body change-padding">
-                                <form class="ui form sign-form cover-photo-wrapper" method="post" action="">
-                                    <div class="cover-photo-tab new-cover-photo-style">
-                                        <h3 class="upload-photo-title upload-photo active">Cover Photo</h3>
-                                        <!-- <h3 class="upload-photo-title library-photo">Library</h3> -->
-                                    </div>
-                                    <div class="upload-photo-content new-upload-photo-content">
-                                        <div class="field photo-list" align="left">
-                                            <div id="upload-banner">
-                                            </div>
-                                            <div class="files-holder">
-                                                <input type="file" class="files" name="files" accept="image/*">
-                                                <i class="fas fa-camera"></i>
-                                            </div>
-                                            <div class="ko-progress-circle display-none" data-progress="0">
-                                                <div class="ko-circle">
-                                                    <div class="full ko-progress-circle__slice">
-                                                        <div class="ko-progress-circle__fill"></div>
-                                                    </div>
-                                                    <div class="ko-progress-circle__slice">
-                                                        <div class="ko-progress-circle__fill"></div>
-                                                        <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="ko-progress-circle__overlay"></div>
-                                            </div>
-                                            <span class="remove display-none"><i class="fal fa-trash-alt"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                    <div class="pop-up-buttons">
-                                        <button type="button"
-                                                class="ui btn btn-info login-submit-button-blue banner-modal-cancel">
-                                            Cancel
-                                        </button>
-                                        <button type="button"
-                                                class="ui btn btn-info login-submit-button-blue profile-photo-submit">
-                                            Save Photo
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                     <!-- BANNER SECTION END -->
                     <div class="clearfix"></div>
@@ -118,52 +69,6 @@
                                         {% else %}
                                             {{ user.first_name.0 }}
                                         {% endif %}
-                                    </div>
-
-                                    <div class="profile-image-overlay" id="profile-photo">
-                                        <i class="far fa-pen"></i>
-                                    </div>
-                                    <div class="ui modal photo-upload new-photo-upload" id="profile-photo-popup">
-                                        <span class="cross-popup"><i class="fas fa-times"></i></span>
-                                        <div class="sign-up-form-body">
-                                            <h1 class="upload-photo-title">Upload Photos</h1>
-                                            <form class="ui form sign-form" method="post" action="">
-                                                <div class="field photo-list profile-photo-wrapper" align="left">
-                                                    <div id="upload-avatar">
-                                                    </div>
-                                                    <div class="files-holder new-file-holder" style="z-index: 100;">
-                                                        <input type="file" class="files" name="files" accept="image/*"/>
-                                                        <i class="fas fa-camera"></i>
-                                                    </div>
-                                                    <div class="ko-progress-circle display-none" data-progress="0">
-                                                        <div class="ko-circle">
-                                                            <div class="full ko-progress-circle__slice">
-                                                                <div class="ko-progress-circle__fill"></div>
-                                                            </div>
-                                                            <div class="ko-progress-circle__slice">
-                                                                <div class="ko-progress-circle__fill"></div>
-                                                                <div class="ko-progress-circle__fill ko-progress-circle__bar"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ko-progress-circle__overlay"></div>
-                                                    </div>
-                                                    <span class="remove display-none">
-                                                    <i class="fal fa-trash-alt"></i>
-                                                </span>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="pop-up-buttons">
-                                                    <button type="button"
-                                                            class="ui btn btn-info login-submit-button-blue profile-modal-cancel">
-                                                        Cancel
-                                                    </button>
-                                                    <button type="button"
-                                                            class="ui btn btn-info login-submit-button-blue profile-photo-submit">
-                                                        Save Photo
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                 </div>
                                 <span class="profile-email">@{{ user.username }}</span>
@@ -305,13 +210,11 @@
                                         <div class="creat-post-form-area">
                                             <!-- ======================== UPDATES FORM================ -->
                                             <div class="tab_content" id="tab1">
-                                                <form method="post" action="" id="post-updates">
+                                                <form action="/profiles/updates/upload/" class="dropzone" id="updateFiles" method="post" enctype="multipart/form-data">
                                                     {% csrf_token %}
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
+                                                </form>
+                                                <form method="post" action="" id="create-updates-form">
+                                                    {% csrf_token %}
                                                     <div class="post-form-field m-20">
                                                         <textarea name="description" rows="" cols=""
                                                                   placeholder="Write a post" class="validation"
@@ -335,7 +238,7 @@
                                                         <label class="label-sm">(Example: google.com)</label>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="button" class="cummon-button-md btn btn-primary">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>
@@ -343,14 +246,14 @@
                                             </div>
                                             <!-- ======================== SERVICES FORM======================= -->
                                             <div class="tab_content" id="tab2">
-                                                <form method="post" action="" class='validate-form'>
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
+                                                <form action="/profiles/services/upload/" class="dropzone" id="serviceFiles" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                </form>
+                                                <form method="post" action="" id="create-service-form">
+                                                    {% csrf_token %}
+                                                    <input name="post_type" hidden value="service">
                                                     <div class="post-form-field m-20">
-                                                        <textarea name="Service-Name" rows="" cols=""
+                                                        <textarea name="title" rows="" cols=""
                                                                   placeholder="Service Name" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
@@ -358,29 +261,29 @@
                                                         <div class="post-feild-heading">
                                                             <p>Category</p>
                                                         </div>
-                                                        <select class="ui search dropdown dfull">
+                                                        <select class="ui search dropdown dfull" name="category">
                                                             <option value="" selected>Select a category</option>
-                                                            <option value="Services">Services</option>
-                                                            <option value="For sale">For sale</option>
-                                                            <option value="Events">Events</option>
-                                                            <option value="Jobs">Jobs</option>
-                                                            <option value="Offers">Offers</option>
+                                                            <option value="service">Services</option>
+                                                            <option value="sale">For sale</option>
+                                                            <option value="event">Events</option>
+                                                            <option value="job">Jobs</option>
+                                                            <option value="offer">Offers</option>
                                                         </select>
                                                     </div>
                                                     <div class="post-form-field">
                                                         <div class="inline fields">
                                                             <div class="field">
                                                                 <div class="ui radio checkbox">
-                                                                    <input type="radio" name="Price" checked=""
-                                                                           tabindex="0" class="hidden">
+                                                                    <input type="radio" name="price_type" checked=""
+                                                                           tabindex="0" class="hidden" value="fixed">
                                                                     <label class="check-box-label fixed-price">Fixed
                                                                         Price</label>
                                                                 </div>
                                                             </div>
                                                             <div class="field">
                                                                 <div class="ui radio checkbox">
-                                                                    <input type="radio" name="Price" tabindex="0"
-                                                                           class="hidden">
+                                                                    <input type="radio" name="price_type" tabindex="0"
+                                                                           class="hidden" value="range">
                                                                     <label class="check-box-label price-range">Price
                                                                         Range</label>
                                                                 </div>
@@ -388,53 +291,49 @@
                                                         </div>
                                                     </div>
                                                     <div class="post-form-field m-20 open-fixedprice">
-                                                        <input type="number" name="Enter-price"
+                                                        <input type="number" name="price"
                                                                placeholder="Service price" class="validation"
                                                                data-error="This field cannot be empty">
                                                     </div>
                                                     <div class="row open-pricerange">
                                                         <div class="col-xs-6">
                                                             <div class="post-form-field m-20">
-                                                                <input type="number" name="Minimum-price"
+                                                                <input type="number" name="min_price"
                                                                        placeholder="Minimum price">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <div class="post-form-field m-20">
-                                                                <input type="number" name="Maximum-price"
+                                                                <input type="number" name="max_price"
                                                                        placeholder="Maximum price">
                                                             </div>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="post-form-field service-description m-10">
-                                                        <textarea name="Service-Description" rows="" cols=""
+                                                        <textarea name="description" rows="" cols=""
                                                                   placeholder="Service Description" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
                                                     <div class="post-form-field m-30 upwards-selectbox">
                                                         <label class="label-sm">Add a button (optional)</label>
-                                                        <select class="ui dropdown onclick add-button openup">
-                                                            <option value="Publish" selected>None</option>
-                                                            <option value="Book">Book</option>
-                                                            <option value="Order online">Order online</option>
-                                                            <option value="Buy">Buy</option>
-                                                            <option value="Learn more">Learn more</option>
-                                                            <option value="Sign up">Sign up</option>
-                                                            <option value="Call now">Call now</option>
+                                                        <select class="ui dropdown onclick add-button openup" name="button_type">
+                                                            <option value="none" selected>None</option>
+                                                            <option value="book">Book</option>
+                                                            <option value="order_online">Order online</option>
+                                                            <option value="buy">Buy</option>
+                                                            <option value="learn_more">Learn more</option>
+                                                            <option value="sign_up">Sign up</option>
+                                                            <option value="call_now">Call now</option>
                                                         </select>
                                                     </div>
                                                     <div class="post-form-field m-30 link-your-button">
-                                                        <input type="text" name="link-your-button"
+                                                        <input type="text" name="button_link"
                                                                placeholder="Link your button">
                                                         <label class="label-sm">(Example: google.com)</label>
                                                     </div>
-                                                    <div class="post-form-field m-30 call_now">
-                                                        <input type="text" name="link-your-button"
-                                                               placeholder="Phone number">
-                                                    </div>
                                                     <div class="text-right">
-                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>
@@ -442,14 +341,14 @@
                                             </div>
                                             <!-- ======================FOR SALE FORM============== -->
                                             <div class="tab_content" id="tab3">
-                                                <form method="post" action="" class='validate-form'>
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
+                                                <form action="/profiles/sales/upload/" class="dropzone" id="saleFiles" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                </form>
+                                                <form method="post" action="" id="create-sale-form">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="post_type" value="sale">
                                                     <div class="post-form-field m-20">
-                                                        <textarea name="Product-Name" rows="" cols=""
+                                                        <textarea name="title" rows="" cols=""
                                                                   placeholder="Product Name" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
@@ -457,29 +356,29 @@
                                                         <div class="post-feild-heading">
                                                             <p>Category</p>
                                                         </div>
-                                                        <select class="ui search dropdown dfull">
+                                                        <select class="ui search dropdown dfull" name="category">
                                                             <option value="" selected>Select a category</option>
-                                                            <option value="Services">Services</option>
-                                                            <option value="For sale">For sale</option>
-                                                            <option value="Events">Events</option>
-                                                            <option value="Jobs">Jobs</option>
-                                                            <option value="Offers">Offers</option>
+                                                            <option value="service">Services</option>
+                                                            <option value="sale">For sale</option>
+                                                            <option value="event">Events</option>
+                                                            <option value="job">Jobs</option>
+                                                            <option value="offer">Offers</option>
                                                         </select>
                                                     </div>
                                                     <div class="post-form-field">
                                                         <div class="inline fields">
                                                             <div class="field">
                                                                 <div class="ui radio checkbox">
-                                                                    <input type="radio" name="Price" checked=""
-                                                                           tabindex="0" class="hidden">
+                                                                    <input type="radio" name="price_type" checked=""
+                                                                           tabindex="0" class="hidden" value="fixed">
                                                                     <label class="check-box-label fixed-price">Fixed
                                                                         Price</label>
                                                                 </div>
                                                             </div>
                                                             <div class="field">
                                                                 <div class="ui radio checkbox">
-                                                                    <input type="radio" name="Price" tabindex="0"
-                                                                           class="hidden">
+                                                                    <input type="radio" name="price_type" tabindex="0"
+                                                                           class="hidden" value="range">
                                                                     <label class="check-box-label price-range">Price
                                                                         Range</label>
                                                                 </div>
@@ -487,53 +386,49 @@
                                                         </div>
                                                     </div>
                                                     <div class="post-form-field m-20 open-fixedprice">
-                                                        <input type="number" name="Product-price"
+                                                        <input type="number" name="price"
                                                                placeholder="Product price" class="validation"
                                                                data-error="This field cannot be empty">
                                                     </div>
                                                     <div class="row open-pricerange">
                                                         <div class="col-xs-6">
                                                             <div class="post-form-field m-20">
-                                                                <input type="number" name="Minimum-price"
+                                                                <input type="number" name="min_price"
                                                                        placeholder="Minimum price">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <div class="post-form-field m-20">
-                                                                <input type="number" name="Maximum-price"
+                                                                <input type="number" name="max_price"
                                                                        placeholder="Maximum price">
                                                             </div>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="post-form-field service-description m-10">
-                                                        <textarea name="Product-Description" rows="" cols=""
+                                                        <textarea name="description" rows="" cols=""
                                                                   placeholder="Product Description" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
                                                     <div class="post-form-field m-30 upwards-selectbox">
                                                         <label class="label-sm">Add a button (optional)</label>
-                                                        <select class="ui dropdown onclick add-button openup">
-                                                            <option value="Publish" selected>None</option>
-                                                            <option value="Book">Book</option>
-                                                            <option value="Order online">Order online</option>
-                                                            <option value="Buy">Buy</option>
-                                                            <option value="Learn more">Learn more</option>
-                                                            <option value="Sign up">Sign up</option>
-                                                            <option value="Call now">Call now</option>
+                                                        <select class="ui dropdown onclick add-button openup" name="button_type">
+                                                            <option value="none" selected>None</option>
+                                                            <option value="book">Book</option>
+                                                            <option value="order_online">Order online</option>
+                                                            <option value="buy">Buy</option>
+                                                            <option value="learn_more">Learn more</option>
+                                                            <option value="sign_up">Sign up</option>
+                                                            <option value="call_now">Call now</option>
                                                         </select>
                                                     </div>
                                                     <div class="post-form-field m-30 link-your-button">
-                                                        <input type="text" name="link-your-button"
+                                                        <input type="text" name="button_link"
                                                                placeholder="Link your button">
                                                         <label class="label-sm">(Example: google.com)</label>
                                                     </div>
-                                                    <div class="post-form-field m-30 call_now">
-                                                        <input type="text" name="link-your-button"
-                                                               placeholder="Phone number">
-                                                    </div>
                                                     <div class="text-right">
-                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>
@@ -541,14 +436,13 @@
                                             </div>
                                             <!-- =================OFFERS FORM=================== -->
                                             <div class="tab_content" id="tab4">
-                                                <form method="post" action="" class='validate-form'>
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
+                                                <form action="/profiles/offers/upload/" class="dropzone" id="offerFiles" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                </form>
+                                                <form id="create-offer-form">
+                                                    {% csrf_token %}
                                                     <div class="post-form-field m-20">
-                                                        <textarea name="offer_title" rows="" cols=""
+                                                        <textarea name="title" rows="" cols=""
                                                                   placeholder="Offer title" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                         <label class="label-sm">(Example:20% off in store or
@@ -558,20 +452,20 @@
                                                         <div class="post-feild-heading">
                                                             <p>Category</p>
                                                         </div>
-                                                        <select class="ui search dropdown dfull">
+                                                        <select class="ui search dropdown dfull" name="category">
                                                             <option value="" selected>Select a category</option>
-                                                            <option value="Services">Services</option>
-                                                            <option value="For sale">For sale</option>
-                                                            <option value="Events">Events</option>
-                                                            <option value="Jobs">Jobs</option>
-                                                            <option value="Offers">Offers</option>
+                                                            <option value="service">Services</option>
+                                                            <option value="sale">For sale</option>
+                                                            <option value="event">Events</option>
+                                                            <option value="job">Jobs</option>
+                                                            <option value="offer">Offers</option>
                                                         </select>
                                                     </div>
                                                     <div class="post-form-field m-15">
                                                         <div class="inline field text-right">
                                                             <div class="ui toggle checkbox">
                                                                 <label class="check-box-label add-time">Add time</label>
-                                                                <input type="checkbox" tabindex="0" class="hidden">
+                                                                <input type="checkbox" tabindex="0" class="hidden" name="add_time" value="true">
                                                             </div>
                                                         </div>
                                                         <div class="clearfix"></div>
@@ -579,7 +473,7 @@
                                                     <div class="row">
                                                         <div class="col-xs-12 start-date">
                                                             <div class="post-form-field m-20">
-                                                                <input type="text" name="offer-start-date"
+                                                                <input type="text" name="start_date"
                                                                        placeholder="Start date"
                                                                        id="offer_date_timepicker_start"
                                                                        class="validation"
@@ -590,7 +484,7 @@
                                                         <div class="col-xs-6 start-time">
                                                             <div class="ui calendar time-timepicker">
                                                                 <div class="ui input post-form-field time-timepicker-full m-20">
-                                                                    <input type="text" name="offer-start-time"
+                                                                    <input type="text" name="start_time"
                                                                            placeholder="Start time" autocomplete='off'>
                                                                 </div>
                                                             </div>
@@ -600,7 +494,7 @@
                                                     <div class="row">
                                                         <div class="col-xs-12 start-date">
                                                             <div class="post-form-field m-20">
-                                                                <input type="text" name="offer-end-date"
+                                                                <input type="text" name="end_date"
                                                                        placeholder="End date"
                                                                        id="offer_date_timepicker_end" class="validation"
                                                                        data-error="This field cannot be empty"
@@ -610,7 +504,7 @@
                                                         <div class="col-xs-6 start-time">
                                                             <div class="ui calendar time-timepicker">
                                                                 <div class="ui input post-form-field time-timepicker-full m-20">
-                                                                    <input type="text" name="offer-end-time"
+                                                                    <input type="text" name="end_time"
                                                                            placeholder="End time" autocomplete='off'>
                                                                 </div>
                                                             </div>
@@ -618,12 +512,12 @@
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="post-form-field m-15">
-                                                        <input type="text" name="product-price" tabindex="0"
+                                                        <input type="text" name="price" tabindex="0"
                                                                placeholder="Product price" class="validation"
                                                                data-error="This field cannot be empty">
                                                     </div>
                                                     <div class="post-form-field service-description m-30">
-                                                        <textarea name="Offer_Product-Description" rows="" cols=""
+                                                        <textarea name="description" rows="" cols=""
                                                                   placeholder="Product  Description" class="validation"
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
@@ -633,27 +527,27 @@
                                                                                             style="font-size: 18px; margin-left:10px"></i></span></a>
                                                         <div class="optional-detais-box-wrapper">
                                                             <div class="post-form-field m-15">
-                                                                <input type="text" name="Offer Details" tabindex="0"
+                                                                <input type="text" name="more_details" tabindex="0"
                                                                        class="" placeholder="Offer Details">
                                                             </div>
                                                             <div class="post-form-field m-15">
-                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                <input type="text" name="coupon_code" tabindex="0"
                                                                        class="" placeholder="Coupon code (optional)">
                                                             </div>
                                                             <div class="post-form-field m-15">
-                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                <input type="text" name="link_to_redeem" tabindex="0"
                                                                        class=""
                                                                        placeholder="Link to redeem offer (optional)">
                                                             </div>
                                                             <div class="post-form-field m-15">
-                                                                <input type="text" name="Coupon code" tabindex="0"
+                                                                <input type="text" name="terms_and_condition" tabindex="0"
                                                                        class=""
                                                                        placeholder="Terms and condition (optional)">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="submit" class="cummon-button-md btn btn-primary ">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>
@@ -661,13 +555,11 @@
                                             </div>
                                             <!-- ==================EVENTS FORM=========== -->
                                             <div class="tab_content" id="tab5">
+                                                <form action="/profiles/events/upload/" class="dropzone" id="eventFiles" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                </form>
                                                 <form method="post" action="" id="create-event-form">
                                                     {% csrf_token %}
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
                                                     <div class="post-form-field m-20">
                                                         <textarea name="title" rows="" cols=""
                                                                   placeholder="Event title" class="validation"
@@ -765,7 +657,7 @@
                                                         <label class="label-sm">(Example: google.com)</label>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="button" class="cummon-button-md btn btn-primary ">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>
@@ -773,13 +665,11 @@
                                             </div>
                                             <!-- ==================JOBS FORM=========== -->
                                             <div class="tab_content" id="tab6">
+                                                <form action="/profiles/jobs/upload/" class="dropzone" id="jobFiles" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                </form>
                                                 <form method="post" action="" id="job-create-form">
                                                     {% csrf_token %}
-                                                    <div class="multipleimage-upload m-20">
-                                                        <input type="file"
-                                                               accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                               multiple>
-                                                    </div>
                                                     <div class="post-form-field m-20">
                                                         <textarea type="text" name="title" class="validation"
                                                                   data-error="This field cannot be empty"
@@ -879,7 +769,7 @@
                                                                   data-error="This field cannot be empty"></textarea>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="button" class="cummon-button-md btn btn-primary ">
+                                                        <button type="button" class="cummon-button-md btn btn-primary publish">
                                                             Publish
                                                         </button>
                                                     </div>

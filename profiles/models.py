@@ -9,9 +9,9 @@ class Post(models.Model):
     title = models.CharField(max_length=191, blank=True)  # for service, sale, offer, event, and job
     category = models.CharField(max_length=191, blank=True)  # for service, sale, offer, event, and job
     price_type = models.CharField(max_length=191, blank=True, null=True)  # for service and sale
-    price = models.IntegerField(default=0)  # for service, sale, and offer
-    min_price = models.IntegerField(default=0)  # for service, sale if price type is range
-    max_price = models.IntegerField(default=0)  # for service, sale if price type is range
+    price = models.IntegerField(default=0, null=True)  # for service, sale, and offer
+    min_price = models.IntegerField(default=0, null=True)  # for service, sale if price type is range
+    max_price = models.IntegerField(default=0, null=True)  # for service, sale if price type is range
     start_date_time = models.DateTimeField(null=True)  # for offers, and event
     end_date_time = models.DateTimeField(null=True)  # for offers, and event
     employment_type = models.CharField(max_length=64, blank=True, null=True)  # for job
