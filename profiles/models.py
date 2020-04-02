@@ -32,5 +32,5 @@ def post_directory_path(instance, filename):
 
 
 class PostFile(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_files')
     file = models.FileField(upload_to=post_directory_path)

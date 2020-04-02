@@ -1,7 +1,10 @@
 import os
 import shutil
+from io import BytesIO
 
+from PIL import Image
 from django.contrib.auth.decorators import login_required
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -21,16 +24,22 @@ class ProfileView(View):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             raise Http404
-        # posts_count = user.posts.count() + user
+        posts_count = user.posts.count()
         if user.id == request.user.id:
             directory = settings.MEDIA_ROOT + '/user_{0}/posts/tmp/'.format(request.user.id)
             try:
                 shutil.rmtree(directory)
             except FileNotFoundError:
                 print('Directory not found.')
-            return render(request, 'profile/empty_profile_owner.html', {
-                'user': user
-            })
+            if posts_count == 0:
+                return render(request, 'profile/empty_profile_owner.html', {
+                    'user': user
+                })
+            else:
+                posts = user.posts.all()
+                return render(request, 'profile/profile_owner.html', {
+                    'posts': posts
+                })
         else:
             return render(request, 'profile/empty_profile_visitor.html', {
                 'user': user
@@ -79,9 +88,8 @@ class AjaxPostFileUploadView(View):
             os.makedirs(directory, exist_ok=True)
             filename = file.name
             file_path = directory + filename
-            with open(file_path, 'wb+') as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
+            i = Image.open(file)
+            i.save(file_path, format='JPEG', quality=80)
             return JsonResponse({
                 'message': 'success'
             })

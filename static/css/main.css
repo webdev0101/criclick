@@ -2105,43 +2105,6 @@ img.imgpreview.landscape {
     color: #000;
 }
 
-.dropzone {
-    margin: 0 15px 20px;
-    border: 1px solid #dadce0;
-    border-radius: 3px;
-}
-
-.dropzone .dz-message .dz-button {
-    font-size: 19px;
-}
-
-.dropzone .dz-preview .dz-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 3px;
-}
-
-.dropzone .dz-preview .dz-remove {
-    position: absolute;
-    right: 6px;
-    border-radius: 3px;
-    font-size: 19px;
-    line-height: 1.42;
-    padding: 5px 10px;
-    z-index: 20;
-    bottom: 3px;
-    background: rgba(255, 255, 255, 0.73);
-    color: #000;
-}
-
-.dropzone .dz-preview .dz-error-message {
-    width: 120px;
-}
-
-.dropzone .dz-remove i {
-    font-size: 19px;
-}
-
 .post-form-field textarea::-webkit-input-placeholder { /* Edge */
     color: #b9b9b9;
 }
@@ -2365,8 +2328,56 @@ img.imgpreview.landscape {
 
 .tab_content form {
     max-height: 617px;
-    padding: 0px 15px;
+    padding: 0 15px;
     overflow: auto;
+}
+.tab_content form#create-updates-form {
+    overflow: visible;
+}
+
+.tab_content form.dropzone {
+    padding: 0;
+}
+
+.dropzone {
+    margin: 0 15px 20px;
+    border: 1px solid #dadce0;
+    border-radius: 3px;
+}
+
+.dropzone .dz-preview {
+    margin: 9px;
+}
+
+.dropzone .dz-message .dz-button {
+    font-size: 19px;
+}
+
+.dropzone .dz-preview .dz-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 3px;
+}
+
+.dropzone .dz-preview .dz-remove {
+    position: absolute;
+    right: 6px;
+    border-radius: 3px;
+    font-size: 19px;
+    line-height: 1.42;
+    padding: 5px 10px;
+    z-index: 10;
+    bottom: 3px;
+    background: rgba(255, 255, 255, 0.73);
+    color: #000;
+}
+
+.dropzone .dz-preview .dz-error-message {
+    width: 120px;
+}
+
+.dropzone .dz-remove i {
+    font-size: 19px;
 }
 
 .employment-type.post-form-field .ui.selection.dropdown {
