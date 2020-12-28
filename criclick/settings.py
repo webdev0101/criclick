@@ -25,13 +25,7 @@ SECRET_KEY = 'ryrxnhb_jjrsqigis9lze5jsje240&=0=s@b=))cdr&dm2)#r8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    '34.219.53.79',
-    'ec2-34-219-53-79.us-west-2.compute.amazonaws.com',
-    'localhost',
-    '192.168.0.108'
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -183,28 +177,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '715026542265-2gh71ube0ju5oarof4gr62a1hpgjefbd.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'j9wt8Lv9euT4NF0fvI2uli2d'
-SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile'
-]
-
 SOCIAL_AUTH_FACEBOOK_KEY = ''
 SOCIAL_AUTH_FACEBOOK_SECRET = ''
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id,name,email',
 }
-
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '81kg7cbleczryn'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'b0GDuQBW8U1fUYnH'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress']
-SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['emailAddress', 'profilePicture']
-SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
-    ('id', 'id'),
-    ('formattedName', 'name'),
-    ('emailAddress', 'email'),
-    ('profilePicture', 'avatar'),
-]
