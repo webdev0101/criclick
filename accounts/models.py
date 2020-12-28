@@ -29,8 +29,8 @@ class User(AbstractUser):
         code = get_random_string(length=6, allowed_chars='1234567890')
         self.phone_verify_code = code
         self.save()
-        account_sid = "ACeccb777f6e14289461aafbb5d5241473"
-        auth_token = "285c401f8ee4096d9738064f9f40c2b7"
+        account_sid = ""
+        auth_token = ""
         client = Client(account_sid, auth_token)
         message = client.messages.create(
             to=self.phone,
