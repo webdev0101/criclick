@@ -167,14 +167,6 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home'
 
-# EMAIL_BACKEND = 'django_smtp_ssl.EmailBackend'
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_USER_MODEL = 'accounts.User'
 
